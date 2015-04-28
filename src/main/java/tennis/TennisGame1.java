@@ -16,18 +16,13 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
         if (m_score1 == m_score2) {
-            score = scoreWhenEquality();
+            return scoreWhenEquality();
         } else if (m_score1 >= 4 || m_score2 >= 4) {
-            score = scoreForPointEnd();
+            return scoreForPointEnd();
         } else {
-            score += scoreFromGeneralCase(m_score1);
-            score += "-";
-            score += scoreFromGeneralCase(m_score2);
+            return scoreFromGeneralCase(m_score1) + "-" + scoreFromGeneralCase(m_score2);
         }
-
-        return score;
     }
 
     private String scoreWhenEquality() {

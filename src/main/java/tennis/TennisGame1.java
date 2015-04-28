@@ -17,17 +17,14 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore;
         if (m_score1 == m_score2) {
             score = scoreWhenEquality();
         } else if (m_score1 >= 4 || m_score2 >= 4) {
             score = scoreForPointEnd();
         } else {
-            tempScore = m_score1;
-            score += scoreFromGeneralCase(tempScore);
+            score += scoreFromGeneralCase(m_score1);
             score += "-";
-            tempScore = m_score2;
-            score += scoreFromGeneralCase(tempScore);
+            score += scoreFromGeneralCase(m_score2);
         }
 
         return score;

@@ -24,7 +24,7 @@ public class TennisGame1 implements TennisGame {
             score = scoreForPointEnd();
         } else {
             tempScore = m_score1;
-            score = scoreFromGeneralCase(score, tempScore);
+            score += scoreFromGeneralCase(tempScore);
             score += "-";
             tempScore = m_score2;
             switch (tempScore) {
@@ -46,7 +46,8 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private String scoreFromGeneralCase(String score, int tempScore) {
+    private String scoreFromGeneralCase(int tempScore) {
+        String score = "";
         switch (tempScore) {
             case 0:
                 score += "Love";

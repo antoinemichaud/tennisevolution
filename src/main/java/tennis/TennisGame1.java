@@ -30,15 +30,15 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         if (player1Score == player2Score) {
-            return scoreWhenEquality();
+            return globalScoreAsStringForEquality();
         } else if (player1Score >= 4 || player2Score >= 4) {
-            return scoreForPointEnd();
+            return globalScoreAsStringForPointEnd();
         } else {
             return singlePlayerScoreAsString(player1Score) + "-" + singlePlayerScoreAsString(player2Score);
         }
     }
 
-    private String scoreWhenEquality() {
+    private String globalScoreAsStringForEquality() {
         switch (player1Score) {
             case 0:
                 return LOVE_ALL;
@@ -51,7 +51,7 @@ public class TennisGame1 implements TennisGame {
         }
     }
 
-    private String scoreForPointEnd() {
+    private String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
         if (scoreDiff == 1) return ADVANTAGE + "player1";
         else if (scoreDiff == -1) return ADVANTAGE + "player2";

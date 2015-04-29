@@ -12,6 +12,7 @@ public class TennisGame1 implements TennisGame {
     public static final String FIFTEEN = "Fifteen";
     public static final String THIRTY = "Thirty";
     public static final String FORTY = "Forty";
+
     private int player1Score;
     private int player2Score;
 
@@ -33,56 +34,41 @@ public class TennisGame1 implements TennisGame {
         } else if (player1Score >= 4 || player2Score >= 4) {
             return scoreForPointEnd();
         } else {
-            return scoreFromGeneralCase(player1Score) + "-" + scoreFromGeneralCase(player2Score);
+            return singlePlayerScoreAsString(player1Score) + "-" + singlePlayerScoreAsString(player2Score);
         }
     }
 
     private String scoreWhenEquality() {
-        String score;
         switch (player1Score) {
             case 0:
-                score = LOVE_ALL;
-                break;
+                return LOVE_ALL;
             case 1:
-                score = FIFTEEN_ALL;
-                break;
+                return FIFTEEN_ALL;
             case 2:
-                score = THIRTY_ALL;
-                break;
+                return THIRTY_ALL;
             default:
-                score = DEUCE;
-                break;
-
+                return DEUCE;
         }
-        return score;
     }
 
     private String scoreForPointEnd() {
-        String score;
-        int minusResult = player1Score - player2Score;
-        if (minusResult == 1) score = ADVANTAGE + "player1";
-        else if (minusResult == -1) score = ADVANTAGE + "player2";
-        else if (minusResult >= 2) score = WIN_FOR + "player1";
-        else score = WIN_FOR + "player2";
-        return score;
+        int scoreDiff = player1Score - player2Score;
+        if (scoreDiff == 1) return ADVANTAGE + "player1";
+        else if (scoreDiff == -1) return ADVANTAGE + "player2";
+        else if (scoreDiff >= 2) return WIN_FOR + "player1";
+        else return WIN_FOR + "player2";
     }
 
-    private String scoreFromGeneralCase(int tempScore) {
-        String score = "";
-        switch (tempScore) {
+    private String singlePlayerScoreAsString(int playerScore) {
+        switch (playerScore) {
             case 0:
-                score += LOVE;
-                break;
+                return LOVE;
             case 1:
-                score += FIFTEEN;
-                break;
+                return FIFTEEN;
             case 2:
-                score += THIRTY;
-                break;
-            case 3:
-                score += FORTY;
-                break;
+                return THIRTY;
+            default:
+                return FORTY;
         }
-        return score;
     }
 }

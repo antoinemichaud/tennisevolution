@@ -2,45 +2,55 @@ package tennis;
 
 public class TennisGame1 implements TennisGame {
 
-    private int m_score1;
-    private int m_score2;
+    public static final String LOVE_ALL = "Love-All";
+    public static final String FIFTEEN_ALL = "Fifteen-All";
+    public static final String THIRTY_ALL = "Thirty-All";
+    public static final String DEUCE = "Deuce";
+    public static final String ADVANTAGE = "Advantage ";
+    public static final String WIN_FOR = "Win for ";
+    public static final String LOVE = "Love";
+    public static final String FIFTEEN = "Fifteen";
+    public static final String THIRTY = "Thirty";
+    public static final String FORTY = "Forty";
+    private int player1Score;
+    private int player2Score;
 
     public TennisGame1(String player1Name, String player2Name) {
-        m_score1 = 0;
-        m_score2 = 0;
+        player1Score = 0;
+        player2Score = 0;
     }
 
     public void wonPoint(String playerName) {
         if (playerName.equals("player1"))
-            m_score1 += 1;
+            player1Score += 1;
         else
-            m_score2 += 1;
+            player2Score += 1;
     }
 
     public String getScore() {
-        if (m_score1 == m_score2) {
+        if (player1Score == player2Score) {
             return scoreWhenEquality();
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
+        } else if (player1Score >= 4 || player2Score >= 4) {
             return scoreForPointEnd();
         } else {
-            return scoreFromGeneralCase(m_score1) + "-" + scoreFromGeneralCase(m_score2);
+            return scoreFromGeneralCase(player1Score) + "-" + scoreFromGeneralCase(player2Score);
         }
     }
 
     private String scoreWhenEquality() {
         String score;
-        switch (m_score1) {
+        switch (player1Score) {
             case 0:
-                score = "Love-All";
+                score = LOVE_ALL;
                 break;
             case 1:
-                score = "Fifteen-All";
+                score = FIFTEEN_ALL;
                 break;
             case 2:
-                score = "Thirty-All";
+                score = THIRTY_ALL;
                 break;
             default:
-                score = "Deuce";
+                score = DEUCE;
                 break;
 
         }
@@ -49,11 +59,11 @@ public class TennisGame1 implements TennisGame {
 
     private String scoreForPointEnd() {
         String score;
-        int minusResult = m_score1 - m_score2;
-        if (minusResult == 1) score = "Advantage player1";
-        else if (minusResult == -1) score = "Advantage player2";
-        else if (minusResult >= 2) score = "Win for player1";
-        else score = "Win for player2";
+        int minusResult = player1Score - player2Score;
+        if (minusResult == 1) score = ADVANTAGE + "player1";
+        else if (minusResult == -1) score = ADVANTAGE + "player2";
+        else if (minusResult >= 2) score = WIN_FOR + "player1";
+        else score = WIN_FOR + "player2";
         return score;
     }
 
@@ -61,16 +71,16 @@ public class TennisGame1 implements TennisGame {
         String score = "";
         switch (tempScore) {
             case 0:
-                score += "Love";
+                score += LOVE;
                 break;
             case 1:
-                score += "Fifteen";
+                score += FIFTEEN;
                 break;
             case 2:
-                score += "Thirty";
+                score += THIRTY;
                 break;
             case 3:
-                score += "Forty";
+                score += FORTY;
                 break;
         }
         return score;

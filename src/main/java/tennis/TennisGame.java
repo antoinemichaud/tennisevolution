@@ -12,17 +12,21 @@ public class TennisGame {
     public static final String FIFTEEN = "Fifteen";
     public static final String THIRTY = "Thirty";
     public static final String FORTY = "Forty";
+    private final String player1Name;
+    private final String player2Name;
 
     private int player1Score;
     private int player2Score;
 
     public TennisGame(String player1Name, String player2Name) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
         player1Score = 0;
         player2Score = 0;
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals("player1"))
+        if (playerName.equals(player1Name))
             player1Score += 1;
         else
             player2Score += 1;
@@ -53,10 +57,10 @@ public class TennisGame {
 
     private String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
-        if (scoreDiff == 1) return ADVANTAGE + "player1";
-        else if (scoreDiff == -1) return ADVANTAGE + "player2";
-        else if (scoreDiff >= 2) return WIN_FOR + "player1";
-        else return WIN_FOR + "player2";
+        if (scoreDiff == 1) return ADVANTAGE + player1Name;
+        else if (scoreDiff == -1) return ADVANTAGE + player2Name;
+        else if (scoreDiff >= 2) return WIN_FOR + player1Name;
+        else return WIN_FOR + player2Name;
     }
 
     private String singlePlayerScoreAsString(int playerScore) {

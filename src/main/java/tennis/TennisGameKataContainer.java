@@ -21,4 +21,8 @@ public class TennisGameKataContainer {
     private String getScore(TennisGame game) {
         return game.getScore();
     }
+
+    public String displayAlternativeScore(String player1, int player1Score, String player2, int player2Score) {
+        return "";
+    }
 }

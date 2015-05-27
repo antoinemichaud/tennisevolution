@@ -46,20 +46,20 @@ public class TennisGameKataContainersParametersTest {
                 {0, 2, "Love-Thirty", "0-30"},
                 {3, 0, "Forty-Love","40-0"},
                 {0, 3, "Love-Forty", "0-40"},
-                {4, 0, "Win for player1", "Game player 1!"},
-                {0, 4, "Win for player2", "Game player 2!"},
+                {4, 0, "Win for player1", "Game player1!"},
+                {0, 4, "Win for player2", "Game player2!"},
 
                 {2, 1, "Thirty-Fifteen", "30-15"},
                 {1, 2, "Fifteen-Thirty", "15-30"},
                 {3, 1, "Forty-Fifteen", "40-15"},
                 {1, 3, "Fifteen-Forty", "15-40"},
-                {4, 1, "Win for player1", "Game player 1!"},
-                {1, 4, "Win for player2", "Game player 2!"},
+                {4, 1, "Win for player1", "Game player1!"},
+                {1, 4, "Win for player2", "Game player2!"},
 
                 {3, 2, "Forty-Thirty", "40-30"},
                 {2, 3, "Thirty-Forty", "30-40"},
-                {4, 2, "Win for player1", "Game player 1!"},
-                {2, 4, "Win for player2", "Game player 2!"},
+                {4, 2, "Win for player1", "Game player1!"},
+                {2, 4, "Win for player2", "Game player2!"},
 
                 {4, 3, "Advantage player1", "A-40"},
                 {3, 4, "Advantage player2", "40-A"},
@@ -68,10 +68,10 @@ public class TennisGameKataContainersParametersTest {
                 {15, 14, "Advantage player1", "A-40"},
                 {14, 15, "Advantage player2", "40-A"},
 
-                {6, 4, "Win for player1", "Game player 1!"},
-                {4, 6, "Win for player2", "Game player 2!"},
-                {16, 14, "Win for player1", "Game player 1!"},
-                {14, 16, "Win for player2", "Game player 2!"},
+                {6, 4, "Win for player1", "Game player1!"},
+                {4, 6, "Win for player2", "Game player2!"},
+                {16, 14, "Win for player1", "Game player1!"},
+                {14, 16, "Win for player2", "Game player2!"},
         });
     }
 
@@ -94,7 +94,6 @@ public class TennisGameKataContainersParametersTest {
     }
 
     @Test
-    @Ignore
     public void should_have_right_alternative_display() throws Exception {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
         String alternativeScoreDisplayed = tennisGameKataContainer.displayAlternativeScore("player1", this.player1Score, "player2", this.player2Score);

@@ -9,7 +9,7 @@ public class TennisGameKataContainer {
     }
 
     public String displayAlternativeScore(String player1, int player1Score, String player2, int player2Score) {
-        TennisGame tennisGame = new TennisGame(player1, player2);
+        TennisGameAlt tennisGame = new TennisGameAlt(player1, player2);
         initScores(tennisGame, player1, player1Score, player2, player2Score);
         return getScore(tennisGame);
     }

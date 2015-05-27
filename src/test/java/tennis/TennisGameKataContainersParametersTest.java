@@ -105,6 +105,7 @@ public class TennisGameKataContainersParametersTest {
     }
 
     @Test
+    @Ignore
     public void should_have_right_french_display() throws Exception {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
         String alternativeScoreDisplayed = tennisGameKataContainer.displayFrenchScore("player1", this.player1Score, "player2", this.player2Score);

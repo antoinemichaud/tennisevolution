@@ -45,34 +45,82 @@ public class TennisGame {
     private String globalScoreAsStringForEquality() {
         switch (player1Score) {
             case 0:
-                return LOVE_ALL;
+                return loveAll();
             case 1:
-                return FIFTEEN_ALL;
+                return fifteenAll();
             case 2:
-                return THIRTY_ALL;
+                return thirtyAll();
             default:
-                return DEUCE;
+                return deuce();
         }
+    }
+
+    private String loveAll() {
+        return LOVE_ALL;
+    }
+
+    private String fifteenAll() {
+        return FIFTEEN_ALL;
+    }
+
+    private String thirtyAll() {
+        return THIRTY_ALL;
+    }
+
+    private String deuce() {
+        return DEUCE;
     }
 
     private String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
-        if (scoreDiff == 1) return ADVANTAGE + player1Name;
-        else if (scoreDiff == -1) return ADVANTAGE + player2Name;
-        else if (scoreDiff >= 2) return WIN_FOR + player1Name;
-        else return WIN_FOR + player2Name;
+        if (scoreDiff == 1) return advantagePlayer1();
+        else if (scoreDiff == -1) return advantagePlayer2();
+        else if (scoreDiff >= 2) return gameForPlayer1();
+        else return gameForPlayer2();
+    }
+
+    private String advantagePlayer1() {
+        return ADVANTAGE + player1Name;
+    }
+
+    private String advantagePlayer2() {
+        return ADVANTAGE + player2Name;
+    }
+
+    private String gameForPlayer1() {
+        return WIN_FOR + player1Name;
+    }
+
+    private String gameForPlayer2() {
+        return WIN_FOR + player2Name;
     }
 
     private String singlePlayerScoreAsString(int playerScore) {
         switch (playerScore) {
             case 0:
-                return LOVE;
+                return love();
             case 1:
-                return FIFTEEN;
+                return fifteen();
             case 2:
-                return THIRTY;
+                return thirty();
             default:
-                return FORTY;
+                return forty();
         }
+    }
+
+    private String love() {
+        return LOVE;
+    }
+
+    private String fifteen() {
+        return FIFTEEN;
+    }
+
+    private String thirty() {
+        return THIRTY;
+    }
+
+    private String forty() {
+        return FORTY;
     }
 }

@@ -1,6 +1,7 @@
 package tennis;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -93,6 +94,7 @@ public class TennisGameKataContainersParametersTest {
     }
 
     @Test
+    @Ignore
     public void should_have_right_alternative_display() throws Exception {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
         String alternativeScoreDisplayed = tennisGameKataContainer.displayAlternativeScore("player1", this.player1Score, "player2", this.player2Score);

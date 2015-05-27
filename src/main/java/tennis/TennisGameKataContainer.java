@@ -8,6 +8,12 @@ public class TennisGameKataContainer {
         return getScore(tennisGame);
     }
 
+    public String displayAlternativeScore(String player1, int player1Score, String player2, int player2Score) {
+        TennisGame tennisGame = new TennisGame(player1, player2);
+        initScores(tennisGame, player1, player1Score, player2, player2Score);
+        return getScore(tennisGame);
+    }
+
     private void initScores(TennisGame game, String player1Name, int player1Score, String player2Name, int player2Score) {
         int highestScore = Math.max(player1Score, player2Score);
         for (int i = 0; i < highestScore; i++) {
@@ -20,9 +26,5 @@ public class TennisGameKataContainer {
 
     private String getScore(TennisGame game) {
         return game.getScore();
-    }
-
-    public String displayAlternativeScore(String player1, int player1Score, String player2, int player2Score) {
-        return "";
     }
 }

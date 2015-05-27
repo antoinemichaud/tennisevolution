@@ -1,6 +1,5 @@
 package tennis;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,7 +78,7 @@ public class TennisGameKataContainersParametersTest {
         });
     }
 
-    public void checkAllScores(TennisGame game) {
+    public void checkAllScores(EnglishTennisGame game) {
         int highestScore = Math.max(this.player1Score, this.player2Score);
         for (int i = 0; i < highestScore; i++) {
             if (i < this.player1Score)

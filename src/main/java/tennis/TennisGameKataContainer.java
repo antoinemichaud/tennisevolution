@@ -3,7 +3,7 @@ package tennis;
 public class TennisGameKataContainer {
 
     public String displayScore(String player1, int player1score, String player2, int player2score) {
-        TennisGame tennisGame = new TennisGame(player1, player2);
+        TennisGame tennisGame = new EnglishTennisGame(player1, player2);
         initScores(tennisGame, player1, player1score, player2, player2score);
         return getScore(tennisGame);
     }

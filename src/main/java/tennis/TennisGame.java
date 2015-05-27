@@ -1,27 +1,16 @@
 package tennis;
 
-public class TennisGame {
+public abstract class TennisGame {
 
-    public static final String LOVE_ALL = "Love-All";
-    public static final String FIFTEEN_ALL = "Fifteen-All";
-    public static final String THIRTY_ALL = "Thirty-All";
-    public static final String DEUCE = "Deuce";
-    public static final String ADVANTAGE = "Advantage ";
-    public static final String WIN_FOR = "Win for ";
-    public static final String LOVE = "Love";
-    public static final String FIFTEEN = "Fifteen";
-    public static final String THIRTY = "Thirty";
-    public static final String FORTY = "Forty";
-    private final String player1Name;
-    private final String player2Name;
-
-    private int player1Score;
-    private int player2Score;
+    protected final String player1Name;
+    protected final String player2Name;
+    protected int player1Score;
+    protected int player2Score;
 
     public TennisGame(String player1Name, String player2Name) {
         this.player1Name = player1Name;
-        this.player2Name = player2Name;
         player1Score = 0;
+        this.player2Name = player2Name;
         player2Score = 0;
     }
 
@@ -42,7 +31,7 @@ public class TennisGame {
         }
     }
 
-    private String globalScoreAsStringForEquality() {
+    protected String globalScoreAsStringForEquality() {
         switch (player1Score) {
             case 0:
                 return loveAll();
@@ -55,23 +44,15 @@ public class TennisGame {
         }
     }
 
-    private String loveAll() {
-        return LOVE_ALL;
-    }
+    protected abstract String loveAll();
 
-    private String fifteenAll() {
-        return FIFTEEN_ALL;
-    }
+    protected abstract String fifteenAll();
 
-    private String thirtyAll() {
-        return THIRTY_ALL;
-    }
+    protected abstract String thirtyAll();
 
-    private String deuce() {
-        return DEUCE;
-    }
+    protected abstract String deuce();
 
-    private String globalScoreAsStringForPointEnd() {
+    protected String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
         if (scoreDiff == 1) return advantagePlayer1();
         else if (scoreDiff == -1) return advantagePlayer2();
@@ -79,23 +60,15 @@ public class TennisGame {
         else return gameForPlayer2();
     }
 
-    private String advantagePlayer1() {
-        return ADVANTAGE + player1Name;
-    }
+    protected abstract String advantagePlayer1();
 
-    private String advantagePlayer2() {
-        return ADVANTAGE + player2Name;
-    }
+    protected abstract String advantagePlayer2();
 
-    private String gameForPlayer1() {
-        return WIN_FOR + player1Name;
-    }
+    protected abstract String gameForPlayer1();
 
-    private String gameForPlayer2() {
-        return WIN_FOR + player2Name;
-    }
+    protected abstract String gameForPlayer2();
 
-    private String singlePlayerScoreAsString(int playerScore) {
+    protected String singlePlayerScoreAsString(int playerScore) {
         switch (playerScore) {
             case 0:
                 return love();
@@ -108,19 +81,11 @@ public class TennisGame {
         }
     }
 
-    private String love() {
-        return LOVE;
-    }
+    protected abstract String love();
 
-    private String fifteen() {
-        return FIFTEEN;
-    }
+    protected abstract String fifteen();
 
-    private String thirty() {
-        return THIRTY;
-    }
+    protected abstract String thirty();
 
-    private String forty() {
-        return FORTY;
-    }
+    protected abstract String forty();
 }

@@ -40,7 +40,7 @@ public class TennisGameKataContainersParametersTest {
                 {0, 0, "Love-All", "0-0", "Zéro partout"},
                 {1, 1, "Fifteen-All", "15-15", "Quinze A"},
                 {2, 2, "Thirty-All", "30-30", "Trente A"},
-                {3, 3, "Deuce", "40-40", "Quarante A"},
+                {3, 3, "Deuce", "40-40", "Egalité"},
                 {4, 4, "Deuce", "40-40", "Egalité"},
 
                 {1, 0, "Fifteen-Love", "15-0", "Quinze-Zéro"},
@@ -104,7 +104,6 @@ public class TennisGameKataContainersParametersTest {
     }
 
     @Test
-    @Ignore
     public void should_have_right_french_display() throws Exception {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
         String alternativeScoreDisplayed = tennisGameKataContainer.displayFrenchScore("player1", this.player1Score, "player2", this.player2Score);

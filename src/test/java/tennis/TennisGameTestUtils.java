@@ -10,4 +10,14 @@ public class TennisGameTestUtils {
                 game.wonPoint(player2Name);
         }
     }
+
+    public static void initScores(TennisGame game, int player1Score, int player2Score) {
+        int highestScore = Math.max(player1Score, player2Score);
+        for (int i = 0; i < highestScore; i++) {
+            if (i < player1Score)
+                game.incrementPlayer1Score();
+            if (i < player2Score)
+                game.incrementPlayer2Score();
+        }
+    }
 }

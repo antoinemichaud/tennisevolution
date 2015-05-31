@@ -26,7 +26,7 @@ public abstract class TennisGameDisplayer {
         } else if (tennisGame.getPlayer1Score() >= 4 || tennisGame.getPlayer2Score() >= 4) {
             return globalScoreAsStringForPointEnd();
         } else {
-            RegularScore score = (RegularScore) tennisGame.getScoreAsBusiness(tennisGame.getPlayer1Score(), tennisGame.getPlayer2Score());
+            RegularScore score = (RegularScore) tennisGame.getScore();
             return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
         }
     }

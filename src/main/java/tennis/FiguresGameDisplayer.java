@@ -1,6 +1,6 @@
 package tennis;
 
-public class TennisGameAlt extends TennisGame {
+public class FiguresGameDisplayer extends TennisGameDisplayer {
 
     public static final String LOVE_ALL = "0-0";
     public static final String FIFTEEN_ALL = "15-15";
@@ -12,7 +12,7 @@ public class TennisGameAlt extends TennisGame {
     public static final String THIRTY = "30";
     public static final String FORTY = "40";
 
-    public TennisGameAlt(String player1Name, String player2Name) {
+    public FiguresGameDisplayer(String player1Name, String player2Name) {
         super(player1Name, player2Name);
     }
 

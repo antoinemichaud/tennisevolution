@@ -1,13 +1,13 @@
 package tennis;
 
-public class TennisGame {
+public class TennisGameDisplayer {
 
     protected final String player1Name;
     protected final String player2Name;
     protected int player1Score;
     protected int player2Score;
 
-    public TennisGame(String player1Name, String player2Name) {
+    public TennisGameDisplayer(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         player1Score = 0;
         this.player2Name = player2Name;
@@ -27,8 +27,27 @@ public class TennisGame {
         } else if (player1Score >= 4 || player2Score >= 4) {
             return globalScoreAsStringForPointEnd();
         } else {
-            return singlePlayerScoreAsString(player1Score) + "-" + singlePlayerScoreAsString(player2Score);
+            RegularScore score = (RegularScore) getScoreAsBusiness();
+            return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
         }
+    }
+
+    private String getScoreAsString(PlayerScore player1Score) {
+        String player1ScoreAsString = null;
+        switch (player1Score) {
+            case LOVE:
+                player1ScoreAsString = love();
+                break;
+            case FIFTEEN:
+                player1ScoreAsString = fifteen();
+                break;
+            case THIRTY:
+                player1ScoreAsString = thirty();
+                break;
+            case FORTY:
+                player1ScoreAsString = forty();
+        }
+        return player1ScoreAsString;
     }
 
     public TennisScore getScoreAsBusiness() {

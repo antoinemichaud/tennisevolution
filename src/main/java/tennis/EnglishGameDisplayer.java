@@ -1,6 +1,6 @@
 package tennis;
 
-public class EnglishTennisGame extends TennisGame {
+public class EnglishGameDisplayer extends TennisGameDisplayer {
 
     public static final String LOVE_ALL = "Love-All";
     public static final String FIFTEEN_ALL = "Fifteen-All";
@@ -13,7 +13,8 @@ public class EnglishTennisGame extends TennisGame {
     public static final String THIRTY = "Thirty";
     public static final String FORTY = "Forty";
 
-    public EnglishTennisGame(String player1Name, String player2Name) {
+
+    public EnglishGameDisplayer(String player1Name, String player2Name) {
         super(player1Name, player2Name);
     }
 

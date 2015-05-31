@@ -1,7 +1,7 @@
 package tennis;
 
-public class TennisGameFrench extends TennisGame {
-    public TennisGameFrench(String player1Name, String player2Name) {
+public class FrenchGameDisplayer extends TennisGameDisplayer {
+    public FrenchGameDisplayer(String player1Name, String player2Name) {
         super(player1Name, player2Name);
     }
 

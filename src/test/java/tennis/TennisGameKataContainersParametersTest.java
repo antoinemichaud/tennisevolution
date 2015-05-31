@@ -1,6 +1,5 @@
 package tennis;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,7 +10,6 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
 public class TennisGameKataContainersParametersTest {
@@ -78,7 +76,7 @@ public class TennisGameKataContainersParametersTest {
         });
     }
 
-    public void checkAllScores(EnglishTennisGame game) {
+    public void checkAllScores(EnglishGameDisplayer game) {
         int highestScore = Math.max(this.player1Score, this.player2Score);
         for (int i = 0; i < highestScore; i++) {
             if (i < this.player1Score)

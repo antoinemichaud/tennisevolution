@@ -2,15 +2,15 @@ package tennis;
 
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisGameTest {
 
     @Test
     public void should_return_regular_score() throws Exception {
-        TennisGame tennisGame = new TennisGame("player1", "player2");
+        TennisGameDisplayer tennisGameDisplayer = new TennisGameDisplayer("player1", "player2");
 
-        TennisScore tennisScore = tennisGame.getScoreAsBusiness();
+        TennisScore tennisScore = tennisGameDisplayer.getScoreAsBusiness();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore)tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
@@ -21,10 +21,10 @@ public class TennisGameTest {
     public void should_return_regular_score_with_forty_for_player_1() throws Exception {
         String player1 = "player1";
         String player2 = "player2";
-        TennisGame tennisGame = new TennisGame(player1, player2);
-        TennisGameTestUtils.initScores(tennisGame, player1, 3, player2, 0);
+        TennisGameDisplayer tennisGameDisplayer = new TennisGameDisplayer(player1, player2);
+        TennisGameTestUtils.initScores(tennisGameDisplayer, player1, 3, player2, 0);
 
-        TennisScore tennisScore = tennisGame.getScoreAsBusiness();
+        TennisScore tennisScore = tennisGameDisplayer.getScoreAsBusiness();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore)tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
@@ -35,10 +35,10 @@ public class TennisGameTest {
     public void should_return_regular_score_with_forty_for_player_2() throws Exception {
         String player1 = "player1";
         String player2 = "player2";
-        TennisGame tennisGame = new TennisGame(player1, player2);
-        TennisGameTestUtils.initScores(tennisGame, player1, 0, player2, 3);
+        TennisGameDisplayer tennisGameDisplayer = new TennisGameDisplayer(player1, player2);
+        TennisGameTestUtils.initScores(tennisGameDisplayer, player1, 0, player2, 3);
 
-        TennisScore tennisScore = tennisGame.getScoreAsBusiness();
+        TennisScore tennisScore = tennisGameDisplayer.getScoreAsBusiness();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore)tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
@@ -49,10 +49,10 @@ public class TennisGameTest {
     public void should_return_regular_score_with_thirty_fifteen() throws Exception {
         String player1 = "player1";
         String player2 = "player2";
-        TennisGame tennisGame = new TennisGame(player1, player2);
-        TennisGameTestUtils.initScores(tennisGame, player1, 2, player2, 1);
+        TennisGameDisplayer tennisGameDisplayer = new TennisGameDisplayer(player1, player2);
+        TennisGameTestUtils.initScores(tennisGameDisplayer, player1, 2, player2, 1);
 
-        TennisScore tennisScore = tennisGame.getScoreAsBusiness();
+        TennisScore tennisScore = tennisGameDisplayer.getScoreAsBusiness();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore)tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.THIRTY);

@@ -1,6 +1,6 @@
-package tennis;
+package tennis.game;
 
-import static tennis.PlayerScore.playerScoreFromInt;
+import static tennis.game.PlayerScore.playerScoreFromInt;
 
 public class TennisScore {
     private int player1Score;

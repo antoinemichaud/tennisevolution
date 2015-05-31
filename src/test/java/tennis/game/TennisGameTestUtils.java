@@ -1,4 +1,4 @@
-package tennis;
+package tennis.game;
 
 public class TennisGameTestUtils {
     public static void initScores(TennisGameDisplayer game, String player1Name, int player1Score, String player2Name, int player2Score) {

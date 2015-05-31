@@ -12,11 +12,21 @@ public class TennisScore {
     }
 
     public PlayerScore firstPlayerScore() {
-        return playerScoreFromInt(player1Score);
+        return getPlayerScore(player1Score, player2Score);
     }
 
     public PlayerScore secondPlayerScore() {
-        return playerScoreFromInt(player2Score);
+        return getPlayerScore(player2Score, player1Score);
+    }
+
+    private static PlayerScore getPlayerScore(int thisPlayerScore, int opponentScore) {
+        if (opponentScore >= 3 && thisPlayerScore >= 3) {
+            int playerLead = thisPlayerScore - opponentScore;
+            if (playerLead == 1) {
+                return PlayerScore.ADVANTAGE;
+            }
+        }
+        return playerScoreFromInt(thisPlayerScore);
     }
 
 }

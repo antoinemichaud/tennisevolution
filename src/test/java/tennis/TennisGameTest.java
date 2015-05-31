@@ -9,7 +9,8 @@ public class TennisGameTest {
     @Test
     public void should_return_regular_score() throws Exception {
         TennisGame tennisGame = new TennisGame();
-        TennisScore tennisScore = setScoreAt(tennisGame, 0, 0);
+        TennisGameTestUtils.initScores(tennisGame, 0, 0);
+        TennisScore tennisScore = tennisGame.getScore();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
@@ -19,7 +20,8 @@ public class TennisGameTest {
     @Test
     public void should_return_regular_score_with_forty_for_player_1() throws Exception {
         TennisGame tennisGame = new TennisGame();
-        TennisScore tennisScore = setScoreAt(tennisGame, 3, 0);
+        TennisGameTestUtils.initScores(tennisGame, 3, 0);
+        TennisScore tennisScore = tennisGame.getScore();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
@@ -29,7 +31,8 @@ public class TennisGameTest {
     @Test
     public void should_return_regular_score_with_forty_for_player_2() throws Exception {
         TennisGame tennisGame = new TennisGame();
-        TennisScore tennisScore = setScoreAt(tennisGame, 0, 3);
+        TennisGameTestUtils.initScores(tennisGame, 0, 3);
+        TennisScore tennisScore = tennisGame.getScore();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
@@ -39,16 +42,12 @@ public class TennisGameTest {
     @Test
     public void should_return_regular_score_with_thirty_fifteen() throws Exception {
         TennisGame tennisGame = new TennisGame();
-        TennisScore tennisScore = setScoreAt(tennisGame, 2, 1);
+        TennisGameTestUtils.initScores(tennisGame, 2, 1);
+        TennisScore tennisScore = tennisGame.getScore();
 
         assertThat(tennisScore).isInstanceOf(RegularScore.class);
         assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.THIRTY);
         assertThat(((RegularScore) tennisScore).secondPlayerScore()).isEqualTo(PlayerScore.FIFTEEN);
-    }
-
-    private static TennisScore setScoreAt(TennisGame tennisGame, int player1Score, int player2Score) {
-        TennisGameTestUtils.initScores(tennisGame, player1Score, player2Score);
-        return tennisGame.getScore();
     }
 
 }

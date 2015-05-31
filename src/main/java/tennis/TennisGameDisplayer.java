@@ -7,11 +7,14 @@ public class TennisGameDisplayer {
     protected int player1Score;
     protected int player2Score;
 
+    TennisGame tennisGame;
+
     public TennisGameDisplayer(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         player1Score = 0;
         this.player2Name = player2Name;
         player2Score = 0;
+        tennisGame = new TennisGame();
     }
 
     public void wonPoint(String playerName) {
@@ -27,7 +30,7 @@ public class TennisGameDisplayer {
         } else if (player1Score >= 4 || player2Score >= 4) {
             return globalScoreAsStringForPointEnd();
         } else {
-            RegularScore score = (RegularScore) getScoreAsBusiness();
+            RegularScore score = (RegularScore) tennisGame.getScoreAsBusiness(this.player1Score, this.player2Score);
             return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
         }
     }
@@ -48,10 +51,6 @@ public class TennisGameDisplayer {
                 player1ScoreAsString = forty();
         }
         return player1ScoreAsString;
-    }
-
-    public TennisScore getScoreAsBusiness() {
-        return new RegularScore(player1Score, player2Score);
     }
 
     protected String globalScoreAsStringForEquality() {

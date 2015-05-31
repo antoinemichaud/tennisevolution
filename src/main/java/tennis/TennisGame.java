@@ -12,15 +12,11 @@ public class TennisGame {
         this.player1Score++;
     }
 
-    public int getPlayer1Score() {
-        return player1Score;
-    }
-
     public void incrementPlayer2Score() {
         this.player2Score++;
     }
 
-    public int getPlayer2Score() {
-        return player2Score;
+    public boolean isEndOfGame() {
+        return player1Score >= 4 || player2Score >= 4;
     }
 }

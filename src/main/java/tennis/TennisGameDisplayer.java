@@ -22,9 +22,9 @@ public abstract class TennisGameDisplayer {
 
     public String getScore() {
         TennisScore score = tennisGame.getScore();
-        if (tennisGame.getPlayer1Score() == tennisGame.getPlayer2Score()) {
+        if (score.firstPlayerScore() == score.secondPlayerScore()) {
             return globalScoreAsStringForEquality();
-        } else if (tennisGame.getPlayer1Score() >= 4 || tennisGame.getPlayer2Score() >= 4) {
+        } else if (tennisGame.isEndOfGame()) {
             return globalScoreAsStringForPointEnd();
         } else {
             return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
@@ -50,12 +50,12 @@ public abstract class TennisGameDisplayer {
     }
 
     protected String globalScoreAsStringForEquality() {
-        switch (tennisGame.getPlayer1Score()) {
-            case 0:
+        switch (tennisGame.getScore().firstPlayerScore()) {
+            case LOVE:
                 return loveAll();
-            case 1:
+            case FIFTEEN:
                 return fifteenAll();
-            case 2:
+            case THIRTY:
                 return thirtyAll();
             default:
                 return deuce();

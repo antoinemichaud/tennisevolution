@@ -4,33 +4,30 @@ public class TennisGameDisplayer {
 
     protected final String player1Name;
     protected final String player2Name;
-    protected int player1Score;
-    protected int player2Score;
+    private int player2Score;
 
     TennisGame tennisGame;
 
     public TennisGameDisplayer(String player1Name, String player2Name) {
         this.player1Name = player1Name;
-        player1Score = 0;
         this.player2Name = player2Name;
-        player2Score = 0;
         tennisGame = new TennisGame();
     }
 
     public void wonPoint(String playerName) {
         if (playerName.equals(player1Name))
-            player1Score += 1;
+            tennisGame.incrementPlayer1Score();
         else
-            player2Score += 1;
+            setPlayer2Score(getPlayer2Score() + 1);
     }
 
     public String getScore() {
-        if (player1Score == player2Score) {
+        if (tennisGame.getPlayer1Score() == getPlayer2Score()) {
             return globalScoreAsStringForEquality();
-        } else if (player1Score >= 4 || player2Score >= 4) {
+        } else if (tennisGame.getPlayer1Score() >= 4 || getPlayer2Score() >= 4) {
             return globalScoreAsStringForPointEnd();
         } else {
-            RegularScore score = (RegularScore) tennisGame.getScoreAsBusiness(this.player1Score, this.player2Score);
+            RegularScore score = (RegularScore) tennisGame.getScoreAsBusiness(tennisGame.getPlayer1Score(), this.getPlayer2Score());
             return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
         }
     }
@@ -54,7 +51,7 @@ public class TennisGameDisplayer {
     }
 
     protected String globalScoreAsStringForEquality() {
-        switch (player1Score) {
+        switch (tennisGame.getPlayer1Score()) {
             case 0:
                 return loveAll();
             case 1:
@@ -83,7 +80,7 @@ public class TennisGameDisplayer {
     }
 
     protected String globalScoreAsStringForPointEnd() {
-        int scoreDiff = player1Score - player2Score;
+        int scoreDiff = tennisGame.getPlayer1Score() - getPlayer2Score();
         if (scoreDiff == 1) return advantagePlayer1();
         else if (scoreDiff == -1) return advantagePlayer2();
         else if (scoreDiff >= 2) return gameForPlayer1();
@@ -133,5 +130,13 @@ public class TennisGameDisplayer {
 
     protected String forty() {
         return null;
+    }
+
+    public int getPlayer2Score() {
+        return player2Score;
+    }
+
+    public void setPlayer2Score(int player2Score) {
+        this.player2Score = player2Score;
     }
 }

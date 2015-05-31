@@ -5,7 +5,7 @@ public class TennisGame {
     private int player2Score;
 
     public TennisScore getScore() {
-        return new RegularScore(this.player1Score, this.player2Score);
+        return new TennisScore(this.player1Score, this.player2Score);
     }
 
     public void incrementPlayer1Score() {

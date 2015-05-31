@@ -12,9 +12,8 @@ public class TennisGameTest {
         TennisGameTestUtils.initScores(tennisGame, 0, 0);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore).isInstanceOf(RegularScore.class);
-        assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
-        assertThat(((RegularScore) tennisScore).secondPlayerScore()).isEqualTo(PlayerScore.LOVE);
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.LOVE);
     }
 
     @Test
@@ -23,9 +22,8 @@ public class TennisGameTest {
         TennisGameTestUtils.initScores(tennisGame, 3, 0);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore).isInstanceOf(RegularScore.class);
-        assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
-        assertThat(((RegularScore) tennisScore).secondPlayerScore()).isEqualTo(PlayerScore.LOVE);
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.LOVE);
     }
 
     @Test
@@ -34,9 +32,8 @@ public class TennisGameTest {
         TennisGameTestUtils.initScores(tennisGame, 0, 3);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore).isInstanceOf(RegularScore.class);
-        assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
-        assertThat(((RegularScore) tennisScore).secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.LOVE);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
     }
 
     @Test
@@ -45,9 +42,8 @@ public class TennisGameTest {
         TennisGameTestUtils.initScores(tennisGame, 2, 1);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore).isInstanceOf(RegularScore.class);
-        assertThat(((RegularScore) tennisScore).firstPlayerScore()).isEqualTo(PlayerScore.THIRTY);
-        assertThat(((RegularScore) tennisScore).secondPlayerScore()).isEqualTo(PlayerScore.FIFTEEN);
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.THIRTY);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FIFTEEN);
     }
 
 }

@@ -1,6 +1,6 @@
 package tennis;
 
-public abstract class TennisGame {
+public class TennisGame {
 
     protected final String player1Name;
     protected final String player2Name;
@@ -31,6 +31,10 @@ public abstract class TennisGame {
         }
     }
 
+    public TennisScore getScoreAsBusiness() {
+        return new RegularScore(player1Score, player2Score);
+    }
+
     protected String globalScoreAsStringForEquality() {
         switch (player1Score) {
             case 0:
@@ -44,13 +48,21 @@ public abstract class TennisGame {
         }
     }
 
-    protected abstract String loveAll();
+    protected String loveAll() {
+        return null;
+    }
 
-    protected abstract String fifteenAll();
+    protected String fifteenAll() {
+        return null;
+    }
 
-    protected abstract String thirtyAll();
+    protected String thirtyAll() {
+        return null;
+    }
 
-    protected abstract String deuce();
+    protected String deuce() {
+        return null;
+    }
 
     protected String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
@@ -60,13 +72,21 @@ public abstract class TennisGame {
         else return gameForPlayer2();
     }
 
-    protected abstract String advantagePlayer1();
+    protected String advantagePlayer1() {
+        return null;
+    }
 
-    protected abstract String advantagePlayer2();
+    protected String advantagePlayer2() {
+        return null;
+    }
 
-    protected abstract String gameForPlayer1();
+    protected String gameForPlayer1() {
+        return null;
+    }
 
-    protected abstract String gameForPlayer2();
+    protected String gameForPlayer2() {
+        return null;
+    }
 
     protected String singlePlayerScoreAsString(int playerScore) {
         switch (playerScore) {
@@ -81,11 +101,19 @@ public abstract class TennisGame {
         }
     }
 
-    protected abstract String love();
+    protected String love() {
+        return null;
+    }
 
-    protected abstract String fifteen();
+    protected String fifteen() {
+        return null;
+    }
 
-    protected abstract String thirty();
+    protected String thirty() {
+        return null;
+    }
 
-    protected abstract String forty();
+    protected String forty() {
+        return null;
+    }
 }

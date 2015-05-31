@@ -1,10 +1,9 @@
 package tennis;
 
-public class TennisGameDisplayer {
+public abstract class TennisGameDisplayer {
 
     protected final String player1Name;
     protected final String player2Name;
-    private int player2Score;
 
     TennisGame tennisGame;
 
@@ -18,16 +17,16 @@ public class TennisGameDisplayer {
         if (playerName.equals(player1Name))
             tennisGame.incrementPlayer1Score();
         else
-            setPlayer2Score(getPlayer2Score() + 1);
+            tennisGame.incrementPlayer2Score();
     }
 
     public String getScore() {
-        if (tennisGame.getPlayer1Score() == getPlayer2Score()) {
+        if (tennisGame.getPlayer1Score() == tennisGame.getPlayer2Score()) {
             return globalScoreAsStringForEquality();
-        } else if (tennisGame.getPlayer1Score() >= 4 || getPlayer2Score() >= 4) {
+        } else if (tennisGame.getPlayer1Score() >= 4 || tennisGame.getPlayer2Score() >= 4) {
             return globalScoreAsStringForPointEnd();
         } else {
-            RegularScore score = (RegularScore) tennisGame.getScoreAsBusiness(tennisGame.getPlayer1Score(), this.getPlayer2Score());
+            RegularScore score = (RegularScore) tennisGame.getScoreAsBusiness(tennisGame.getPlayer1Score(), tennisGame.getPlayer2Score());
             return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
         }
     }
@@ -63,80 +62,36 @@ public class TennisGameDisplayer {
         }
     }
 
-    protected String loveAll() {
-        return null;
-    }
+    protected abstract String loveAll();
 
-    protected String fifteenAll() {
-        return null;
-    }
+    protected abstract String fifteenAll();
 
-    protected String thirtyAll() {
-        return null;
-    }
+    protected abstract String thirtyAll();
 
-    protected String deuce() {
-        return null;
-    }
+    protected abstract String deuce();
 
     protected String globalScoreAsStringForPointEnd() {
-        int scoreDiff = tennisGame.getPlayer1Score() - getPlayer2Score();
+        int scoreDiff = tennisGame.getPlayer1Score() - tennisGame.getPlayer2Score();
         if (scoreDiff == 1) return advantagePlayer1();
         else if (scoreDiff == -1) return advantagePlayer2();
         else if (scoreDiff >= 2) return gameForPlayer1();
         else return gameForPlayer2();
     }
 
-    protected String advantagePlayer1() {
-        return null;
-    }
+    protected abstract String advantagePlayer1();
 
-    protected String advantagePlayer2() {
-        return null;
-    }
+    protected abstract String advantagePlayer2();
 
-    protected String gameForPlayer1() {
-        return null;
-    }
+    protected abstract String gameForPlayer1();
 
-    protected String gameForPlayer2() {
-        return null;
-    }
+    protected abstract String gameForPlayer2();
 
-    protected String singlePlayerScoreAsString(int playerScore) {
-        switch (playerScore) {
-            case 0:
-                return love();
-            case 1:
-                return fifteen();
-            case 2:
-                return thirty();
-            default:
-                return forty();
-        }
-    }
+    protected abstract String love();
 
-    protected String love() {
-        return null;
-    }
+    protected abstract String fifteen();
 
-    protected String fifteen() {
-        return null;
-    }
+    protected abstract String thirty();
 
-    protected String thirty() {
-        return null;
-    }
+    protected abstract String forty();
 
-    protected String forty() {
-        return null;
-    }
-
-    public int getPlayer2Score() {
-        return player2Score;
-    }
-
-    public void setPlayer2Score(int player2Score) {
-        this.player2Score = player2Score;
-    }
 }

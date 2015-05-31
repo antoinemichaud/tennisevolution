@@ -21,12 +21,12 @@ public abstract class TennisGameDisplayer {
     }
 
     public String getScore() {
+        TennisScore score = tennisGame.getScore();
         if (tennisGame.getPlayer1Score() == tennisGame.getPlayer2Score()) {
             return globalScoreAsStringForEquality();
         } else if (tennisGame.getPlayer1Score() >= 4 || tennisGame.getPlayer2Score() >= 4) {
             return globalScoreAsStringForPointEnd();
         } else {
-            TennisScore score = tennisGame.getScore();
             return getScoreAsString(score.firstPlayerScore()) + "-" + getScoreAsString(score.secondPlayerScore());
         }
     }
@@ -71,10 +71,9 @@ public abstract class TennisGameDisplayer {
     protected abstract String deuce();
 
     protected String globalScoreAsStringForPointEnd() {
-        int scoreDiff = tennisGame.getPlayer1Score() - tennisGame.getPlayer2Score();
-        if (scoreDiff == 1) return advantagePlayer1();
-        else if (scoreDiff == -1) return advantagePlayer2();
-        else if (scoreDiff >= 2) return gameForPlayer1();
+        if (tennisGame.getScore().firstPlayerScore() == PlayerScore.ADVANTAGE) return advantagePlayer1();
+        else if (tennisGame.getScore().secondPlayerScore() == PlayerScore.ADVANTAGE) return advantagePlayer2();
+        else if (tennisGame.getScore().firstPlayerScore() == PlayerScore.GAME) return gameForPlayer1();
         else return gameForPlayer2();
     }
 

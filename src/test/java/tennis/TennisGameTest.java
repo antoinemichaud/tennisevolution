@@ -86,4 +86,14 @@ public class TennisGameTest {
         assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.GAME);
     }
 
+    @Test
+    public void should_give_player1_for_perfect_game() throws Exception {
+        TennisGame tennisGame = new TennisGame();
+        TennisGameTestUtils.initScores(tennisGame, 4, 0);
+        TennisScore tennisScore = tennisGame.getScore();
+
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.LOVE);
+    }
+
 }

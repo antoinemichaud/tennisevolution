@@ -24,6 +24,8 @@ public class TennisScore {
             int playerLead = thisPlayerScore - opponentScore;
             if (playerLead == 1) {
                 return PlayerScore.ADVANTAGE;
+            } else if (playerLead >= 2) {
+                return PlayerScore.GAME;
             }
         }
         return playerScoreFromInt(thisPlayerScore);

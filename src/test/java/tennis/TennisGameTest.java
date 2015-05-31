@@ -66,4 +66,24 @@ public class TennisGameTest {
         assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.ADVANTAGE);
     }
 
+    @Test
+    public void should_give_player1_game() throws Exception {
+        TennisGame tennisGame = new TennisGame();
+        TennisGameTestUtils.initScores(tennisGame, 5, 3);
+        TennisScore tennisScore = tennisGame.getScore();
+
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
+    }
+
+    @Test
+    public void should_give_player2_game() throws Exception {
+        TennisGame tennisGame = new TennisGame();
+        TennisGameTestUtils.initScores(tennisGame, 3, 5);
+        TennisScore tennisScore = tennisGame.getScore();
+
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.GAME);
+    }
+
 }

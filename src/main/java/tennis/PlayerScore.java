@@ -5,7 +5,8 @@ public enum PlayerScore {
     FIFTEEN,
     THIRTY,
     FORTY,
-    ADVANTAGE;
+    ADVANTAGE,
+    GAME;
 
     public static PlayerScore playerScoreFromInt(int score) {
         if (score == 0)

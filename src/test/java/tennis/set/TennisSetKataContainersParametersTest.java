@@ -43,7 +43,7 @@ public class TennisSetKataContainersParametersTest {
     @Test
     public void should_have_right_regular_display() {
         TennisSetKataContainer tennisGameKataContainer = new TennisSetKataContainer();
-        String scoreDisplayed = tennisGameKataContainer.displayScore(gamesScores);
+        String scoreDisplayed = tennisGameKataContainer.displayScore(gamesScores.getPlayer1Scores(), gamesScores.getPlayer2Scores());
         assertThat(scoreDisplayed).isEqualTo(this.mainScoreDisplayedExpected);
     }
 

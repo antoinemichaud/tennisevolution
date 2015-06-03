@@ -1,6 +1,9 @@
-package tennis.game;
+package tennis.container;
 
-public class TennisGameTestUtils {
+import tennis.game.TennisGame;
+import tennis.game.TennisGameDisplayer;
+
+public class TennisGameUtils {
     public static void initScores(TennisGameDisplayer game, String player1Name, int player1Score, String player2Name, int player2Score) {
         int highestScore = Math.max(player1Score, player2Score);
         for (int i = 0; i < highestScore; i++) {

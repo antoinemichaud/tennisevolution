@@ -13,8 +13,25 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_0_then_Fifteen_Love_on_one_point_won_by_player1() throws Exception {
+        //Given
         TennisSet tennisSet = new TennisSet();
+
+        //When
         tennisSet.player1WonPoint();
+
+        //Then
         assertThat(tennisSet.score()).isEqualTo("0-0 Fifteen-Love");
+    }
+
+    @Test
+    public void should_have_0_0_then_Love_Fifteen_on_one_point_won_by_player2() throws Exception {
+        //Given
+        TennisSet tennisSet = new TennisSet();
+
+        //When
+        tennisSet.player2WonPoint();
+
+        //Then
+        assertThat(tennisSet.score()).isEqualTo("0-0 Love-Fifteen");
     }
 }

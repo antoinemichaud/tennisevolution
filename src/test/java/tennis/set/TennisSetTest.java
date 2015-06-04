@@ -40,7 +40,7 @@ public class TennisSetTest {
     @Test
     public void should_have_1_0_then_Love_All_on_four_points_won_by_player1() throws Exception {
         //When
-        player1WinTimes(4);
+        player1WinGame();
 
         //Then
         assertThat(tennisSet.score()).isEqualTo("1-0 Love-All");
@@ -49,8 +49,8 @@ public class TennisSetTest {
     @Test
     public void should_have_2_0_then_Love_All_on_eight_points_won_by_player1() throws Exception {
         //When
-        player1WinTimes(4);
-        player1WinTimes(4);
+        player1WinGame();
+        player1WinGame();
 
         //Then
         assertThat(tennisSet.score()).isEqualTo("2-0 Love-All");
@@ -59,10 +59,40 @@ public class TennisSetTest {
     @Test
     public void should_have_0_1_then_Love_All_on_four_points_won_by_player2() throws Exception {
         //When
-        player2WinTimes(4);
+        player2WinGame();
 
         //Then
         assertThat(tennisSet.score()).isEqualTo("0-1 Love-All");
+    }
+
+    @Test
+    public void should_not_win_if_3_5() throws Exception {
+        //When
+        player1WinGames(3);
+        player2WinGames(5);
+
+        //Then
+        assertThat(tennisSet.score()).isEqualTo("3-5 Love-All");
+    }
+
+    private void player1WinGames(int numberOfGamesWon) {
+        for (int i = 0; i < numberOfGamesWon; i++) {
+            player1WinGame();
+        }
+    }
+
+    private void player2WinGames(int numberOfGamesWon) {
+        for (int i = 0; i < numberOfGamesWon; i++) {
+            player2WinGame();
+        }
+    }
+
+    private void player1WinGame() {
+        player1WinTimes(4);
+    }
+
+    private void player2WinGame() {
+        player2WinTimes(4);
     }
 
     private void player1WinTimes(int times) {

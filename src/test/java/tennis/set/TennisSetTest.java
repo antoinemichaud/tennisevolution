@@ -1,10 +1,18 @@
 package tennis.set;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TennisSetTest {
+
+    private TennisSet tennisSet;
+
+    @Before
+    public void setUp() throws Exception {
+        tennisSet = new TennisSet();
+    }
 
     @Test
     public void should_have_0_0_on_no_point_won() throws Exception {
@@ -13,9 +21,6 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_0_then_Fifteen_Love_on_one_point_won_by_player1() throws Exception {
-        //Given
-        TennisSet tennisSet = new TennisSet();
-
         //When
         tennisSet.player1WonPoint();
 
@@ -25,9 +30,6 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_0_then_Love_Fifteen_on_one_point_won_by_player2() throws Exception {
-        //Given
-        TennisSet tennisSet = new TennisSet();
-
         //When
         tennisSet.player2WonPoint();
 
@@ -37,16 +39,26 @@ public class TennisSetTest {
 
     @Test
     public void should_have_1_0_then_Love_All_on_four_points_won_by_player1() throws Exception {
-        //Given
-        TennisSet tennisSet = new TennisSet();
-
         //When
-        tennisSet.player1WonPoint();
-        tennisSet.player1WonPoint();
-        tennisSet.player1WonPoint();
-        tennisSet.player1WonPoint();
+        player1WinTimes(4);
 
         //Then
         assertThat(tennisSet.score()).isEqualTo("1-0 Love-All");
+    }
+
+    @Test
+    public void should_have_2_0_then_Love_All_on_eight_points_won_by_player1() throws Exception {
+        //When
+        player1WinTimes(4);
+        player1WinTimes(4);
+
+        //Then
+        assertThat(tennisSet.score()).isEqualTo("2-0 Love-All");
+    }
+
+    private void player1WinTimes(int times) {
+        for (int i = 0; i < times; i++) {
+            this.tennisSet.player1WonPoint();
+        }
     }
 }

@@ -9,9 +9,20 @@ public class TennisSet {
     public static final String PLAYER_2 = "player2";
 
     TennisGameDisplayer tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2);
+    private int player1wonGames;
+    private int player2wonGames;
+
+    public TennisSet() {
+        player1wonGames = 0;
+        player2wonGames = 0;
+    }
 
     public void player1WonPoint() {
         tennisGameDisplayer.wonPoint(PLAYER_1);
+        if (tennisGameDisplayer.getScore().equals("Win for player1")) {
+            tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2);
+            player1wonGames = 1;
+        }
     }
 
     public void player2WonPoint() {
@@ -19,6 +30,6 @@ public class TennisSet {
     }
 
     public String score() {
-        return "0-0 " + tennisGameDisplayer.getScore();
+        return player1wonGames + "-" + player2wonGames + " " + tennisGameDisplayer.getScore();
     }
 }

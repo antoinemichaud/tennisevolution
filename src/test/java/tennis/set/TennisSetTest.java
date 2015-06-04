@@ -56,9 +56,24 @@ public class TennisSetTest {
         assertThat(tennisSet.score()).isEqualTo("2-0 Love-All");
     }
 
+    @Test
+    public void should_have_0_1_then_Love_All_on_four_points_won_by_player2() throws Exception {
+        //When
+        player2WinTimes(4);
+
+        //Then
+        assertThat(tennisSet.score()).isEqualTo("0-1 Love-All");
+    }
+
     private void player1WinTimes(int times) {
         for (int i = 0; i < times; i++) {
             this.tennisSet.player1WonPoint();
+        }
+    }
+
+    private void player2WinTimes(int times) {
+        for (int i = 0; i < times; i++) {
+            this.tennisSet.player2WonPoint();
         }
     }
 }

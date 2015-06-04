@@ -27,6 +27,10 @@ public class TennisSet {
 
     public void player2WonPoint() {
         tennisGameDisplayer.wonPoint(PLAYER_2);
+        if (tennisGameDisplayer.getScore().equals("Win for player2")) {
+            tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2);
+            player2wonGames++;
+        }
     }
 
     public String score() {

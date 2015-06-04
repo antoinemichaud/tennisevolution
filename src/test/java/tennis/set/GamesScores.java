@@ -14,8 +14,8 @@ public class GamesScores {
 
     private GamesScores(List<Integer> player1Scores, List<Integer> player2Scores, int player1Score, int player2Score) {
         this.player1Scores.addAll(player1Scores);
-        this.player1Scores.add(player1Score);
         this.player2Scores.addAll(player2Scores);
+        this.player1Scores.add(player1Score);
         this.player2Scores.add(player2Score);
     }
 

@@ -13,7 +13,6 @@ public class TennisSetGenerator {
         this.random = random;
     }
 
-
     public HistoryKeeper generate(Predicate<TennisGame> endCondition) {
         TennisGame tennisGame = new TennisGame();
         HistoryKeeper historyKeeper = new HistoryKeeper(tennisGame);

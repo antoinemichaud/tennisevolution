@@ -23,7 +23,7 @@ public class TennisSet {
     }
 
     public void player1WonPoint() {
-        tennisGameDisplayer.wonPoint(PLAYER_1);
+        tennisGame.incrementPlayer1Score();
         if (tennisGame.getScore().firstPlayerScore() == PlayerScore.GAME) {
             startNewGame();
             player1wonGames.incrementAndGet();
@@ -31,7 +31,7 @@ public class TennisSet {
     }
 
     public void player2WonPoint() {
-        tennisGameDisplayer.wonPoint(PLAYER_2);
+        tennisGame.incrementPlayer2Score();
         if (tennisGame.getScore().secondPlayerScore() == PlayerScore.GAME) {
             startNewGame();
             player2wonGames.incrementAndGet();

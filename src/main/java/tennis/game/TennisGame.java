@@ -1,6 +1,8 @@
 package tennis.game;
 
-public class TennisGame {
+import java.util.Observable;
+
+public class TennisGame extends Observable {
     private int player1Score;
     private int player2Score;
 
@@ -10,10 +12,14 @@ public class TennisGame {
 
     public void incrementPlayer1Score() {
         this.player1Score++;
+        setChanged();
+        notifyObservers(0);
     }
 
     public void incrementPlayer2Score() {
         this.player2Score++;
+        setChanged();
+        notifyObservers(1);
     }
 
     public boolean isEndOfGame() {

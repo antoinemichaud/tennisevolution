@@ -44,6 +44,13 @@ public class TennisSet {
     }
 
     public String score() {
-        return player1wonGames + "-" + player2wonGames + " " + tennisGameDisplayer.getScore();
+        String playersScore = player1wonGames + "-" + player2wonGames + " ";
+        if (player2wonGames.get() == 6) {
+            return playersScore + "Set for player2!";
+        }
+        if (player1wonGames.get() == 6) {
+            return playersScore + "Set for player1!";
+        }
+        return playersScore + tennisGameDisplayer.getScore();
     }
 }

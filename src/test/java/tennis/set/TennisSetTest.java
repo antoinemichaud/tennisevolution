@@ -1,7 +1,6 @@
 package tennis.set;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,14 +76,23 @@ public class TennisSetTest {
     }
 
     @Test
-    @Ignore
     public void player2_should_win_when_4_6() throws Exception {
         //When
         player1WinGames(4);
         player2WinGames(6);
 
         //Then
-        assertThat(tennisSet.score()).isEqualTo("3-5 Set for player2!");
+        assertThat(tennisSet.score()).isEqualTo("4-6 Set for player2!");
+    }
+
+    @Test
+    public void player1_should_win_when_6_4() throws Exception {
+        //When
+        player1WinGames(6);
+        player2WinGames(4);
+
+        //Then
+        assertThat(tennisSet.score()).isEqualTo("6-4 Set for player1!");
     }
 
     private void player1WinGames(int numberOfGamesWon) {

@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class HistoryKeeper implements Observer {
+public class HistoryGameKeeper implements Observer {
 
     private List<Integer> points = new ArrayList<>();
 
-    public HistoryKeeper(TennisGame tennisGame) {
+    public HistoryGameKeeper(TennisGame tennisGame) {
         tennisGame.addObserver(this);
     }
 

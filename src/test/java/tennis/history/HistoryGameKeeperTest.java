@@ -6,20 +6,20 @@ import tennis.game.TennisGame;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HistoryKeeperTest {
+public class HistoryGameKeeperTest {
 
     private TennisGame tennisGame;
-    private HistoryKeeper historyKeeper;
+    private HistoryGameKeeper historyGameKeeper;
 
     @Before
     public void setUp() throws Exception {
         tennisGame = new TennisGame();
-        historyKeeper = new HistoryKeeper(tennisGame);
+        historyGameKeeper = new HistoryGameKeeper(tennisGame);
     }
 
     @Test
     public void should_have_empty_array_on_empty_game() throws Exception {
-        assertThat(historyKeeper.list()).isEmpty();
+        assertThat(historyGameKeeper.list()).isEmpty();
     }
 
     @Test
@@ -28,7 +28,7 @@ public class HistoryKeeperTest {
         tennisGame.incrementPlayer1Score();
 
         // Then
-        assertThat(historyKeeper.list()).containsExactly(0);
+        assertThat(historyGameKeeper.list()).containsExactly(0);
     }
 
     @Test
@@ -37,6 +37,6 @@ public class HistoryKeeperTest {
         tennisGame.incrementPlayer2Score();
 
         // Then
-        assertThat(historyKeeper.list()).containsExactly(1);
+        assertThat(historyGameKeeper.list()).containsExactly(1);
     }
 }

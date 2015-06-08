@@ -27,11 +27,11 @@ public class TennisSet {
         playerWonPoint(PLAYER_2, player2wonGames);
     }
 
-    private void playerWonPoint(String playerName, AtomicInteger pointsToIncrease) {
+    private void playerWonPoint(String playerName, AtomicInteger scoreToUpdate) {
         tennisGameDisplayer.wonPoint(playerName);
         if (tennisGameDisplayer.getScore().equals("Win for " + playerName)) {
             tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2);
-            pointsToIncrease.incrementAndGet();
+            scoreToUpdate.incrementAndGet();
         }
     }
 

@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class TennisGameKataContainersParametersTest {
@@ -75,17 +74,6 @@ public class TennisGameKataContainersParametersTest {
                 {16, 14, "Win for player1", "Game player1!", "Jeu pour player1"},
                 {14, 16, "Win for player2", "Game player2!", "Jeu pour player2"},
         });
-    }
-
-    public void checkAllScores(EnglishGameDisplayer game) {
-        int highestScore = Math.max(this.player1Score, this.player2Score);
-        for (int i = 0; i < highestScore; i++) {
-            if (i < this.player1Score)
-                game.wonPoint("player1");
-            if (i < this.player2Score)
-                game.wonPoint("player2");
-        }
-        assertEquals(this.mainScoreDisplayedExpected, game.getScore());
     }
 
     @Test

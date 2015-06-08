@@ -1,6 +1,8 @@
 package tennis.set;
 
 import tennis.game.EnglishGameDisplayer;
+import tennis.game.PlayerScore;
+import tennis.game.TennisGame;
 import tennis.game.TennisGameDisplayer;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -10,7 +12,8 @@ public class TennisSet {
     public static final String PLAYER_1 = "player1";
     public static final String PLAYER_2 = "player2";
 
-    TennisGameDisplayer tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2);
+    private TennisGame tennisGame = new TennisGame();
+    private TennisGameDisplayer tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     private AtomicInteger player1wonGames;
     private AtomicInteger player2wonGames;
 
@@ -20,19 +23,24 @@ public class TennisSet {
     }
 
     public void player1WonPoint() {
-        playerWonPoint(PLAYER_1, player1wonGames);
+        tennisGameDisplayer.wonPoint(PLAYER_1);
+        if (tennisGame.getScore().firstPlayerScore() == PlayerScore.GAME) {
+            startNewGame();
+            player1wonGames.incrementAndGet();
+        }
     }
 
     public void player2WonPoint() {
-        playerWonPoint(PLAYER_2, player2wonGames);
+        tennisGameDisplayer.wonPoint(PLAYER_2);
+        if (tennisGame.getScore().secondPlayerScore() == PlayerScore.GAME) {
+            startNewGame();
+            player2wonGames.incrementAndGet();
+        }
     }
 
-    private void playerWonPoint(String playerName, AtomicInteger scoreToUpdate) {
-        tennisGameDisplayer.wonPoint(playerName);
-        if (tennisGameDisplayer.getScore().equals("Win for " + playerName)) {
-            tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2);
-            scoreToUpdate.incrementAndGet();
-        }
+    private void startNewGame() {
+        tennisGame = new TennisGame();
+        tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     }
 
     public String score() {

@@ -7,10 +7,10 @@ public abstract class TennisGameDisplayer {
 
     TennisGame tennisGame;
 
-    public TennisGameDisplayer(String player1Name, String player2Name) {
+    public TennisGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
-        tennisGame = new TennisGame();
+        this.tennisGame = tennisGame;
     }
 
     public void wonPoint(String playerName) {

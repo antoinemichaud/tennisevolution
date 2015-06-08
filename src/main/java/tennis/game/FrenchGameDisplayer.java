@@ -1,8 +1,8 @@
 package tennis.game;
 
 public class FrenchGameDisplayer extends TennisGameDisplayer {
-    public FrenchGameDisplayer(String player1Name, String player2Name) {
-        super(player1Name, player2Name);
+    public FrenchGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
+        super(player1Name, player2Name, tennisGame);
     }
 
     @Override

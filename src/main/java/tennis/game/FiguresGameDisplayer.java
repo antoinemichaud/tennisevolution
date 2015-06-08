@@ -12,8 +12,8 @@ public class FiguresGameDisplayer extends TennisGameDisplayer {
     public static final String THIRTY = "30";
     public static final String FORTY = "40";
 
-    public FiguresGameDisplayer(String player1Name, String player2Name) {
-        super(player1Name, player2Name);
+    public FiguresGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
+        super(player1Name, player2Name, tennisGame);
     }
 
     @Override

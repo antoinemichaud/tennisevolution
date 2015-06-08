@@ -9,7 +9,7 @@ import java.util.Observer;
 
 public class HistoryKeeper implements Observer {
 
-    private ArrayList<Integer> points = new ArrayList<>();
+    private List<Integer> points = new ArrayList<>();
 
     public HistoryKeeper(TennisGame tennisGame) {
         tennisGame.addObserver(this);

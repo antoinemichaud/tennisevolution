@@ -1,7 +1,7 @@
 package tennis.generator;
 
 import tennis.game.TennisGame;
-import tennis.history.HistoryGameKeeper;
+import tennis.history.HistoryKeeper;
 
 import java.util.Random;
 import java.util.function.Predicate;
@@ -13,9 +13,9 @@ public class TennisSetGenerator {
         this.random = random;
     }
 
-    public HistoryGameKeeper generate(Predicate<TennisGame> endCondition) {
+    public HistoryKeeper generate(Predicate<TennisGame> endCondition) {
         TennisGame tennisGame = new TennisGame();
-        HistoryGameKeeper historyGameKeeper = new HistoryGameKeeper(tennisGame);
+        HistoryKeeper historyKeeper = new HistoryKeeper(tennisGame);
 
         do {
             if (Math.round(random.nextDouble()) == 0) {
@@ -24,6 +24,6 @@ public class TennisSetGenerator {
                 tennisGame.incrementPlayer2Score();
             }
         } while (!endCondition.test(tennisGame));
-        return historyGameKeeper;
+        return historyKeeper;
     }
 }

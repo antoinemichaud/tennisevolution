@@ -1,18 +1,16 @@
 package tennis.history;
 
-import tennis.game.TennisGame;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class HistoryGameKeeper implements Observer {
+public class HistoryKeeper implements Observer {
 
     private List<Integer> points = new ArrayList<>();
 
-    public HistoryGameKeeper(TennisGame tennisGame) {
-        tennisGame.addObserver(this);
+    public HistoryKeeper(Observable tennis) {
+        tennis.addObserver(this);
     }
 
     public List<Integer> list() {

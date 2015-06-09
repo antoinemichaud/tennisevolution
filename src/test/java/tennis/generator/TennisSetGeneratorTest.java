@@ -2,7 +2,7 @@ package tennis.generator;
 
 import org.junit.Test;
 import tennis.game.PlayerScore;
-import tennis.history.HistoryGameKeeper;
+import tennis.history.HistoryKeeper;
 
 import java.util.Random;
 
@@ -21,7 +21,7 @@ public class TennisSetGeneratorTest {
         });
 
         // When
-        HistoryGameKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame -> true);
+        HistoryKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame -> true);
 
         // Then
         assertThat(tennisGameHistory.list()).containsExactly(0);
@@ -38,7 +38,7 @@ public class TennisSetGeneratorTest {
         });
 
         // When
-        HistoryGameKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame -> true);
+        HistoryKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame -> true);
 
         // Then
         assertThat(tennisGameHistory.list()).containsExactly(1);
@@ -55,7 +55,7 @@ public class TennisSetGeneratorTest {
         });
 
         // When
-        HistoryGameKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame ->
+        HistoryKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame ->
                 tennisGame.getScore().firstPlayerScore() == PlayerScore.THIRTY);
 
         // Then
@@ -68,7 +68,7 @@ public class TennisSetGeneratorTest {
         TennisSetGenerator tennisSetGenerator = new TennisSetGenerator(new Random());
 
         // When
-        HistoryGameKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame ->
+        HistoryKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame ->
                 tennisGame.getScore().firstPlayerScore() == PlayerScore.GAME ||
                         tennisGame.getScore().secondPlayerScore() == PlayerScore.GAME);
 

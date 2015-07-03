@@ -95,6 +95,26 @@ public class TennisSetTest {
         assertThat(tennisSet.score()).isEqualTo("6-4 Set for player1!");
     }
 
+    @Test
+    public void player1_should_win_when_7_5() throws Exception {
+        // When
+        player1WinGames(7);
+        player2WinGames(5);
+
+        // Then
+        assertThat(tennisSet.score()).isEqualTo("7-5 Set for player1!");
+    }
+
+    @Test
+    public void player2_should_win_when_5_7() throws Exception {
+        // When
+        player1WinGames(5);
+        player2WinGames(7);
+
+        // Then
+        assertThat(tennisSet.score()).isEqualTo("5-7 Set for player2!");
+    }
+
     private void player1WinGames(int numberOfGamesWon) {
         for (int i = 0; i < numberOfGamesWon; i++) {
             player1WinGame();

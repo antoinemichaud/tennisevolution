@@ -1,4 +1,4 @@
-package tennis.container;
+package tennis.game;
 
 import tennis.game.TennisGame;
 

@@ -1,6 +1,4 @@
-package tennis.container;
-
-import tennis.game.*;
+package tennis.game;
 
 public class TennisGameKataContainer {
 

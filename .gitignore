@@ -14,3 +14,5 @@ target/
 /bin
 /bin
 /bin
+server/node_modules/
+server/public/bundle.js

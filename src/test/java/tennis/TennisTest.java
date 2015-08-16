@@ -1,14 +1,14 @@
 package tennis;
-import static org.junit.Assert.*;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class TennisTest {
@@ -80,19 +80,7 @@ public class TennisTest {
 
     @Test
     public void checkAllScoresTennisGame1() {
-        TennisGame1 game = new TennisGame1("player1", "player2");
-        checkAllScores(game);
-    }
-
-    @Test
-    public void checkAllScoresTennisGame2() {
-        TennisGame2 game = new TennisGame2("player1", "player2");
-        checkAllScores(game);
-    }
-
-    @Test
-    public void checkAllScoresTennisGame3() {
-        TennisGame3 game = new TennisGame3("player1", "player2");
+        TennisGame game = new TennisGame("player1", "player2");
         checkAllScores(game);
     }
 }

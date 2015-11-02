@@ -1,7 +1,9 @@
 var express = require('express'),
   http = require('http'),
   config = require('./config'),
+ bodyParser = require('body-parser'),
   _ = require('lodash');
+
 
 var app = express();
 
@@ -21,7 +23,8 @@ routes.init();
 
 //be able to load the files under the public directory
 app.use("/", express.static(__dirname + "/public/"));
+app.use(bodyParser.json());
 
 
-app.get('/step1', routes.firstStep);
+app.post('/scores', routes.savescores);
 app.get('/', routes.index);

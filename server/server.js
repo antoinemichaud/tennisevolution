@@ -26,5 +26,6 @@ app.use("/", express.static(__dirname + "/public/"));
 app.use(bodyParser.json());
 
 
-app.post('/scores', routes.savescores);
+app.post('/compare', routes.compare);
+app.post('/turn', routes.turn);
 app.get('/', routes.index);

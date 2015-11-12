@@ -30,4 +30,4 @@ if(typeof window !== 'undefined') {
   window.onload = function() {
     React.render(APP(), document);
   }
-};
+}

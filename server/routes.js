@@ -1,41 +1,45 @@
 var JSX     = require('node-jsx').install(),
     React   = require('react'),
-    HashMap = require('hashmap'),
     _       = require('lodash'),
-    APP     = require('./app');
-
+    APP     = require('./app');s
 
 var registeredClients = [];
-var scores = new HashMap();
-var total = new HashMap();
 
 var turn = 1;
-var stack = [1000, 500, 100, 50, 25, 13, 1];
+var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
+var availablePoints = {
+  1: _.clone(stackPoints),
+  2: _.clone(stackPoints),
+  3: _.clone(stackPoints),
+  4: _.clone(stackPoints),
+  5: _.clone(stackPoints)
+};
 
-var scoring = new HashMap().set(1, _.clone(stack))
-  .set(2, _.clone(stack))
-  .set(3, _.clone(stack))
-  .set(4, _.clone(stack))
-  .set(5, _.clone(stack));
+var scoreBoard = {};
 
 module.exports = function(io) {
   return {
     compare: function(req, res) {
-      var score = scoring.get(turn).shift();
-      var user = _.find(registeredClients, function(registeredClients) {
+      var scoredPoints = availablePoints[turn].shift();
+
+      var currentUser = _.find(registeredClients, function(registeredClients) {
         return registeredClients.ip === req.connection.remoteAddress;
       });
-      if(scores.has(user)) {
-        scores.get(user).set(turn, score);
-        total.set(user, total.get(user) + score);
-      } else {
-        scores.set(user, new HashMap().set(turn, score));
-        total.set(user, score);
+
+      if(scoreBoard[currentUser.name]){
+        if(!_.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn)){
+          scoreBoard[currentUser.name].details.push({turn: turn, score: scoredPoints});
+          scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
+        }
+      }else {
+        scoreBoard[currentUser.name] = {details: [], total: 0};
+        scoreBoard[currentUser.name].details.push({turn: 1, score: scoredPoints});
+        scoreBoard[currentUser.name].total = scoredPoints;
       }
-      io.emit('refreshScores', scores);
-      io.emit('refreshTotal', total);
-      res.send('OK');
+
+      io.emit('refreshScores', scoreBoard);
+      res.send(scoreBoard[currentUser.name]);
     },
 
     turn: function(req, res) {
@@ -64,13 +68,13 @@ module.exports = function(io) {
         var clientIp = socket.handshake.address;
         if(registeredClients.length > 0) {
           socket.emit('initClients', registeredClients);
-          socket.emit('refreshScores', scores);
+          socket.emit('refreshScores', scoreBoard);
         }
-        ;
+
         socket.on('register', function(name) {
           self.register(name, clientIp);
         });
       });
     }
   };
-}
+};

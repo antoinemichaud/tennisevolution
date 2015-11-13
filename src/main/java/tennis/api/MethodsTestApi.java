@@ -4,6 +4,7 @@ import com.google.common.base.Splitter;
 import net.codestory.http.WebServer;
 import tennis.game.TennisGameKataContainer;
 import tennis.generator.TennisSetGenerator;
+import tennis.history.Aggregator;
 import tennis.history.HistoryKeeper;
 import tennis.set.TennisSetKataContainer;
 
@@ -49,12 +50,14 @@ public class MethodsTestApi {
         TennisSetGenerator tennisSetGenerator = new TennisSetGenerator(new Random());
         Random gameIsFinished = new Random();
 
-        HistoryKeeper historyKeeper = tennisSetGenerator.generate(tennisGame -> gameIsFinished.nextInt(5) == 0);
-
-
-//        new WebServer().configure(
-//                routes -> routes
-//                        .get("/generateTest/step1", context ->
-//                        )
+        new WebServer().configure(
+                routes -> routes
+                        .get("/generateTest/generateGame", context -> {
+                                    HistoryKeeper historyKeeper = tennisSetGenerator.generate(tennisGame -> gameIsFinished.nextInt(5) == 0);
+                                    Aggregator aggregator = new Aggregator("player1", "player2");
+                                    return aggregator.aggregateToGameScore(historyKeeper);
+                                }
+                        )
+        ).start(8081);
     }
 }

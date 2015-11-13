@@ -7,6 +7,8 @@ import tennis.history.HistoryKeeper;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tennis.history.WhichPlayer.PLAYER_ONE;
+import static tennis.history.WhichPlayer.PLAYER_TWO;
 
 public class TennisSetGeneratorTest {
 
@@ -24,7 +26,7 @@ public class TennisSetGeneratorTest {
         HistoryKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame -> true);
 
         // Then
-        assertThat(tennisGameHistory.list()).containsExactly(0);
+        assertThat(tennisGameHistory.list()).containsExactly(PLAYER_ONE);
     }
 
     @Test
@@ -41,7 +43,7 @@ public class TennisSetGeneratorTest {
         HistoryKeeper tennisGameHistory = tennisSetGenerator.generateSet(tennisSet -> tennisSet.score().equals("1-0 Love-All"));
 
         // Then
-        assertThat(tennisGameHistory.list()).containsExactly(0, 0, 0, 0);
+        assertThat(tennisGameHistory.list()).containsExactly(PLAYER_ONE, PLAYER_ONE, PLAYER_ONE, PLAYER_ONE);
     }
 
     @Test
@@ -58,7 +60,7 @@ public class TennisSetGeneratorTest {
         HistoryKeeper tennisGameHistory = tennisSetGenerator.generateSet(tennisSet -> tennisSet.score().equals("1-0 Fifteen-Love"));
 
         // Then
-        assertThat(tennisGameHistory.list()).containsExactly(0, 0, 0, 0, 0);
+        assertThat(tennisGameHistory.list()).containsExactly(PLAYER_ONE, PLAYER_ONE, PLAYER_ONE, PLAYER_ONE, PLAYER_ONE);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class TennisSetGeneratorTest {
         HistoryKeeper tennisGameHistory = tennisSetGenerator.generate(tennisGame -> true);
 
         // Then
-        assertThat(tennisGameHistory.list()).containsExactly(1);
+        assertThat(tennisGameHistory.list()).containsExactly(PLAYER_TWO);
     }
 
     @Test
@@ -93,7 +95,7 @@ public class TennisSetGeneratorTest {
                 tennisGame.getScore().firstPlayerScore() == PlayerScore.THIRTY);
 
         // Then
-        assertThat(tennisGameHistory.list()).containsExactly(0, 0);
+        assertThat(tennisGameHistory.list()).containsExactly(PLAYER_ONE, PLAYER_ONE);
     }
 
     @Test

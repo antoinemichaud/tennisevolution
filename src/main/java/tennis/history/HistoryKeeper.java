@@ -7,20 +7,19 @@ import java.util.Observer;
 
 public class HistoryKeeper implements Observer {
 
-    private List<Integer> points = new ArrayList<>();
+    private List<WhichPlayer> points = new ArrayList<>();
 
     public HistoryKeeper(Observable tennis) {
         tennis.addObserver(this);
     }
 
-    public List<Integer> list() {
+    public List<WhichPlayer> list() {
         return points;
     }
 
     public void update(Observable o, Object arg) {
-        if (arg instanceof Integer) {
-            Integer player = (Integer) arg;
-            points.add(player);
+        if (arg instanceof WhichPlayer) {
+            points.add((WhichPlayer) arg);
         }
     }
 }

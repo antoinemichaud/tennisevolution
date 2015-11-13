@@ -5,6 +5,8 @@ import org.junit.Test;
 import tennis.game.TennisGame;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tennis.history.WhichPlayer.PLAYER_ONE;
+import static tennis.history.WhichPlayer.PLAYER_TWO;
 
 public class HistoryKeeperTest {
 
@@ -28,7 +30,7 @@ public class HistoryKeeperTest {
         tennisGame.incrementPlayer1Score();
 
         // Then
-        assertThat(historyKeeper.list()).containsExactly(0);
+        assertThat(historyKeeper.list()).containsExactly(PLAYER_ONE);
     }
 
     @Test
@@ -37,6 +39,6 @@ public class HistoryKeeperTest {
         tennisGame.incrementPlayer2Score();
 
         // Then
-        assertThat(historyKeeper.list()).containsExactly(1);
+        assertThat(historyKeeper.list()).containsExactly(PLAYER_TWO);
     }
 }

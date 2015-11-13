@@ -2,6 +2,9 @@ package tennis.game;
 
 import java.util.Observable;
 
+import static tennis.history.WhichPlayer.PLAYER_ONE;
+import static tennis.history.WhichPlayer.PLAYER_TWO;
+
 public class TennisGame extends Observable {
     private int player1Score;
     private int player2Score;
@@ -13,13 +16,13 @@ public class TennisGame extends Observable {
     public void incrementPlayer1Score() {
         this.player1Score++;
         setChanged();
-        notifyObservers(0);
+        notifyObservers(PLAYER_ONE);
     }
 
     public void incrementPlayer2Score() {
         this.player2Score++;
         setChanged();
-        notifyObservers(1);
+        notifyObservers(PLAYER_TWO);
     }
 
     public boolean isEndOfGame() {

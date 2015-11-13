@@ -3,9 +3,12 @@ package tennis.api;
 import com.google.common.base.Splitter;
 import net.codestory.http.WebServer;
 import tennis.game.TennisGameKataContainer;
+import tennis.generator.TennisSetGenerator;
+import tennis.history.HistoryKeeper;
 import tennis.set.TennisSetKataContainer;
 
 import java.util.List;
+import java.util.Random;
 
 import static java.util.stream.Collectors.toList;
 
@@ -41,6 +44,17 @@ public class MethodsTestApi {
 
                             return tennisSetKataContainer.displayScore(player1Scores, player2Scores);
                         })
-        ).start();
+        ).start(8080);
+
+        TennisSetGenerator tennisSetGenerator = new TennisSetGenerator(new Random());
+        Random gameIsFinished = new Random();
+
+        HistoryKeeper historyKeeper = tennisSetGenerator.generate(tennisGame -> gameIsFinished.nextInt(5) == 0);
+
+
+//        new WebServer().configure(
+//                routes -> routes
+//                        .get("/generateTest/step1", context ->
+//                        )
     }
 }

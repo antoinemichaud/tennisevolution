@@ -1,13 +1,14 @@
 package tennis.history;
 
 import org.junit.Test;
-import org.mockito.Mockito;
+import tennis.api.GameQuestion;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static tennis.history.WhichPlayer.PLAYER_ONE;
 
 public class AggregatorTest {
@@ -17,18 +18,18 @@ public class AggregatorTest {
         // Given
         Aggregator aggregator = new Aggregator("player1", "player2");
 
-        HistoryKeeper historyKeeper = Mockito.mock(HistoryKeeper.class);
-        Mockito.when(historyKeeper.list()).thenReturn(new ArrayList<>());
+        HistoryKeeper historyKeeper = mock(HistoryKeeper.class);
+        when(historyKeeper.list()).thenReturn(new ArrayList<>());
 
         // When
-        Map<String, Integer> gameScore = aggregator.aggregateToGameScore(historyKeeper);
+        GameQuestion gameScore = aggregator.aggregateToGameScore(historyKeeper);
 
 
         // Then
-        assertThat(gameScore)
-                .hasSize(2)
-                .containsEntry("player1", 0)
-                .containsEntry("player2", 0);
+        assertThat(gameScore.getPlayer1GameScore().getPlayerName()).isEqualTo("player1");
+        assertThat(gameScore.getPlayer1GameScore().getPlayerScore()).isEqualTo(0);
+        assertThat(gameScore.getPlayer2GameScore().getPlayerName()).isEqualTo("player2");
+        assertThat(gameScore.getPlayer2GameScore().getPlayerScore()).isEqualTo(0);
     }
 
     @Test
@@ -36,18 +37,17 @@ public class AggregatorTest {
         // Given
         Aggregator aggregator = new Aggregator("alfred", "henri");
 
-        HistoryKeeper historyKeeper = Mockito.mock(HistoryKeeper.class);
-        Mockito.when(historyKeeper.list()).thenReturn(new ArrayList<>());
+        HistoryKeeper historyKeeper = mock(HistoryKeeper.class);
+        when(historyKeeper.list()).thenReturn(new ArrayList<>());
 
         // When
-        Map<String, Integer> gameScore = aggregator.aggregateToGameScore(historyKeeper);
-
+        GameQuestion gameScore = aggregator.aggregateToGameScore(historyKeeper);
 
         // Then
-        assertThat(gameScore)
-                .hasSize(2)
-                .containsEntry("alfred", 0)
-                .containsEntry("henri", 0);
+        assertThat(gameScore.getPlayer1GameScore().getPlayerName()).isEqualTo("alfred");
+        assertThat(gameScore.getPlayer1GameScore().getPlayerScore()).isEqualTo(0);
+        assertThat(gameScore.getPlayer2GameScore().getPlayerName()).isEqualTo("henri");
+        assertThat(gameScore.getPlayer2GameScore().getPlayerScore()).isEqualTo(0);
     }
 
     @Test
@@ -55,17 +55,17 @@ public class AggregatorTest {
         // Given
         Aggregator aggregator = new Aggregator("player1", "player2");
 
-        HistoryKeeper historyKeeper = Mockito.mock(HistoryKeeper.class);
-        Mockito.when(historyKeeper.list()).thenReturn(newArrayList(PLAYER_ONE));
+        HistoryKeeper historyKeeper = mock(HistoryKeeper.class);
+        when(historyKeeper.list()).thenReturn(newArrayList(PLAYER_ONE));
 
         // When
-        Map<String, Integer> gameScore = aggregator.aggregateToGameScore(historyKeeper);
+        GameQuestion gameScore = aggregator.aggregateToGameScore(historyKeeper);
 
 
         // Then
-        assertThat(gameScore)
-                .hasSize(2)
-                .containsEntry("player1", 1)
-                .containsEntry("player2", 0);
+        assertThat(gameScore.getPlayer1GameScore().getPlayerName()).isEqualTo("player1");
+        assertThat(gameScore.getPlayer1GameScore().getPlayerScore()).isEqualTo(1);
+        assertThat(gameScore.getPlayer2GameScore().getPlayerName()).isEqualTo("player2");
+        assertThat(gameScore.getPlayer2GameScore().getPlayerScore()).isEqualTo(0);
     }
 }

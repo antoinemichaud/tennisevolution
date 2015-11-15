@@ -8,6 +8,7 @@ import tennis.history.Aggregator;
 import tennis.history.HistoryKeeper;
 import tennis.set.TennisSetKataContainer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -53,9 +54,13 @@ public class MethodsTestApi {
         new WebServer().configure(
                 routes -> routes
                         .get("/generateTest/generateGame", context -> {
-                                    HistoryKeeper historyKeeper = tennisSetGenerator.generate(tennisGame -> gameIsFinished.nextInt(5) == 0);
-                                    Aggregator aggregator = new Aggregator("player1", "player2");
-                                    return aggregator.aggregateToGameScore(historyKeeper);
+                                    List<GameQuestion> gameQuestions = new ArrayList<>();
+                                    for (int i = 0; i < 10; i++) {
+                                        HistoryKeeper historyKeeper = tennisSetGenerator.generate(tennisGame -> gameIsFinished.nextInt(5) == 0);
+                                        Aggregator aggregator = new Aggregator("player1", "player2");
+                                        gameQuestions.add(aggregator.aggregateToGameScore(historyKeeper));
+                                    }
+                                    return gameQuestions;
                                 }
                         )
         ).start(8081);

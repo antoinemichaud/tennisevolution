@@ -1,7 +1,7 @@
 var JSX     = require('node-jsx').install(),
     React   = require('react'),
     _       = require('lodash'),
-    APP     = require('./app');s
+  APP = require('./app');
 
 var registeredClients = [];
 

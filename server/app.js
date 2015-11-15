@@ -9,16 +9,16 @@ var APP = React.createClass({
 
     return (
       <html>
-        <head>
-          <title>Deathmatch Participants</title>
-        </head>
-        <body>
-          <h1> Deathmatch Refactoring </h1>
-          <DeathmatchApp/>
-          <script src='bundle.js'></script>
-          <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
-    <script>var HashMap = require('hashmap');</script>
-        </body>
+      <head>
+        <title>Deathmatch Participants</title>
+      </head>
+      <body>
+      <h1> Deathmatch Refactoring </h1>
+      <DeathmatchApp/>
+      <script src='bundle.js'></script>
+      <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+      <script>var HashMap = require('hashmap');</script>
+      </body>
       </html>
     );
   }
@@ -30,4 +30,4 @@ if(typeof window !== 'undefined') {
   window.onload = function() {
     React.render(APP(), document);
   }
-};
+}

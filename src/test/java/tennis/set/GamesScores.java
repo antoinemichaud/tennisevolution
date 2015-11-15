@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamesScores {
-    private final List<Integer> player1Scores = new ArrayList<Integer>();
-    private final List<Integer> player2Scores = new ArrayList<Integer>();
+    private final List<Integer> player1Scores = new ArrayList<>();
+    private final List<Integer> player2Scores = new ArrayList<>();
 
     private GamesScores(int player1Score, int player2Score) {
         this.player1Scores.add(player1Score);
@@ -28,10 +28,10 @@ public class GamesScores {
     }
 
     public List<Integer> getPlayer1Scores() {
-        return new ArrayList<Integer>(player1Scores);
+        return new ArrayList<>(player1Scores);
     }
 
     public List<Integer> getPlayer2Scores() {
-        return new ArrayList<Integer>(player2Scores);
+        return new ArrayList<>(player2Scores);
     }
 }

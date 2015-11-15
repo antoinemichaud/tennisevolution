@@ -44,20 +44,17 @@ public class TennisSet extends Observable {
     }
 
     private void startNewGame() {
-        tennisGame = new TennisGame();
-        for (Observer observer : observers) {
-            tennisGame.addObserver(observer);
-        }
+        tennisGame = new TennisGame(observers);
         tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     }
 
     public String score() {
         String playersScore = player1wonGames + "-" + player2wonGames + " ";
-        if (player2wonGames.get() >= 6) {
-            return playersScore + "Set for player2!";
-        }
         if (player1wonGames.get() >= 6) {
             return playersScore + "Set for player1!";
+        }
+        if (player2wonGames.get() >= 6) {
+            return playersScore + "Set for player2!";
         }
         return playersScore + tennisGameDisplayer.getScore();
     }

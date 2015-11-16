@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Isomorphic React Example",
   "scripts": {
-    "build": "browserify -t babelify -t reactify app.js -r hashmap -o public/bundle.js",
+    "build": "browserify -t babelify -t reactify app.js -o public/bundle.js",
     "start": "npm run build && node server.js",
     "watchall": "npm run build && node server.js"
   },

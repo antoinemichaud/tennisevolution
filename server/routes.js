@@ -1,7 +1,12 @@
-var JSX     = require('node-jsx').install(),
-  React   = require('react'),
-  _       = require('lodash'),
+var JSX = require('node-jsx').install(),
+  React = require('react'),
+  _ = require('lodash'),
+  Promise = require('bluebird'),
+  request = require('request'),
+  requestIp = require('request-ip'),
   APP = require('./app');
+
+var requestAsync = Promise.promisify(request);
 
 var registeredClients = [];
 
@@ -30,7 +35,7 @@ function sendQuestion(response, remoteAddress) {
 
       return Promise.props({
         question: questionAsObject,
-        candidateResult: requestAsync('http://'+ remoteAddress +':8080/displayScore' + questionAsQueryParam)
+        candidateResult: requestAsync('http://' + remoteAddress + ':8080/displayScore' + questionAsQueryParam)
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
           }),
@@ -51,15 +56,18 @@ function sendQuestion(response, remoteAddress) {
     ;
 }
 
-module.exports = function(io) {
+module.exports = function (io) {
   return {
-    compare: function(req, res) {
-      sendQuestion(res, req.connection.remoteAddress).then(function (success) {
+    compare: function (req, res) {
+      var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
+      console.log('remote address : ' + remoteAddress);
+      sendQuestion(res, remoteAddress).then(function (success) {
         if (success) {
-          var scoredPoints = availablePoints[turn].shift();
 
-          var currentUser = _.find(registeredClients, function (registeredClients) {
-            return registeredClients.ip === req.connection.remoteAddress;
+          var scoredPoints = availablePoints[turn].shift();
+          var currentUser = _.find(registeredClients, function (registeredClient) {
+            console.log(registeredClient.ip);
+            return registeredClient.ip === remoteAddress;
           });
 
           if (scoreBoard[currentUser.name]) {
@@ -73,42 +81,47 @@ module.exports = function(io) {
             scoreBoard[currentUser.name].total = scoredPoints;
           }
         }
+        io.emit('refreshScores', scoreBoard);
+        console.log('result will be sent : ');
+        console.log(currentUser);
+        console.log(currentUser.name);
+        console.log(scoreBoard);
+        console.log(scoreBoard[currentUser.name]);
+        res.send(scoreBoard[currentUser.name]);
       });
 
-      io.emit('refreshScores', scoreBoard);
-      res.send(scoreBoard[currentUser.name]);
     },
 
-    turn: function(req, res) {
+    turn: function (req, res) {
       turn = req.body.turn;
       io.emit('turn', turn);
       res.send('OK');
     },
 
-    register: function(name, clientIp) {
+    register: function (name, clientIp) {
       console.log(name, clientIp);
-      if(!_.contains(_.pluck(registeredClients, 'ip'), clientIp)) {
+      if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp)) {
         var newUser = {name: name, ip: clientIp};
         registeredClients.push(newUser);
         io.emit('client', newUser);
       }
     },
 
-    index: function(req, res) {
+    index: function (req, res) {
       var markup = React.renderToString(APP());
       res.send(markup);
     },
 
-    init: function() {
+    init: function () {
       var self = this;
-      io.on('connection', function(socket) {
-        var clientIp = socket.handshake.address;
-        if(registeredClients.length > 0) {
+      io.on('connection', function (socket) {
+        var clientIp = socket.handshake.address !=  '::1' ? socket.handshake.address : '127.0.0.1';
+        if (registeredClients.length > 0) {
           socket.emit('initClients', registeredClients);
           socket.emit('refreshScores', scoreBoard);
         }
 
-        socket.on('register', function(name) {
+        socket.on('register', function (name) {
           self.register(name, clientIp);
         });
       });

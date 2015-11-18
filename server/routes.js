@@ -12,6 +12,7 @@ var registeredClients = [];
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
+var competitorsWithPoints = [];
 var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'sets/displayScore'];
 
 var availablePoints = {
@@ -25,7 +26,7 @@ var availablePoints = {
 var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
-  var stepQuestion = stepQuestions[turn];
+  var stepQuestion = stepQuestions[turn - 1];
   return requestAsync('http://localhost:8081/generateTest/generateGame')
     .spread(function (questionsQueryResponse, questionsQueryBody) {
       return JSON.parse(questionsQueryBody);
@@ -41,7 +42,7 @@ function sendQuestion(response, remoteAddress) {
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
           }),
-        referenceResult: requestAsync('http://localhost:8080/displayScore' + stepQuestion + questionAsQueryParam)
+        referenceResult: requestAsync('http://localhost:8080/' + stepQuestion + questionAsQueryParam)
           .spread(function (referenceResultResponse, referenceResultBody) {
             return referenceResultBody;
           })
@@ -64,13 +65,16 @@ module.exports = function (io) {
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
       console.log('remote address : ' + remoteAddress);
       sendQuestion(res, remoteAddress).then(function (success) {
+        var currentUser = _.find(registeredClients, function (registeredClient) {
+          return registeredClient.ip === remoteAddress;
+        });
+        if (_.contains(competitorsWithPoints, remoteAddress)) {
+          res.send(scoreBoard[currentUser.name]);
+          return;
+        }
         if (success) {
-
           var scoredPoints = availablePoints[turn].shift();
-          var currentUser = _.find(registeredClients, function (registeredClient) {
-            console.log(registeredClient.ip);
-            return registeredClient.ip === remoteAddress;
-          });
+
 
           if (scoreBoard[currentUser.name]) {
             if (!_.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn)) {

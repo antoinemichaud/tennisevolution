@@ -12,6 +12,7 @@ var registeredClients = [];
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
+var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'sets/displayScore'];
 
 var availablePoints = {
   1: _.clone(stackPoints),
@@ -24,7 +25,8 @@ var availablePoints = {
 var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
-  return requestAsync('http://localhost:8081/generateTest/generateGame').bind(response)
+  var stepQuestion = stepQuestions[turn];
+  return requestAsync('http://localhost:8081/generateTest/generateGame')
     .spread(function (questionsQueryResponse, questionsQueryBody) {
       return JSON.parse(questionsQueryBody);
     })
@@ -35,11 +37,11 @@ function sendQuestion(response, remoteAddress) {
 
       return Promise.props({
         question: questionAsObject,
-        candidateResult: requestAsync('http://' + remoteAddress + ':8080/displayScore' + questionAsQueryParam)
+        candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
           }),
-        referenceResult: requestAsync('http://localhost:8080/displayScore' + questionAsQueryParam)
+        referenceResult: requestAsync('http://localhost:8080/displayScore' + stepQuestion + questionAsQueryParam)
           .spread(function (referenceResultResponse, referenceResultBody) {
             return referenceResultBody;
           })

@@ -19,4 +19,17 @@ public class TennisSetKataContainer {
         }
         return tennisSet.score();
     }
+
+    public String displayScore(List<Integer> scores) {
+        TennisSet tennisSet = new TennisSet();
+
+        for (Integer score : scores) {
+            if(score==1){
+                tennisSet.player1WonPoint();
+            }else if(score==2){
+                tennisSet.player2WonPoint();
+            }
+        }
+        return tennisSet.score();
+    }
 }

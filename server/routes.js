@@ -14,6 +14,7 @@ var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 var competitorsWithPoints = [];
 var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'sets/displayScore'];
+var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateSet'];
 
 var availablePoints = {
   1: _.clone(stackPoints),
@@ -27,15 +28,22 @@ var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
   var stepQuestion = stepQuestions[turn - 1];
+  var stepGenerator = stepGenerators[turn - 1];
   console.log(stepQuestion);
-  return requestAsync('http://localhost:8081/generateTest/generateGame')
+  return requestAsync('http://localhost:8081/generateTest/' + stepGenerator)
     .spread(function (questionsQueryResponse, questionsQueryBody) {
       return JSON.parse(questionsQueryBody);
     })
     .map(function (questionAsObject) {
-      var questionAsQueryParam =
-        '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
-        '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
+      if(turn < 4){
+        var questionAsQueryParam =
+            '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
+            '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
+      }else{
+        var questionAsQueryParam =
+            '?scores=' + questionAsObject;
+
+      }
       console.log('query to serveur: ' + 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam);
 
       return Promise.props({
@@ -77,7 +85,6 @@ module.exports = function (io) {
         if (success) {
           var scoredPoints = availablePoints[turn].shift();
 
-
           if (scoreBoard[currentUser.name]) {
             if (!_.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn)) {
               scoreBoard[currentUser.name].details.push({turn: turn, score: scoredPoints});
@@ -85,7 +92,7 @@ module.exports = function (io) {
             }
           } else {
             scoreBoard[currentUser.name] = {details: [], total: 0};
-            scoreBoard[currentUser.name].details.push({turn: 1, score: scoredPoints});
+            scoreBoard[currentUser.name].details.push({turn: turn, score: scoredPoints});
             scoreBoard[currentUser.name].total = scoredPoints;
           }
         }

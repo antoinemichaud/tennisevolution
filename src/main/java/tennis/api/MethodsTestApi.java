@@ -38,8 +38,10 @@ public class MethodsTestApi {
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
                         .get("/sets/displayScore", (context) -> {
-                            String player1ScoresAsString = context.get("player1Scores");
-                            String player2ScoresAsString = context.get("player2Scores");
+                            String player1Name = context.get("player1Name");
+                            String player1ScoresAsString = context.get("player1Score");
+                            String player2Name = context.get("player2Name");
+                            String player2ScoresAsString = context.get("player2Score");
 
                             List<Integer> player1Scores = Splitter.on(",").splitToList(player1ScoresAsString).stream().map(Integer::parseInt).collect(toList());
                             List<Integer> player2Scores = Splitter.on(",").splitToList(player2ScoresAsString).stream().map(Integer::parseInt).collect(toList());

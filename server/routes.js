@@ -27,6 +27,7 @@ var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
   var stepQuestion = stepQuestions[turn - 1];
+  console.log(stepQuestion);
   return requestAsync('http://localhost:8081/generateTest/generateGame')
     .spread(function (questionsQueryResponse, questionsQueryBody) {
       return JSON.parse(questionsQueryBody);
@@ -35,6 +36,7 @@ function sendQuestion(response, remoteAddress) {
       var questionAsQueryParam =
         '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
         '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
+      console.log('query to serveur: ' + 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam);
 
       return Promise.props({
         question: questionAsObject,
@@ -47,16 +49,16 @@ function sendQuestion(response, remoteAddress) {
             return referenceResultBody;
           })
       });
-    })
-    .map(function (result) {
-      console.log("candidate response : " + result.candidateResult);
-      console.log("reference response :" + result.referenceResult);
-      return result.candidateResult === result.referenceResult;
-    })
-    .reduce(function (aggregation, comparisonResult) {
-      return aggregation && comparisonResult;
-    }, true)
-    ;
+      })
+      .map(function (result) {
+        console.log("candidate response : " + result.candidateResult);
+        console.log("reference response :" + result.referenceResult);
+        return result.candidateResult === result.referenceResult;
+      })
+      .reduce(function (aggregation, comparisonResult) {
+        return aggregation && comparisonResult;
+      }, true)
+      ;
 }
 
 module.exports = function (io) {
@@ -100,6 +102,7 @@ module.exports = function (io) {
 
     turn: function (req, res) {
       turn = req.body.turn;
+      console.log ('turn : ' + turn);
       io.emit('turn', turn);
       res.send('OK');
     },

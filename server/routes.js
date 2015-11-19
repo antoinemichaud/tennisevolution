@@ -35,13 +35,13 @@ function sendQuestion(response, remoteAddress) {
       return JSON.parse(questionsQueryBody);
     })
     .map(function (questionAsObject) {
-      if(turn < 4){
-        var questionAsQueryParam =
-            '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
-            '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
-      }else{
-        var questionAsQueryParam =
-            '?scores=' + questionAsObject;
+      var questionAsQueryParam;
+      if (turn < 4) {
+        questionAsQueryParam = '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
+          '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
+      } else {
+        questionAsQueryParam =
+          '?scores=' + questionAsObject;
 
       }
       console.log('query to serveur: ' + 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam);
@@ -57,16 +57,16 @@ function sendQuestion(response, remoteAddress) {
             return referenceResultBody;
           })
       });
-      })
-      .map(function (result) {
-        console.log("candidate response : " + result.candidateResult);
-        console.log("reference response :" + result.referenceResult);
-        return result.candidateResult === result.referenceResult;
-      })
-      .reduce(function (aggregation, comparisonResult) {
-        return aggregation && comparisonResult;
-      }, true)
-      ;
+    })
+    .map(function (result) {
+      console.log("candidate response : " + result.candidateResult);
+      console.log("reference response :" + result.referenceResult);
+      return result.candidateResult === result.referenceResult;
+    })
+    .reduce(function (aggregation, comparisonResult) {
+      return aggregation && comparisonResult;
+    }, true)
+    ;
 }
 
 module.exports = function (io) {
@@ -131,7 +131,7 @@ module.exports = function (io) {
     init: function () {
       var self = this;
       io.on('connection', function (socket) {
-        var clientIp = socket.handshake.address !=  '::1' ? socket.handshake.address : '127.0.0.1';
+        var clientIp = socket.handshake.address != '::1' ? socket.handshake.address : '127.0.0.1';
         if (registeredClients.length > 0) {
           socket.emit('initClients', registeredClients);
           socket.emit('refreshScores', scoreBoard);

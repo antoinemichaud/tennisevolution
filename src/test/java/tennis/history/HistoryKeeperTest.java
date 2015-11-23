@@ -2,7 +2,7 @@ package tennis.history;
 
 import org.junit.Before;
 import org.junit.Test;
-import tennis.game.TennisGame;
+import tennis.game.classic.TennisGame;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tennis.history.WhichPlayer.PLAYER_ONE;

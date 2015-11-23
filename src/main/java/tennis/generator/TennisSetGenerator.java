@@ -1,6 +1,6 @@
 package tennis.generator;
 
-import tennis.game.TennisGame;
+import tennis.game.classic.TennisGame;
 import tennis.history.HistoryKeeper;
 import tennis.set.TennisSet;
 

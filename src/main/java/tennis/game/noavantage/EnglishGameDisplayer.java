@@ -1,18 +1,20 @@
-package tennis.game;
+package tennis.game.noavantage;
 
-public class FiguresGameDisplayer extends TennisGameDisplayer {
+public class EnglishGameDisplayer extends TennisGameDisplayer {
 
-    public static final String LOVE_ALL = "0-0";
-    public static final String FIFTEEN_ALL = "15-15";
-    public static final String THIRTY_ALL = "30-30";
-    public static final String DEUCE = "40-40";
-    public static final String WIN_FOR = "Game ";
-    public static final String LOVE = "0";
-    public static final String FIFTEEN = "15";
-    public static final String THIRTY = "30";
-    public static final String FORTY = "40";
+    public static final String LOVE_ALL = "Love-All";
+    public static final String FIFTEEN_ALL = "Fifteen-All";
+    public static final String THIRTY_ALL = "Thirty-All";
+    public static final String DEUCE = "Deuce";
+    public static final String ADVANTAGE = "Advantage ";
+    public static final String WIN_FOR = "Win for ";
+    public static final String LOVE = "Love";
+    public static final String FIFTEEN = "Fifteen";
+    public static final String THIRTY = "Thirty";
+    public static final String FORTY = "Forty";
 
-    public FiguresGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
+
+    public EnglishGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
         super(player1Name, player2Name, tennisGame);
     }
 
@@ -38,22 +40,22 @@ public class FiguresGameDisplayer extends TennisGameDisplayer {
 
     @Override
     protected String advantagePlayer1() {
-        return "A-40";
+        return ADVANTAGE + player1Name;
     }
 
     @Override
     protected String advantagePlayer2() {
-        return "40-A";
+        return ADVANTAGE + player2Name;
     }
 
     @Override
     protected String gameForPlayer1() {
-        return WIN_FOR + player1Name + "!";
+        return WIN_FOR + player1Name;
     }
 
     @Override
     protected String gameForPlayer2() {
-        return WIN_FOR + player2Name + "!";
+        return WIN_FOR + player2Name;
     }
 
     @Override

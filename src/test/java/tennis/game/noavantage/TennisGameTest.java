@@ -1,4 +1,4 @@
-package tennis.game;
+package tennis.game.noavantage;
 
 import org.junit.Test;
 
@@ -47,42 +47,20 @@ public class TennisGameTest {
     }
 
     @Test
-    public void should_give_player1_for_advantage() throws Exception {
+    public void should_player1_win_the_game() throws Exception {
         TennisGame tennisGame = new TennisGame();
         TennisGameUtils.initScores(tennisGame, 4, 3);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.ADVANTAGE);
-        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
     }
 
     @Test
-    public void should_give_player2_for_advantage() throws Exception {
+    public void should_player2_win_the_game() throws Exception {
         TennisGame tennisGame = new TennisGame();
         TennisGameUtils.initScores(tennisGame, 3, 4);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
-        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.ADVANTAGE);
-    }
-
-    @Test
-    public void should_give_player1_game() throws Exception {
-        TennisGame tennisGame = new TennisGame();
-        TennisGameUtils.initScores(tennisGame, 5, 3);
-        TennisScore tennisScore = tennisGame.getScore();
-
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
-        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
-    }
-
-    @Test
-    public void should_give_player2_game() throws Exception {
-        TennisGame tennisGame = new TennisGame();
-        TennisGameUtils.initScores(tennisGame, 3, 5);
-        TennisScore tennisScore = tennisGame.getScore();
-
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
         assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.GAME);
     }
 

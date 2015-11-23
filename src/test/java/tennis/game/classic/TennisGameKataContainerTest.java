@@ -1,7 +1,8 @@
-package tennis.game;
+package tennis.game.classic;
 
 import org.junit.Before;
 import org.junit.Test;
+import tennis.game.classic.TennisGameKataContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

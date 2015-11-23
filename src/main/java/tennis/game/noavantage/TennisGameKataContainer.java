@@ -1,4 +1,4 @@
-package tennis.game;
+package tennis.game.noavantage;
 
 public class TennisGameKataContainer {
 

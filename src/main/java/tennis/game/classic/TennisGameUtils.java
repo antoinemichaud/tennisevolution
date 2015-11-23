@@ -1,6 +1,6 @@
-package tennis.game;
+package tennis.game.classic;
 
-import tennis.game.TennisGame;
+import tennis.game.classic.TennisGame;
 
 public class TennisGameUtils {
     public static void initScores(TennisGame game, String player1Name, int player1Score, String player2Name, int player2Score) {

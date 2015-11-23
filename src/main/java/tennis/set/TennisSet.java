@@ -1,9 +1,9 @@
 package tennis.set;
 
-import tennis.game.EnglishGameDisplayer;
-import tennis.game.PlayerScore;
-import tennis.game.TennisGame;
-import tennis.game.TennisGameDisplayer;
+import tennis.game.classic.EnglishGameDisplayer;
+import tennis.game.classic.PlayerScore;
+import tennis.game.classic.TennisGame;
+import tennis.game.classic.TennisGameDisplayer;
 
 import java.util.ArrayList;
 import java.util.List;

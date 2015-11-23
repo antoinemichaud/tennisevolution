@@ -1,6 +1,8 @@
-package tennis.game;
+package tennis.game.noavantage;
 
-import static tennis.game.PlayerScore.playerScoreFromInt;
+
+import static tennis.game.noavantage.PlayerScore.GAME;
+import static tennis.game.noavantage.PlayerScore.playerScoreFromInt;
 
 public class TennisScore {
     private int player1Score;
@@ -21,12 +23,7 @@ public class TennisScore {
 
     private static PlayerScore getPlayerScore(int thisPlayerScore, int opponentScore) {
         if (opponentScore >= 4 || thisPlayerScore >= 4) {
-            int playerLead = thisPlayerScore - opponentScore;
-            if (playerLead == 1) {
-                return PlayerScore.ADVANTAGE;
-            } else if (playerLead >= 2) {
-                return PlayerScore.GAME;
-            }
+            return GAME;
         }
         return playerScoreFromInt(thisPlayerScore);
     }

@@ -2,7 +2,7 @@ package tennis.api;
 
 import com.google.common.base.Splitter;
 import net.codestory.http.WebServer;
-import tennis.game.TennisGameKataContainer;
+import tennis.game.classic.TennisGameKataContainer;
 import tennis.generator.TennisSetGenerator;
 import tennis.history.Aggregator;
 import tennis.history.HistoryKeeper;

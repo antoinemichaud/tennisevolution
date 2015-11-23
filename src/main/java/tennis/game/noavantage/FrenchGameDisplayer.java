@@ -1,4 +1,4 @@
-package tennis.game;
+package tennis.game.noavantage;
 
 public class FrenchGameDisplayer extends TennisGameDisplayer {
     public FrenchGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {

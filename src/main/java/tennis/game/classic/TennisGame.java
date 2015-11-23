@@ -1,4 +1,4 @@
-package tennis.game;
+package tennis.game.classic;
 
 import java.util.List;
 import java.util.Observable;

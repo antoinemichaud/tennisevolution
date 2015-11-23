@@ -1,7 +1,7 @@
 package tennis.generator;
 
 import org.junit.Test;
-import tennis.game.PlayerScore;
+import tennis.game.classic.PlayerScore;
 import tennis.history.HistoryKeeper;
 
 import java.util.Random;

@@ -41,10 +41,10 @@ public class TennisService {
 
     private String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
-        if (scoreDiff == 1) return "Advantage " + "player1";
-        else if (scoreDiff == -1) return "Advantage " + "player2";
-        else if (scoreDiff >= 2) return "Win for " + "player1";
-        else return "Win for " + "player2";
+        if (scoreDiff == 1) return "Advantage player1";
+        else if (scoreDiff == -1) return "Advantage player2";
+        else if (scoreDiff >= 2) return "Win for player1";
+        else return "Win for player2";
     }
 
     private String singlePlayerScoreAsString(int playerScore) {

@@ -11,13 +11,13 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class TennisTest {
+public class TennisParameterizedTest {
 
     private int player1Score;
     private int player2Score;
     private String expectedScore;
 
-    public TennisTest(int player1Score, int player2Score, String expectedScore) {
+    public TennisParameterizedTest(int player1Score, int player2Score, String expectedScore) {
         this.player1Score = player1Score;
         this.player2Score = player2Score;
         this.expectedScore = expectedScore;

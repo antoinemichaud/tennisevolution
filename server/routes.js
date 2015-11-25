@@ -75,6 +75,7 @@ module.exports = function (io) {
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
       console.log('remote address : ' + remoteAddress);
       sendQuestion(res, remoteAddress).then(function (success) {
+        var scoredPoints;
         var currentUser = _.find(registeredClients, function (registeredClient) {
           return registeredClient.ip === remoteAddress;
         });
@@ -83,7 +84,11 @@ module.exports = function (io) {
           return;
         }
         if (success) {
-          var scoredPoints = availablePoints[turn].shift();
+          if (availablePoints[turn].length > 1) {
+            scoredPoints = availablePoints[turn].shift();
+          } else {
+            scoredPoints = availablePoints[turn];
+          }
 
           if (scoreBoard[currentUser.name]) {
             if (!_.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn)) {

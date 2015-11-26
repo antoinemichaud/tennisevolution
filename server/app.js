@@ -17,7 +17,6 @@ var APP = React.createClass({
       <DeathmatchApp/>
       <script src='bundle.js'></script>
       <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
-      <script>var HashMap = require('hashmap');</script>
       </body>
       </html>
     );

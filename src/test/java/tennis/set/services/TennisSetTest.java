@@ -22,6 +22,8 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_0_then_Love_Fifteen_on_one_point_won_by_player2() throws Exception {
+        tennisSet = new TennisSet(1);
+
         //When
         tennisSet.player2WonPoint();
 
@@ -31,6 +33,8 @@ public class TennisSetTest {
 
     @Test
     public void should_have_1_0_then_Love_All_on_four_points_won_by_player1() throws Exception {
+        tennisSet = new TennisSet(2);
+
         //When
         player1WinGame();
 
@@ -40,6 +44,8 @@ public class TennisSetTest {
 
     @Test
     public void should_have_2_0_then_Love_All_on_eight_points_won_by_player1() throws Exception {
+        tennisSet = new TennisSet(2);
+
         //When
         player1WinGame();
         player1WinGame();
@@ -50,6 +56,8 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_1_then_Love_All_on_four_points_won_by_player2() throws Exception {
+        tennisSet = new TennisSet(2);
+
         //When
         player2WinGame();
 
@@ -59,6 +67,8 @@ public class TennisSetTest {
 
     @Test
     public void should_not_win_if_3_5() throws Exception {
+        tennisSet = new TennisSet(2);
+
         //When
         player1WinGames(3);
         player2WinGames(5);
@@ -69,6 +79,8 @@ public class TennisSetTest {
 
     @Test
     public void player2_should_win_when_4_6() throws Exception {
+        tennisSet = new TennisSet(2);
+
         //When
         player1WinGames(4);
         player2WinGames(6);
@@ -79,6 +91,8 @@ public class TennisSetTest {
 
     @Test
     public void player1_should_win_when_6_4() throws Exception {
+        tennisSet = new TennisSet(2);
+
         //When
         player1WinGames(6);
         player2WinGames(4);
@@ -89,6 +103,8 @@ public class TennisSetTest {
 
     @Test
     public void player1_should_win_when_7_5() throws Exception {
+        tennisSet = new TennisSet(2);
+
         // When
         player1WinGames(7);
         player2WinGames(5);
@@ -99,6 +115,8 @@ public class TennisSetTest {
 
     @Test
     public void player2_should_win_when_5_7() throws Exception {
+        tennisSet = new TennisSet(2);
+
         // When
         player1WinGames(5);
         player2WinGames(7);

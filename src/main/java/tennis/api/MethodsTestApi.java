@@ -18,6 +18,9 @@ public class MethodsTestApi {
 
     public static void main(String[] args) {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
+        tennis.game.services.TennisGameKataContainer tennisNoAvantageGameKataContainer = new tennis.game.services.TennisGameKataContainer();
+        tennis.game.noavantage.TennisGameKataContainer tennisServiceGameKataContainer = new tennis.game.noavantage.TennisGameKataContainer();
+        tennis.game.withlife.TennisGameKataContainer tennisWithLifeGameKataContainer = new tennis.game.withlife.TennisGameKataContainer();
         TennisSetKataContainer tennisSetKataContainer = new TennisSetKataContainer();
 
         new WebServer().configure(
@@ -34,6 +37,21 @@ public class MethodsTestApi {
                                         context.query().getInteger("player2Score")))
                         .get("/displayFrenchScore", (context) -> tennisGameKataContainer
                                 .displayFrenchScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+                        .get("/noAvantageScoring", (context) -> tennisNoAvantageGameKataContainer
+                                .displayScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+                        .get("/servicesScoring", (context) -> tennisServiceGameKataContainer
+                                .displayScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+                        .get("/withLifeScoring", (context) -> tennisWithLifeGameKataContainer
+                                .displayScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))

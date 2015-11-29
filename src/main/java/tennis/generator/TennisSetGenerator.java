@@ -2,8 +2,10 @@ package tennis.generator;
 
 import tennis.game.classic.TennisGame;
 import tennis.history.HistoryKeeper;
+import tennis.history.WhichPlayer;
 import tennis.set.TennisSet;
 
+import java.util.Collections;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -28,6 +30,29 @@ public class TennisSetGenerator {
             }
         } while (!endCondition.test(tennisGame));
         return historyKeeper;
+    }
+
+    public HistoryKeeper generateNoAdvantage(Predicate<TennisGame> endCondition) {
+        tennisGame = new TennisGame();
+        HistoryKeeper historyKeeper = new HistoryKeeper(tennisGame);
+
+        do {
+            if (Math.round(random.nextDouble()) == 0) {
+                tennisGame.incrementPlayer1Score();
+            } else {
+                tennisGame.incrementPlayer2Score();
+            }
+            if(someoneWin(historyKeeper)){
+                break;
+            }
+
+        } while (!endCondition.test(tennisGame));
+        return historyKeeper;
+    }
+
+    private boolean someoneWin(HistoryKeeper historyKeeper) {
+        return (Collections.frequency(historyKeeper.list(), WhichPlayer.PLAYER_ONE) == 4 ||
+                Collections.frequency(historyKeeper.list(), WhichPlayer.PLAYER_TWO) == 4);
     }
 
     public HistoryKeeper generateSet(Predicate<TennisSet> endCondition) {

@@ -22,7 +22,7 @@ public class TennisScore {
     }
 
     private static PlayerScore getPlayerScore(int thisPlayerScore, int opponentScore) {
-        if (opponentScore >= 4 || thisPlayerScore >= 4) {
+        if (thisPlayerScore >= 4) {
             return GAME;
         }
         return playerScoreFromInt(thisPlayerScore);

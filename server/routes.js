@@ -14,7 +14,7 @@ var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 var competitorsWithPoints = [];
 var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'noAvantageScoring', 'servicesScoring', 'withLifeScoring', 'sets/displayScore'];
-var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateGame', 'generateGame', 'generateGame', 'generateSet'];
+var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame', 'generateGame', 'generateSet'];
 
 var availablePoints = {
   1: _.clone(stackPoints),

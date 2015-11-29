@@ -2,6 +2,7 @@ package tennis.api;
 
 import com.google.common.base.Splitter;
 import net.codestory.http.WebServer;
+import tennis.game.classic.TennisGame;
 import tennis.game.classic.TennisGameKataContainer;
 import tennis.generator.TennisSetGenerator;
 import tennis.history.Aggregator;
@@ -11,6 +12,7 @@ import tennis.set.TennisSetKataContainer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
@@ -18,8 +20,8 @@ public class MethodsTestApi {
 
     public static void main(String[] args) {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
-        tennis.game.services.TennisGameKataContainer tennisNoAvantageGameKataContainer = new tennis.game.services.TennisGameKataContainer();
-        tennis.game.noavantage.TennisGameKataContainer tennisServiceGameKataContainer = new tennis.game.noavantage.TennisGameKataContainer();
+        tennis.game.services.TennisGameKataContainer tennisServiceGameKataContainer = new tennis.game.services.TennisGameKataContainer();
+        tennis.game.noavantage.TennisGameKataContainer tennisNoAvantageGameKataContainer = new tennis.game.noavantage.TennisGameKataContainer();
         tennis.game.withlife.TennisGameKataContainer tennisWithLifeGameKataContainer = new tennis.game.withlife.TennisGameKataContainer();
         TennisSetKataContainer tennisSetKataContainer = new TennisSetKataContainer();
 
@@ -49,14 +51,15 @@ public class MethodsTestApi {
                                 .displayScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
+                                        context.query().getInteger("player2Score"), new Random().nextInt(3 - 1) + 1))
                         .get("/withLifeScoring", (context) -> tennisWithLifeGameKataContainer
                                 .displayScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
                         .get("/sets/displayScore", (context) -> {
-                            List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());;
+                            List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
+                            ;
                             return tennisSetKataContainer.displayScore(scores);
                         })
         ).start(8080);
@@ -67,15 +70,27 @@ public class MethodsTestApi {
         new WebServer().configure(
                 routes -> routes
                         .get("/generateTest/generateGame", context -> {
+                                    Predicate<TennisGame> endCondition = tennisGame -> gameIsFinished.nextInt(5) == 0;
                                     List<GameQuestion> gameQuestions = new ArrayList<>();
                                     for (int i = 0; i < 10; i++) {
-                                        HistoryKeeper historyKeeper = tennisSetGenerator.generate(tennisGame -> gameIsFinished.nextInt(5) == 0);
+                                        HistoryKeeper historyKeeper = tennisSetGenerator.generate(endCondition);
                                         Aggregator aggregator = new Aggregator("player1", "player2");
                                         gameQuestions.add(aggregator.aggregateToGameScore(historyKeeper));
                                     }
                                     return gameQuestions;
                                 }
-                        ).get("/generateTest/generateSet", context -> {
+                        ).get("/generateTest/generateNoAvantageGame", context -> {
+                                    Predicate<TennisGame> endCondition = tennisGame -> gameIsFinished.nextInt(4) == 0;
+                                    List<GameQuestion> gameQuestions = new ArrayList<>();
+                                    for (int i = 0; i < 10; i++) {
+                                        HistoryKeeper historyKeeper = tennisSetGenerator.generateNoAdvantage(endCondition);
+                                        Aggregator aggregator = new Aggregator("player1", "player2");
+                                        gameQuestions.add(aggregator.aggregateToGameScore(historyKeeper));
+                                    }
+                                    return gameQuestions;
+                                }
+                        )
+                        .get("/generateTest/generateSet", context -> {
                                     List<List<Integer>> gameQuestions = new ArrayList<>();
                                     for (int i = 0; i < 10; i++) {
                                         gameQuestions.add(new Random().ints(new Random().nextInt((90 - 30) + 1) + 30, 1, 3).boxed().collect(toList()));
@@ -85,4 +100,5 @@ public class MethodsTestApi {
                         )
         ).start(8081);
     }
+
 }

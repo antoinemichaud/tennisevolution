@@ -12,7 +12,6 @@ var registeredClients = [];
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
-var competitorsWithPoints = [];
 var competitorsWithTries = {};
 var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'noAvantageScoring', 'servicesScoring', 'withLifeScoring', 'sets/displayScore'];
 var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame', 'generateGame', 'generateSet'];
@@ -55,6 +54,7 @@ function sendQuestion(response, remoteAddress) {
       return Promise.props({
         question: questionAsObject,
         candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
+        //candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
           }),
@@ -75,10 +75,15 @@ function sendQuestion(response, remoteAddress) {
     ;
 }
 
+function playerHasScoreForTurn(currentUser) {
+  return _.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn);
+}
+
 module.exports = function (io) {
   return {
     compare: function (req, res) {
       var responseBody = {success: false};
+      console.log("stackPoints: " + stackPoints);
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
       if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
         competitorsWithTries[remoteAddress] = 3;
@@ -95,17 +100,14 @@ module.exports = function (io) {
             res.status(400).send("Veuillez vous enregistrer avant de participer");
             return;
           }
-
-          // Don't count points more than once
-          if (_.contains(competitorsWithPoints, remoteAddress)) {
-            res.send(scoreBoard[currentUser.name]);
-            return;
+          if (typeof scoreBoard[currentUser.name] == 'undefined') {
+            scoreBoard[currentUser.name] = {details: [], total: 0};
           }
 
           // Make participant earn points if success to all questions
           if (success) {
             responseBody.success = true;
-            if (competitorsWithTries[remoteAddress] > 0) {
+            if (!playerHasScoreForTurn(currentUser) && competitorsWithTries[remoteAddress] > 0) {
               if (availablePoints[turn].length > 1) {
                 scoredPoints = availablePoints[turn].shift();
               } else {
@@ -125,8 +127,10 @@ module.exports = function (io) {
             competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
             console.log("competitorsWithTries[remoteAddress] : " + competitorsWithTries[remoteAddress]);
           }
+
           if (scoreBoard[currentUser.name]) {
-            if (!_.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn)) {
+            // Don't count score on a turn more than once
+            if (!playerHasScoreForTurn(currentUser)) {
               scoreBoard[currentUser.name].details.push({turn: turn, score: scoredPoints});
               scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
             }
@@ -152,6 +156,7 @@ module.exports = function (io) {
       console.log(req.body);
       turn = req.body.turn;
       competitorsWithTries = {};
+      //competitorsWithPoints = {};
       console.log ('turn : ' + turn);
       io.emit('turn', turn);
       res.send('OK');

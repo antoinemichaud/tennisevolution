@@ -59,10 +59,47 @@ public class MethodsTestApi {
                                         context.query().getInteger("player2Score")))
                         .get("/sets/displayScore", (context) -> {
                             List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
-                            ;
                             return tennisSetKataContainer.displayScore(scores);
                         })
         ).start(8080);
+
+//        new WebServer().configure(
+//                routes -> routes
+//                        .get("/displayScore", (context) -> tennisGameKataContainer
+//                                .displayScore(context.get("player1Name"),
+//                                        context.query().getInteger("player1Score"),
+//                                        context.get("player2Name"),
+//                                        context.query().getInteger("player2Score")))
+//                        .get("/displayAlternativeScore", (context) -> tennisGameKataContainer
+//                                .displayAlternativeScore(context.get("player1Name"),
+//                                        context.query().getInteger("player1Score"),
+//                                        context.get("player2Name"),
+//                                        context.query().getInteger("player2Score")))
+//                        .get("/displayFrenchScore", (context) -> tennisGameKataContainer
+//                                .displayFrenchScore(context.get("player1Name"),
+//                                        context.query().getInteger("player1Score"),
+//                                        context.get("player2Name"),
+//                                        context.query().getInteger("player2Score")))
+//                        .get("/noAvantageScoring", (context) -> tennisNoAvantageGameKataContainer
+//                                .displayScore(context.get("player1Name"),
+//                                        context.query().getInteger("player1Score"),
+//                                        context.get("player2Name"),
+//                                        context.query().getInteger("player2Score")))
+//                        .get("/servicesScoring", (context) -> tennisServiceGameKataContainer
+//                                .displayScore(context.get("player1Name"),
+//                                        context.query().getInteger("player1Score"),
+//                                        context.get("player2Name"),
+//                                        context.query().getInteger("player2Score"), new Random().nextInt(3 - 1) + 1))
+//                        .get("/withLifeScoring", (context) -> tennisWithLifeGameKataContainer
+//                                .displayScore(context.get("player1Name"),
+//                                        context.query().getInteger("player1Score"),
+//                                        context.get("player2Name"),
+//                                        context.query().getInteger("player2Score")))
+//                        .get("/sets/displayScore", (context) -> {
+//                            List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
+//                            return tennisSetKataContainer.displayScore(scores);
+//                        })
+//        ).start(8083);
 
         TennisSetGenerator tennisSetGenerator = new TennisSetGenerator(new Random());
         Random gameIsFinished = new Random();

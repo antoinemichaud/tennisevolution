@@ -76,7 +76,7 @@ function sendQuestion(response, remoteAddress) {
 }
 
 function playerHasNotScoreForTurnYet(currentUser) {
-  return !_.contains(scoreBoard[currentUser.name].details.scoresByTurn, turn);
+  return typeof scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] === 'undefined';
 }
 
 function nextScoredPoints() {
@@ -144,13 +144,8 @@ module.exports = function (io) {
           responseBody.scoreInfo = scoreBoard[currentUser.name];
           responseBody.trialNumberLeft = competitorsWithTries[remoteAddress];
           io.emit('refreshScores', scoreBoard);
-          console.log('result will be sent : ');
-          console.log(currentUser);
-          console.log(currentUser.name);
-          console.log(scoreBoard);
-          console.log(scoreBoard[currentUser.name]);
-
           res.send(responseBody);
+          console.log('scoreBoard: ' + scoreBoard);
         });
     },
 

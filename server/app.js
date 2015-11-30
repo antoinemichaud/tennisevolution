@@ -1,12 +1,11 @@
 
 var React = require('react');
-var DeathmatchApp = require('./components/DeathmatchApp.react');
+var DeathmatchApp = require('./components/DeathmatchApp.jsx');
 
 
 var APP = React.createClass({
 
   render: function() {
-
     return (
       <html>
       <head>

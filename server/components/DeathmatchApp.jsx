@@ -1,7 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var _ = require('lodash');
+var PlayersRotation = require('./playersRotation.jsx');
 
 // Export the TweetsApp component
 module.exports = DeathmatchApp = React.createClass({
@@ -96,6 +95,8 @@ module.exports = DeathmatchApp = React.createClass({
 
         <h2> Participants: </h2>
         <ul> {content} </ul>
+
+        <PlayersRotation/>
 
         <h2> Alternate Scores: </h2>
         <table>

@@ -27,11 +27,9 @@ module.exports = DeathmatchApp = React.createClass({
     this.setState({socket: socket});
   },
 
-  addClient: function(client) {
-    var updated = this.state.clients;
-    updated.push(client);
+  addClient: function(clients) {
     this.setState({
-      clients: updated
+      clients: clients
     });
   },
 

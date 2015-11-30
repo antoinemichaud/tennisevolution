@@ -53,8 +53,8 @@ function sendQuestion(response, remoteAddress) {
 
       return Promise.props({
         question: questionAsObject,
-        candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
-        //candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
+        //candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
+        candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
           }),
@@ -158,13 +158,34 @@ module.exports = function (io) {
       res.send('OK');
     },
 
+    rotatePlayers: function (req, res) {
+      var rotatedRegisteredPlayers = [];
+      for (var i = 0; i < registeredClients.length; i++) {
+        var playerNameToCopyIndex = (i + 1) % registeredClients.length;
+        var playerNameToCopy = registeredClients[playerNameToCopyIndex].name;
+        var mixedUpPlayer = {name: playerNameToCopy, ip: registeredClients[i].ip};
+        rotatedRegisteredPlayers.push(mixedUpPlayer);
+      }
+
+      registeredClients = rotatedRegisteredPlayers;
+      console.log("New array of registeredClients: " + JSON.stringify(registeredClients));
+      io.emit('client', registeredClients);
+      res.send('OK')
+    },
+
     register: function (name, clientIp) {
       console.log(name, clientIp);
       if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp)) {
         var newUser = {name: name, ip: clientIp};
         registeredClients.push(newUser);
-        io.emit('client', newUser);
+      } else {
+        var userToChangeName = _.find(registeredClients, function(client) {
+          return client.ip === clientIp;
+        });
+
+        userToChangeName.name = name;
       }
+      io.emit('client', registeredClients);
     },
 
     index: function (req, res) {

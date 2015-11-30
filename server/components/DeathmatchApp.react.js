@@ -68,21 +68,19 @@ module.exports = DeathmatchApp = React.createClass({
 
 
     var scoresTable = [];
-    var findScoreByTurn = function (details, turn) {
-      var detail = _.find(details, function (details) {
-        return details.turn === turn;
-      });
-      return detail ? detail.score : "";
+    var findScoreByTurn = function (scoresByTurn, turn) {
+      var scoreAtTurn = scoresByTurn[turn - 1];
+      return scoreAtTurn ? scoreAtTurn : 0;
     };
 
     _.forOwn(this.state.scores, function (value, key) {
       scoresTable.push(<tr>
         <td>{key}</td>
-        <td>{findScoreByTurn(value.details, 1)}</td>
-        <td>{findScoreByTurn(value.details, 2)}</td>
-        <td>{findScoreByTurn(value.details, 3)}</td>
-        <td>{findScoreByTurn(value.details, 4)}</td>
-        <td>{findScoreByTurn(value.details, 5)}</td>
+        <td>{findScoreByTurn(value.details.scoresByTurn, 1)}</td>
+        <td>{findScoreByTurn(value.details.scoresByTurn, 2)}</td>
+        <td>{findScoreByTurn(value.details.scoresByTurn, 3)}</td>
+        <td>{findScoreByTurn(value.details.scoresByTurn, 4)}</td>
+        <td>{findScoreByTurn(value.details.scoresByTurn, 5)}</td>
         <td>{value.total}</td>
         <td>XXX</td>
       </tr>);

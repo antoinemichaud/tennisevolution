@@ -75,22 +75,50 @@ function sendQuestion(response, remoteAddress) {
     ;
 }
 
-function playerHasScoreForTurn(currentUser) {
-  return _.contains(_.pluck(scoreBoard[currentUser.name].details, 'turn'), turn);
+function playerHasNotScoreForTurnYet(currentUser) {
+  return !_.contains(scoreBoard[currentUser.name].details.scoresByTurn, turn);
+}
+
+function nextScoredPoints() {
+  if (availablePoints[turn].length > 1) {
+    return availablePoints[turn].shift();
+  } else {
+    return availablePoints[turn];
+  }
+}
+
+function playerOvertried(remoteAddress) {
+  return competitorsWithTries[remoteAddress] < 0;
+}
+
+function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
+  return playerHasNotScoreForTurnYet(currentUser) && !playerOvertried(remoteAddress);
+}
+
+function decrementTrialsLeft(remoteAddress) {
+  if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
+    competitorsWithTries[remoteAddress] = 3;
+  }
+  competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
+  console.log("competitorsWithTries[remoteAddress] : " + competitorsWithTries[remoteAddress]);
+}
+
+function initScoresOfPlayerIfNeeded(currentUser) {
+  if (typeof scoreBoard[currentUser.name] == 'undefined') {
+    scoreBoard[currentUser.name] = {details: {scoresByTurn: []}, total: 0};
+  }
 }
 
 module.exports = function (io) {
   return {
     compare: function (req, res) {
       var responseBody = {success: false};
-      console.log("stackPoints: " + stackPoints);
+      console.log("availablePoints: " + availablePoints[turn]);
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
-      if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
-        competitorsWithTries[remoteAddress] = 3;
-      }
       console.log('remote address : ' + remoteAddress);
       sendQuestion(res, remoteAddress)
         .then(function (success) {
+          // Initialization
           var scoredPoints = 0;
           var currentUser = _.find(registeredClients, function (registeredClient) {
             return registeredClient.ip === remoteAddress;
@@ -100,45 +128,19 @@ module.exports = function (io) {
             res.status(400).send("Veuillez vous enregistrer avant de participer");
             return;
           }
-          if (typeof scoreBoard[currentUser.name] == 'undefined') {
-            scoreBoard[currentUser.name] = {details: [], total: 0};
-          }
 
-          // Make participant earn points if success to all questions
+          initScoresOfPlayerIfNeeded(currentUser);
+          decrementTrialsLeft(remoteAddress);
+
           if (success) {
             responseBody.success = true;
-            if (!playerHasScoreForTurn(currentUser) && competitorsWithTries[remoteAddress] > 0) {
-              if (availablePoints[turn].length > 1) {
-                scoredPoints = availablePoints[turn].shift();
-              } else {
-                scoredPoints = availablePoints[turn];
-              }
-
-            } else {
-              // Limit number of tries by participant and by turn
-              competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
-              console.log("competitorsWithTries[remoteAddress] : " + competitorsWithTries[remoteAddress]);
-            }
-          } else {
-            // Limit number of tries by participant and by turn
-            if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
-              competitorsWithTries[remoteAddress] = 3;
-            }
-            competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
-            console.log("competitorsWithTries[remoteAddress] : " + competitorsWithTries[remoteAddress]);
-          }
-
-          if (scoreBoard[currentUser.name]) {
-            // Don't count score on a turn more than once
-            if (!playerHasScoreForTurn(currentUser)) {
-              scoreBoard[currentUser.name].details.push({turn: turn, score: scoredPoints});
+            if (playerCanStillPlayForThisTurn(currentUser, remoteAddress)) {
+              scoredPoints = nextScoredPoints();
+              scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = {score: scoredPoints};
               scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
             }
-          } else {
-            scoreBoard[currentUser.name] = {details: [], total: 0};
-            scoreBoard[currentUser.name].details.push({turn: turn, score: scoredPoints});
-            scoreBoard[currentUser.name].total = scoredPoints;
           }
+
           responseBody.scoreInfo = scoreBoard[currentUser.name];
           responseBody.trialNumberLeft = competitorsWithTries[remoteAddress];
           io.emit('refreshScores', scoreBoard);
@@ -147,16 +149,15 @@ module.exports = function (io) {
           console.log(currentUser.name);
           console.log(scoreBoard);
           console.log(scoreBoard[currentUser.name]);
+
           res.send(responseBody);
         });
-
     },
 
     turn: function (req, res) {
       console.log(req.body);
       turn = req.body.turn;
       competitorsWithTries = {};
-      //competitorsWithPoints = {};
       console.log ('turn : ' + turn);
       io.emit('turn', turn);
       res.send('OK');

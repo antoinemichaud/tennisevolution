@@ -85,6 +85,7 @@ module.exports = DeathmatchApp = React.createClass({
       </tr>);
     });
 
+    var playersChanges = {player1: 'player2', player2: 'player1'};
 
     return (
       <div>
@@ -98,7 +99,7 @@ module.exports = DeathmatchApp = React.createClass({
         <h2> Participants: </h2>
         <ul> {content} </ul>
 
-        <PlayersRotation/>
+        <PlayersRotation playersChanges={playersChanges}/>
 
         <h2> Alternate Scores: </h2>
         <table>

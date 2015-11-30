@@ -12,9 +12,18 @@ var registeredClients = [];
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
+
 var competitorsWithTries = {};
 var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'noAvantageScoring', 'withLifeScoring', 'sets/displayScore', 'servicesScoring'];
 var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
+
+var rotateScoringRepartition = {
+  source: 0.5,
+  destination: 0.5
+};
+var rotateStep = "sets/displayScore";
+var rotatedRegisteredPlayers = {};
+
 
 var availablePoints = {
   1: _.clone(stackPoints),
@@ -41,7 +50,7 @@ function sendQuestion(response, remoteAddress) {
     })
     .map(function (questionAsObject) {
       var questionAsQueryParam;
-      if (turn < 7) {
+      if (turn < 6) {
         questionAsQueryParam = '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
           '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
       } else {
@@ -95,6 +104,13 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
   return playerHasNotScoreForTurnYet(currentUser) && !playerOvertried(remoteAddress);
 }
 
+function isRotatePlayerStep(){
+  var stepQuestion = stepQuestions[turn - 1];
+  console.log(stepQuestion + " " + rotateStep);
+
+  return stepQuestion === rotateStep;
+}
+
 function decrementTrialsLeft(remoteAddress) {
   if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
     competitorsWithTries[remoteAddress] = 3;
@@ -135,9 +151,30 @@ module.exports = function (io) {
           if (success) {
             responseBody.success = true;
             if (playerCanStillPlayForThisTurn(currentUser, remoteAddress)) {
-              scoredPoints = nextScoredPoints();
-              scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = {score: scoredPoints};
-              scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
+              if(isRotatePlayerStep()){
+                scoredPoints = nextScoredPoints();
+
+                var destinationName = currentUser.name;
+                var sourceName = rotatedRegisteredPlayers[destinationName];
+
+                var destinationScoredPoints = scoredPoints * rotateScoringRepartition.destination;
+                var sourceScorePoints = scoredPoints * rotateScoringRepartition.source;
+
+                console.log('rotation : dest ' + destinationName + " - " + destinationScoredPoints);
+                console.log('rotation : source ' + sourceName + " - " + sourceScorePoints);
+
+                scoreBoard[destinationName].details.scoresByTurn[turn - 1] = {score: destinationScoredPoints};
+                scoreBoard[destinationName].total = destinationScoredPoints + scoreBoard[destinationName].total;
+
+                initScoresOfPlayerIfNeeded(_.find(registeredClients, 'name', sourceName));
+                scoreBoard[sourceName].details.scoresByTurn[turn - 1] = {score: sourceScorePoints};
+                scoreBoard[sourceName].total = sourceScorePoints + scoreBoard[sourceName].total;
+
+              }else{
+                scoredPoints = nextScoredPoints();
+                scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = {score: scoredPoints};
+                scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
+              }
             }
           }
 
@@ -159,18 +196,16 @@ module.exports = function (io) {
     },
 
     rotatePlayers: function (req, res) {
-      var rotatedRegisteredPlayers = [];
+      rotatedRegisteredPlayers = {};
       for (var i = 0; i < registeredClients.length; i++) {
         var playerNameToCopyIndex = (i + 1) % registeredClients.length;
         var playerNameToCopy = registeredClients[playerNameToCopyIndex].name;
-        var mixedUpPlayer = {name: playerNameToCopy, ip: registeredClients[i].ip};
-        rotatedRegisteredPlayers.push(mixedUpPlayer);
+        rotatedRegisteredPlayers[playerNameToCopy] = registeredClients[i].name;
       }
 
-      registeredClients = rotatedRegisteredPlayers;
-      console.log("New array of registeredClients: " + JSON.stringify(registeredClients));
-      io.emit('client', registeredClients);
-      res.send('OK')
+      console.log("New array of registeredClients: " + JSON.stringify(rotatedRegisteredPlayers));
+      io.emit('rotatedPlayers', rotatedRegisteredPlayers);
+      res.send(rotatedRegisteredPlayers)
     },
 
     register: function (name, clientIp) {

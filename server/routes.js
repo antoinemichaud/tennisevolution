@@ -13,8 +13,8 @@ var registeredClients = [];
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 var competitorsWithTries = {};
-var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'noAvantageScoring', 'servicesScoring', 'withLifeScoring', 'sets/displayScore'];
-var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame', 'generateGame', 'generateSet'];
+var stepQuestions = ['displayScore', 'displayAlternativeScore', 'displayFrenchScore', 'noAvantageScoring', 'withLifeScoring', 'sets/displayScore', 'servicesScoring'];
+var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
 
 var availablePoints = {
   1: _.clone(stackPoints),
@@ -53,8 +53,8 @@ function sendQuestion(response, remoteAddress) {
 
       return Promise.props({
         question: questionAsObject,
-        //candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
-        candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
+        candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
+        //candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
           }),

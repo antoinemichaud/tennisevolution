@@ -20,7 +20,7 @@ public class MethodsTestApi {
 
     public static void main(String[] args) {
         TennisGameKataContainer tennisGameKataContainer = new TennisGameKataContainer();
-        tennis.game.services.TennisGameKataContainer tennisServiceGameKataContainer = new tennis.game.services.TennisGameKataContainer();
+        tennis.set.services.TennisSetKataContainer tennisServiceGameKataContainer = new tennis.set.services.TennisSetKataContainer();
         tennis.game.noavantage.TennisGameKataContainer tennisNoAvantageGameKataContainer = new tennis.game.noavantage.TennisGameKataContainer();
         tennis.game.withlife.TennisGameKataContainer tennisWithLifeGameKataContainer = new tennis.game.withlife.TennisGameKataContainer();
         TennisSetKataContainer tennisSetKataContainer = new TennisSetKataContainer();
@@ -47,11 +47,10 @@ public class MethodsTestApi {
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/servicesScoring", (context) -> tennisServiceGameKataContainer
-                                .displayScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score"), new Random().nextInt(3 - 1) + 1))
+                        .get("/servicesScoring", (context) -> {
+                            List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
+                            return tennisServiceGameKataContainer.displayScore(scores);
+                        })
                         .get("/withLifeScoring", (context) -> tennisWithLifeGameKataContainer
                                 .displayScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
@@ -131,6 +130,17 @@ public class MethodsTestApi {
                                     List<List<Integer>> gameQuestions = new ArrayList<>();
                                     for (int i = 0; i < 10; i++) {
                                         gameQuestions.add(new Random().ints(new Random().nextInt((90 - 30) + 1) + 30, 1, 3).boxed().collect(toList()));
+                                    }
+                                    return gameQuestions;
+                                }
+                        )
+                        .get("/generateTest/generateServicesSet", context -> {
+                                    List<List<Integer>> gameQuestions = new ArrayList<>();
+                                    for (int i = 0; i < 10; i++) {
+                                        List<Integer> question = new ArrayList<Integer>();
+                                        question.add(new Random().nextInt(3 - 1) + 1);
+                                        question.addAll(new Random().ints(new Random().nextInt((90 - 30) + 1) + 30, 1, 3).boxed().collect(toList()));
+                                        gameQuestions.add(question);
                                     }
                                     return gameQuestions;
                                 }

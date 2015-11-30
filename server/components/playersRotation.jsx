@@ -14,6 +14,10 @@ var PlayersRotation = React.createClass({
 
   render: function () {
     var self = this;
+    if (this.props.playersChanges.length === 0) {
+      return <div></div>;
+    }
+
     return (
       <div>
         <h2>Rotations à effectuer</h2>

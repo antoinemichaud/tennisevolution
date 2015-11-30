@@ -10,7 +10,8 @@ module.exports = DeathmatchApp = React.createClass({
     return {
       clients: [],
       scores: {},
-      turn: 1
+      turn: 1,
+      playersChanges: []
     };
   },
 
@@ -23,6 +24,7 @@ module.exports = DeathmatchApp = React.createClass({
     socket.on('initClients', this.initClients);
     socket.on('refreshScores', this.refreshScores);
     socket.on('turn', this.turn);
+    socket.on('rotatedPlayers', this.playersChanges);
     this.setState({socket: socket});
   },
 
@@ -38,7 +40,6 @@ module.exports = DeathmatchApp = React.createClass({
     });
   },
 
-
   refreshScores: function(scores) {
     this.setState({
       scores: scores
@@ -48,6 +49,12 @@ module.exports = DeathmatchApp = React.createClass({
   turn: function(turn) {
     this.setState({
       turn: turn
+    })
+  },
+
+  playersChanges: function(playersChanges) {
+    this.setState({
+      playersChanges: playersChanges
     })
   },
 
@@ -99,7 +106,7 @@ module.exports = DeathmatchApp = React.createClass({
         <h2> Participants: </h2>
         <ul> {content} </ul>
 
-        <PlayersRotation playersChanges={playersChanges}/>
+        <PlayersRotation playersChanges={this.state.playersChanges}/>
 
         <h2> Alternate Scores: </h2>
         <table>

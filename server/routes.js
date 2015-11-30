@@ -125,6 +125,33 @@ function initScoresOfPlayerIfNeeded(currentUser) {
   }
 }
 
+function cleanRemoteAddress(remoteAddress){
+    if(_.contains(remoteAddress, '::ffff:')){
+        return remoteAddress.replace('::ffff:','');
+    }else{
+        return remoteAddress;
+    }
+}
+function scoreWithRotation(currentUser){
+    var scoredPoints = nextScoredPoints();
+
+    var destinationName = currentUser.name;
+    var sourceName = rotatedRegisteredPlayers[destinationName];
+
+    var destinationScoredPoints = scoredPoints * rotateScoringRepartition.destination;
+    var sourceScorePoints = scoredPoints * rotateScoringRepartition.source;
+
+    console.log('rotation : dest ' + destinationName + " - " + destinationScoredPoints);
+    console.log('rotation : source ' + sourceName + " - " + sourceScorePoints);
+
+    scoreBoard[destinationName].details.scoresByTurn[turn - 1] = {score: destinationScoredPoints};
+    scoreBoard[destinationName].total = destinationScoredPoints + scoreBoard[destinationName].total;
+
+    initScoresOfPlayerIfNeeded(_.find(registeredClients, 'name', sourceName));
+    scoreBoard[sourceName].details.bonus = {score: sourceScorePoints};
+    scoreBoard[sourceName].total = sourceScorePoints + scoreBoard[sourceName].total;
+}
+
 module.exports = function (io) {
   return {
     compare: function (req, res) {
@@ -132,10 +159,9 @@ module.exports = function (io) {
       console.log("availablePoints: " + availablePoints[turn]);
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
       console.log('remote address : ' + remoteAddress);
-      sendQuestion(res, remoteAddress)
+      sendQuestion(res, cleanRemoteAddress(remoteAddress))
         .then(function (success) {
           // Initialization
-          var scoredPoints = 0;
           var currentUser = _.find(registeredClients, function (registeredClient) {
             return registeredClient.ip === remoteAddress;
           });
@@ -152,26 +178,13 @@ module.exports = function (io) {
             responseBody.success = true;
             if (playerCanStillPlayForThisTurn(currentUser, remoteAddress)) {
               if(isRotatePlayerStep()){
-                scoredPoints = nextScoredPoints();
-
-                var destinationName = currentUser.name;
-                var sourceName = rotatedRegisteredPlayers[destinationName];
-
-                var destinationScoredPoints = scoredPoints * rotateScoringRepartition.destination;
-                var sourceScorePoints = scoredPoints * rotateScoringRepartition.source;
-
-                console.log('rotation : dest ' + destinationName + " - " + destinationScoredPoints);
-                console.log('rotation : source ' + sourceName + " - " + sourceScorePoints);
-
-                scoreBoard[destinationName].details.scoresByTurn[turn - 1] = {score: destinationScoredPoints};
-                scoreBoard[destinationName].total = destinationScoredPoints + scoreBoard[destinationName].total;
-
-                initScoresOfPlayerIfNeeded(_.find(registeredClients, 'name', sourceName));
-                scoreBoard[sourceName].details.scoresByTurn[turn - 1] = {score: sourceScorePoints};
-                scoreBoard[sourceName].total = sourceScorePoints + scoreBoard[sourceName].total;
-
+                  if (_.isEmpty(rotatedRegisteredPlayers)) {
+                      res.status(400).send("No rotation planned");
+                      return;
+                  }
+                  scoreWithRotation(currentUser);
               }else{
-                scoredPoints = nextScoredPoints();
+                var scoredPoints = nextScoredPoints();
                 scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = {score: scoredPoints};
                 scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
               }
@@ -183,6 +196,8 @@ module.exports = function (io) {
           io.emit('refreshScores', scoreBoard);
           res.send(responseBody);
           console.log('scoreBoard: ' + scoreBoard);
+          console.log("remoteaddress: " + remoteAddress);
+
         });
     },
 

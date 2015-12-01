@@ -1,10 +1,9 @@
-var JSX = require('node-jsx').install(),
-  React = require('react'),
+var
   _ = require('lodash'),
   Promise = require('bluebird'),
   request = require('request'),
-  requestIp = require('request-ip'),
-  APP = require('./app');
+  requestIp = require('request-ip')
+;
 
 var requestAsync = Promise.promisify(request);
 
@@ -236,11 +235,6 @@ module.exports = function (io) {
         userToChangeName.name = name;
       }
       io.emit('client', registeredClients);
-    },
-
-    index: function (req, res) {
-      var markup = React.renderToString(APP());
-      res.send(markup);
     },
 
     init: function () {

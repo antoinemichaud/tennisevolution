@@ -212,8 +212,8 @@ module.exports = function (io) {
     rotatePlayers: function (req, res) {
       rotatedRegisteredPlayers = {};
       for (var i = 0; i < registeredClients.length; i++) {
-        var playerNameToCopyIndex = (i + 1) % registeredClients.length;
-        var playerNameToCopy = registeredClients[playerNameToCopyIndex].name;
+        var indexOfPlayerNameToCopy = (i + 1) % registeredClients.length;
+        var playerNameToCopy = registeredClients[indexOfPlayerNameToCopy].name;
         rotatedRegisteredPlayers[playerNameToCopy] = registeredClients[i].name;
       }
 

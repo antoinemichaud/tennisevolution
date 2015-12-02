@@ -7,7 +7,9 @@ var
 
 var requestAsync = Promise.promisify(request);
 
-var registeredClients = [];
+var registeredClients =
+  [ {name: 'Momo', ip: '456.789.123.1'},
+    {name: 'Marcel', ip: '789.123.453.25'}];
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
@@ -105,8 +107,6 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
 
 function isRotatePlayerStep(){
   var stepQuestion = stepQuestions[turn - 1];
-  console.log(stepQuestion + " " + rotateStep);
-
   return stepQuestion === rotateStep;
 }
 
@@ -151,6 +151,18 @@ function scoreWithRotation(currentUser){
     scoreBoard[sourceName].total = sourceScorePoints + scoreBoard[sourceName].total;
 }
 
+function _rotatePlayers() {
+  rotatedRegisteredPlayers = {};
+  for (var i = 0; i < registeredClients.length; i++) {
+    var indexOfPlayerNameToCopy = (i + 1) % registeredClients.length;
+    var playerNameToCopy = registeredClients[indexOfPlayerNameToCopy].name;
+    rotatedRegisteredPlayers[playerNameToCopy] = registeredClients[i].name;
+  }
+
+  console.log("New array of registeredClients: " + JSON.stringify(registeredClients));
+  console.log("New array of rotatedRegisteredPlayers: " + JSON.stringify(rotatedRegisteredPlayers));
+}
+
 module.exports = function (io) {
   return {
     compare: function (req, res) {
@@ -177,10 +189,6 @@ module.exports = function (io) {
             responseBody.success = true;
             if (playerCanStillPlayForThisTurn(currentUser, remoteAddress)) {
               if(isRotatePlayerStep()){
-                  if (_.isEmpty(rotatedRegisteredPlayers)) {
-                      res.status(400).send("No rotation planned");
-                      return;
-                  }
                   scoreWithRotation(currentUser);
               }else{
                 var scoredPoints = nextScoredPoints();
@@ -204,22 +212,15 @@ module.exports = function (io) {
       console.log(req.body);
       turn = req.body.turn;
       competitorsWithTries = {};
+      if (isRotatePlayerStep()) {
+          _rotatePlayers();
+      } else {
+        rotatedRegisteredPlayers = {};
+      }
       console.log ('turn : ' + turn);
+      io.emit('rotatedPlayers', rotatedRegisteredPlayers);
       io.emit('turn', turn);
       res.send('OK');
-    },
-
-    rotatePlayers: function (req, res) {
-      rotatedRegisteredPlayers = {};
-      for (var i = 0; i < registeredClients.length; i++) {
-        var indexOfPlayerNameToCopy = (i + 1) % registeredClients.length;
-        var playerNameToCopy = registeredClients[indexOfPlayerNameToCopy].name;
-        rotatedRegisteredPlayers[playerNameToCopy] = registeredClients[i].name;
-      }
-
-      console.log("New array of registeredClients: " + JSON.stringify(rotatedRegisteredPlayers));
-      io.emit('rotatedPlayers', rotatedRegisteredPlayers);
-      res.send(rotatedRegisteredPlayers)
     },
 
     register: function (name, clientIp) {

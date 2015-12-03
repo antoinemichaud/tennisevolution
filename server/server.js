@@ -47,3 +47,4 @@ app.use(bodyParser.json());
 
 app.post('/compare', routes.compare);
 app.post('/turn', routes.turn);
+app.post('/changeip', routes.changeip);

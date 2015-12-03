@@ -14,7 +14,7 @@ var PlayersRotation = React.createClass({
 
   render: function () {
     var self = this;
-    if (this.props.playersChanges.length === 0) {
+    if (Object.keys(this.props.playersChanges).length === 0) {
       return <div></div>;
     }
 
@@ -30,13 +30,12 @@ var PlayersRotation = React.createClass({
           </tr>
           </thead>
           <tbody>
-          {Object.keys(this.props.playersChanges).map(function(playerName) {
-            return (
+          {Object.keys(this.props.playersChanges).map(playerName =>
             <tr>
               <td>{playerName}</td>
               <td> -&gt; </td>
               <td>{self.props.playersChanges[playerName]}</td>
-            </tr>)}
+            </tr>
             )}
           </tbody>
         </table>

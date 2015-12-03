@@ -8,8 +8,7 @@ var
 var requestAsync = Promise.promisify(request);
 
 var registeredClients =
-  [ {name: 'Momo', ip: '456.789.123.1'},
-    {name: 'Marcel', ip: '789.123.453.25'}];
+  [];
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];

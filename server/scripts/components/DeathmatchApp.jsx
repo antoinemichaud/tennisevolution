@@ -93,8 +93,6 @@ module.exports = DeathmatchApp = React.createClass({
       </tr>);
     });
 
-    var playersChanges = {player1: 'player2', player2: 'player1'};
-
     return (
       <div>
         <h2> Turn: {this.state.turn}</h2>
@@ -104,12 +102,12 @@ module.exports = DeathmatchApp = React.createClass({
           <input type="submit" value="Register"/>
         </form>
 
-        <h2> Participants: </h2>
+        <h1> Participants: </h1>
         <ul> {content} </ul>
 
         <PlayersRotation playersChanges={this.state.playersChanges}/>
 
-        <h2> Alternate Scores: </h2>
+        <h1> Scores: </h1>
         <table>
           <tr>
             <th>Player</th>

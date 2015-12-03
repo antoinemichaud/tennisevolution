@@ -59,16 +59,19 @@ function sendQuestion(response, remoteAddress) {
           '?scores=' + questionAsObject;
 
       }
-      console.log('query to serveur: ' + 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam);
+      console.log('query to server: ' + 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam);
 
       return Promise.props({
         question: questionAsObject,
-        candidateResult: requestAsync('http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam)
+        candidateResult: requestAsync({url: 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam, timeout: 3000})
         //candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
           .spread(function (candidateResultResponse, candidateResultBody) {
             return candidateResultBody;
+          })
+          .catch(function (exception) {
+            throw new Exception(exception);
           }),
-        referenceResult: requestAsync('http://localhost:8080/' + stepQuestion + questionAsQueryParam)
+        referenceResult: requestAsync({url:'http://localhost:8080/' + stepQuestion + questionAsQueryParam, timeout: 3000})
           .spread(function (referenceResultResponse, referenceResultBody) {
             return referenceResultBody;
           })
@@ -82,7 +85,9 @@ function sendQuestion(response, remoteAddress) {
     .reduce(function (aggregation, comparisonResult) {
       return aggregation && comparisonResult;
     }, true)
-    ;
+    .catch(function (exception) {
+      throw new Exception(exception);
+    });
 }
 
 function playerHasNotScoreForTurnYet(currentUser) {
@@ -205,6 +210,9 @@ module.exports = function (io) {
           console.log('scoreBoard: ' + scoreBoard);
           console.log("remoteaddress: " + remoteAddress);
 
+        })
+        .catch(function () {
+          res.status(500).send('Your server timed out.');
         });
     },
 

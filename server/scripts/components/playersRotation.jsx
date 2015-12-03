@@ -20,7 +20,7 @@ var PlayersRotation = React.createClass({
 
     return (
       <div>
-        <h2>Rotations à effectuer</h2>
+        <h1>Rotations à effectuer</h1>
         <table>
           <thead>
           <tr>

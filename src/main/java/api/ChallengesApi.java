@@ -11,8 +11,9 @@ public class ChallengesApi {
         new WebServer().configure(
                 routes -> routes
                         .get("/displayScore", (context) -> tennisService
-                                .displayScore(
+                                .displayScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
         ).start(8080);
     }

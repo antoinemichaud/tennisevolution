@@ -44,7 +44,10 @@ public class ChallengesApi {
                             List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
                             return tennisService.displaySetScore(scores);
                         })
-
+                        .get("/servicesScoring", (context) -> {
+                            List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
+                            return tennisService.displaySetScoreWithServices(scores);
+                        })
         ).start(8080);
     }
 

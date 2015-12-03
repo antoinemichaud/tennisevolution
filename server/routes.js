@@ -225,15 +225,9 @@ module.exports = function (io) {
 
     register: function (name, clientIp) {
       console.log(name, clientIp);
-      if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp)) {
+      if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp) && !_.contains(_.pluck(registeredClients, 'name'), name)) {
         var newUser = {name: name, ip: clientIp};
         registeredClients.push(newUser);
-      } else {
-        var userToChangeName = _.find(registeredClients, function(client) {
-          return client.ip === clientIp;
-        });
-
-        userToChangeName.name = name;
       }
       io.emit('client', registeredClients);
     },

@@ -68,7 +68,7 @@ public class TennisTest {
     }
 
     public void checkAllScores(TennisService game) {
-        assertEquals(this.expectedScore, game.displayScore(this.player1Score, this.player2Score));
+        assertEquals(this.expectedScore, game.displayScore("player1", this.player1Score, "player2", this.player2Score));
     }
 
     @Test

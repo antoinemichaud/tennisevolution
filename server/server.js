@@ -48,3 +48,7 @@ app.use(bodyParser.json());
 app.post('/compare', routes.compare);
 app.post('/turn', routes.turn);
 app.post('/changeip', routes.changeip);
+app.post('/ping', routes.pingClients);
+app.post('/stopPing', routes.stopPingClients);
+app.post('/pingThisClientAgain', routes.pingThisClientAgain);
+app.post('/dontPingThisClient', routes.dontPingThisClient);

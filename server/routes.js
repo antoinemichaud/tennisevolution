@@ -1,14 +1,18 @@
 var
-    _ = require('lodash'),
-    Promise = require('bluebird'),
-    request = require('request'),
-    requestIp = require('request-ip')
-    ;
+  _ = require('lodash'),
+  Promise = require('bluebird'),
+  request = require('request'),
+  requestIp = require('request-ip'),
+  ping = require('ping')
+  ;
 
 var requestAsync = Promise.promisify(request);
 
 var registeredClients =
     [];
+
+var dontPingAnymore = ['456.789.123.1'];
+var timerRef = {};
 
 var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
@@ -166,8 +170,56 @@ function _rotatePlayers() {
   console.log("New array of rotatedRegisteredPlayers: " + JSON.stringify(rotatedRegisteredPlayers));
 }
 
+function triggerPings() {
+  console.log('ping triggered');
+  timerRef = setInterval(function () {
+    registeredClients.forEach(function (registeredClient) {
+      console.log("will try ping");
+      if (dontPingAnymore.indexOf(registeredClient.ip) === -1) {
+          console.log("will ping");
+          ping.promise
+            .probe(registeredClient.ip, {timeout: 3})
+            .then(function (result) {
+              console.log("ping result : " + JSON.stringify(result));
+            })
+            .catch(function (error) {
+              console.log("ping error : " + error);
+            });
+        }
+      }
+    )
+  }, 2000);
+}
 module.exports = function (io) {
   return {
+    pingClients: function (req, res) {
+      triggerPings();
+      res.send();
+    },
+
+    stopPingClients: function (req, res) {
+      clearInterval(timerRef);
+      res.send();
+    },
+
+    pingThisClientAgain: function (req, res) {
+      var clientIp = req.body.clientIp;
+      dontPingAnymore = dontPingAnymore.filter(function (elt) {
+        return clientIp != elt
+      });
+      clearInterval(timerRef);
+      triggerPings();
+      res.send();
+    },
+
+    dontPingThisClient: function (req, res) {
+      var clientIp = req.body.clientIp;
+      dontPingAnymore.push(clientIp);
+      clearInterval(timerRef);
+      triggerPings();
+      res.send();
+    },
+
     compare: function (req, res) {
       var responseBody = {success: false};
       console.log("availablePoints: " + availablePoints[turn]);

@@ -1,7 +1,6 @@
 package api;
 
 import net.codestory.http.WebServer;
-import tennis.TennisAlternativeService;
 import tennis.TennisService;
 
 public class ChallengesApi {

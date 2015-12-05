@@ -94,7 +94,7 @@ module.exports = DeathmatchApp = React.createClass({
 
     return (
       <div>
-        <h2> Turn: {this.state.turn}</h2>
+        <h3> Turn: {this.state.turn}</h3>
 
         <form className="addParticipant" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="Your name" ref="author"/>

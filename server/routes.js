@@ -18,8 +18,8 @@ var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
 var competitorsWithTries = {};
-var stepQuestions = ['displayAlternativeScore', 'displayFrenchScore', 'noAvantageScoring', 'withLifeScoring', 'sets/displayScore', 'servicesScoring'];
-var stepGenerators = ['generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
+var stepQuestions = ['displayAlternativeScore', 'noAvantageScoring', 'withLifeScoring', 'sets/displayScore', 'servicesScoring'];
+var stepGenerators = ['generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
 
 var rotateScoringRepartition = {
   source: 0.5,
@@ -35,8 +35,7 @@ var availablePoints = {
   3: _.clone(stackPoints),
   4: _.clone(stackPoints),
   5: _.clone(stackPoints),
-  6: _.clone(stackPoints),
-  7: _.clone(stackPoints)
+  6: _.clone(stackPoints)
 };
 
 var scoreBoard = {};
@@ -53,7 +52,7 @@ function sendQuestion(response, remoteAddress) {
       })
       .map(function (questionAsObject) {
         var questionAsQueryParam;
-        if (turn < 5) {
+        if (turn < 4) {
           questionAsQueryParam = '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
               '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
         } else {

@@ -170,6 +170,16 @@ function _rotatePlayers() {
   console.log("New array of rotatedRegisteredPlayers: " + JSON.stringify(rotatedRegisteredPlayers));
 }
 
+function _refreshRanking() {
+  var totaux = _.pluck(scoreBoard, 'total');
+  totaux = _.sortBy(totaux, function (num) {
+    return num * -1;
+  });
+  _.each(scoreBoard, function (user) {
+    user.ranking = _.indexOf(totaux, user.total) + 1;
+  });
+}
+
 function triggerPings() {
   console.log('ping triggered');
   timerRef = setInterval(function () {
@@ -250,6 +260,8 @@ module.exports = function (io) {
                   scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = {score: scoredPoints};
                   scoreBoard[currentUser.name].total = scoredPoints + scoreBoard[currentUser.name].total;
                 }
+
+                _refreshRanking();
               }
             }
 

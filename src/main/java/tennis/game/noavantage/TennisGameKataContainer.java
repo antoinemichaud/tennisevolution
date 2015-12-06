@@ -29,7 +29,7 @@ public class TennisGameKataContainer {
 
     public String displayGermanScore(String player1, int player1Score, String player2, int player2Score) {
         TennisGame tennisGame = new TennisGame();
-        TennisGameDisplayer tennisGameDisplayer = new FrenchGameDisplayer(player1, player2, tennisGame);
+        TennisGameDisplayer tennisGameDisplayer = new GermanGameDisplayer(player1, player2, tennisGame);
         TennisGameUtils.initScores(tennisGame, player1, player1Score, player2, player2Score);
         return getScore(tennisGameDisplayer);
     }

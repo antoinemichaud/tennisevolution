@@ -37,7 +37,8 @@ var stepQuestions =
       {candidate: 'displayFrenchScore', ref: 'withLifeScoring/displayFrenchScore'},
       {candidate: 'displayGermanScore', ref: 'withLifeScoring/displayGermanScore'}],
     [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
-    [{candidate: 'servicesScoring', ref: 'servicesScoring'}]
+    //[{candidate: 'servicesScoring', ref: 'servicesScoring'}]
+    []
   ];
 var stepGenerators = ['generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
 
@@ -54,7 +55,8 @@ var availablePoints = {
   2: [55, 34, 21, 13, 8, 5, 3, 2, 1],
   3: [55, 34, 21, 13, 8, 5, 3, 2, 1],
   4: [55, 34, 21, 13, 8, 5, 3, 2, 1],
-  5: [55, 34, 21, 13, 8, 5, 3, 2, 1]
+  //5: [55, 34, 21, 13, 8, 5, 3, 2, 1],
+  5: [0]
 };
 
 var scoreBoard = {};

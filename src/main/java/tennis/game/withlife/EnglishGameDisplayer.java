@@ -2,16 +2,16 @@ package tennis.game.withlife;
 
 public class EnglishGameDisplayer extends TennisGameDisplayer {
 
-    public static final String LOVE_ALL = "Null-Null";
-    public static final String FIFTEEN_ALL = "Fünfzehn-Beide";
-    public static final String THIRTY_ALL = "Dreißig-Beide";
-    public static final String DEUCE = "Gleichstand";
-    public static final String ADVANTAGE = "Vorteil";
-    public static final String WIN_FOR = "Sieg für ";
-    public static final String LOVE = "Null";
-    public static final String FIFTEEN = "Fünfzehn";
-    public static final String THIRTY = "Dreißig";
-    public static final String FORTY = "Fierzig";
+    public static final String LOVE_ALL = "Love-All";
+    public static final String FIFTEEN_ALL = "Fifteen-All";
+    public static final String THIRTY_ALL = "Thirty-All";
+    public static final String DEUCE = "Deuce";
+    public static final String ADVANTAGE = "Advantage ";
+    public static final String WIN_FOR = "Win for ";
+    public static final String LOVE = "Love";
+    public static final String FIFTEEN = "Fifteen";
+    public static final String THIRTY = "Thirty";
+    public static final String FORTY = "Forty";
 
 
     public EnglishGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {

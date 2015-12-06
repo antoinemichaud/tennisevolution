@@ -280,8 +280,9 @@ module.exports = function (io) {
       var responseBody = {success: false};
       console.log("availablePoints: " + availablePoints[turn]);
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
+      remoteAddress = cleanRemoteAddress(remoteAddress);
       console.log('remote address : ' + remoteAddress);
-      sendQuestion(res, cleanRemoteAddress(remoteAddress))
+      sendQuestion(res, remoteAddress)
           .then(function (result) {
             // Initialization
             var currentUser = _.find(registeredClients, function (registeredClient) {
@@ -352,6 +353,7 @@ module.exports = function (io) {
     },
 
     register: function (name, clientIp) {
+      clientIp = cleanRemoteAddress(clientIp);
       console.log(name, clientIp);
       if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp) && !_.contains(_.pluck(registeredClients, 'name'), name)) {
         var newUser = {name: name, ip: clientIp};
@@ -364,6 +366,7 @@ module.exports = function (io) {
       var self = this;
       io.on('connection', function (socket) {
         var clientIp = socket.handshake.address != '::1' ? socket.handshake.address : '127.0.0.1';
+        clientIp = cleanRemoteAddress(clientIp);
         if (registeredClients.length > 0) {
           socket.emit('initClients', registeredClients);
           socket.emit('refreshScores', scoreBoard);

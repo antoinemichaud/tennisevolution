@@ -93,16 +93,11 @@ public class MethodsTestApi {
                                         context.query().getInteger("player2Score")))
 
 
-                        .get("/withLifeScoring", (context) -> tennisWithLifeGameKataContainer
-                                .displayScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
                         .get("/sets/displayScore", (context) -> {
                             List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
                             return tennisSetKataContainer.displayScore(scores);
                         })
-                        .get("/servicesScoring", (context) -> {
+                        .get("/sets/servicesScoring", (context) -> {
                             List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
                             return tennisServiceGameKataContainer.displayScore(scores);
                         })

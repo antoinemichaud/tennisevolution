@@ -36,7 +36,6 @@ var stepQuestions =
       {candidate: 'displayAlternativeScore', ref: 'withLifeScoring/displayAlternativeScore'},
       {candidate: 'displayFrenchScore', ref: 'withLifeScoring/displayFrenchScore'},
       {candidate: 'displayGermanScore', ref: 'withLifeScoring/displayGermanScore'}],
-    [{candidate: 'withLifeScoring', ref: 'withLifeScoring'}],
     [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
     [{candidate: 'servicesScoring', ref: 'servicesScoring'}]
   ];

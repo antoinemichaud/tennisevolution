@@ -51,10 +51,10 @@ public class TennisSet extends Observable {
     public String score() {
         String playersScore = player1wonGames + "-" + player2wonGames + " ";
         if (player1wonGames.get() >= 6) {
-            return playersScore + "Set for player1!";
+            return "Set for player1!";
         }
         if (player2wonGames.get() >= 6) {
-            return playersScore + "Set for player2!";
+            return "Set for player2!";
         }
         return playersScore + tennisGameDisplayer.getScore();
     }

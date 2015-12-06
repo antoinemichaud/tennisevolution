@@ -54,12 +54,12 @@ public class TennisTest {
                 { 4, 1, "Win for player1", "Game player1!", "Jeu player1", "Spiel player1"},
                 { 1, 4, "Win for player2", "Game player2!", "Jeu player2", "Spiel player2"},
 
-                { 4, 3, "Win for player1", "Game player1!", "Jeu player1", "Vorteil player1"},
-                { 3, 4, "Win for player2", "Game player2!", "Jeu player2", "Vorteil player2"},
-                { 5, 4, "Win for player1", "Game player1!", "Jeu player1", "Vorteil player1"},
-                { 4, 5, "Win for player2", "Game player2!", "Jeu player2", "Vorteil player2"},
-                { 15, 14, "Win for player1", "Game player1!", "Jeu player1", "Vorteil player1"},
-                { 14, 15, "Win for player2", "Game player2!", "Jeu player2", "Vorteil player2"},
+                { 4, 3, "Advantage player1", "A-40", "Avantage player1", "Vorteil player1"},
+                { 3, 4, "Advantage player2", "40-A", "Avantage player2", "Vorteil player2"},
+                { 5, 4, "Advantage player1", "A-40", "Avantage player1", "Vorteil player1"},
+                { 4, 5, "Advantage player2", "40-A", "Avantage player2", "Vorteil player2"},
+                { 15, 14, "Advantage player1", "A-40", "Avantage player1", "Vorteil player1"},
+                { 14, 15, "Advantage player2", "40-A", "Avantage player2", "Vorteil player2"},
 
                 { 6, 4, "Win for player1", "Game player1!", "Jeu player1", "Spiel player1"},
                 { 4, 6, "Win for player2", "Game player2!", "Jeu player2", "Spiel player2"},

@@ -8,9 +8,18 @@ public class TennisGame {
     private int player1Score;
     private int player2Score;
 
+    public TennisGame() {
+        player1Score = 0;
+        player2Score = 0;
+    }
+
+    public void player1WinPoint() {
+        player1Score++;
+    }
+
     public TennisGame(int player1Score, int player2Score) {
-        this.player1Score = Math.max(0, player1Score - 1);
-        this.player2Score = Math.max(0, player2Score - 1);
+        this.player1Score = player1Score;
+        this.player2Score = player2Score;
     }
 
     private TennisScores globalScoreAsStringForEquality() {
@@ -38,9 +47,9 @@ public class TennisGame {
 
     private TennisScores globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
-//        if (scoreDiff == 1) return scores(ADVANTAGE, FORTY);
-//        else if (scoreDiff == -1) return scores(FORTY, ADVANTAGE);
-        if (scoreDiff >= 1) return scores(GAME, ANY);
+        if (scoreDiff == 1) return scores(ADVANTAGE, FORTY);
+        else if (scoreDiff == -1) return scores(FORTY, ADVANTAGE);
+        if (scoreDiff >= 2) return scores(GAME, ANY);
         else return scores(ANY, GAME);
     }
 
@@ -59,5 +68,9 @@ public class TennisGame {
 
     boolean endOfGame() {
         return player1Score >= 4 || player2Score >= 4;
+    }
+
+    public void player2WinPoint() {
+        player2Score++;
     }
 }

@@ -12,7 +12,7 @@ public class TennisGameTest {
         TennisGame tennisGame = new TennisGame(1, 1);
 
         // When / Then
-        assertThat(tennisGame.score()).isEqualTo(TennisScores.scores(TennisScore.ZERO, TennisScore.ZERO));
+        assertThat(tennisGame.score()).isEqualTo(TennisScores.scores(TennisScore.FIFTEEN, TennisScore.FIFTEEN));
     }
 
     @Test
@@ -21,7 +21,7 @@ public class TennisGameTest {
         TennisGame tennisGame = new TennisGame(2, 2);
 
         // When / Then
-        assertThat(tennisGame.score()).isEqualTo(TennisScores.scores(TennisScore.FIFTEEN, TennisScore.FIFTEEN));
+        assertThat(tennisGame.score()).isEqualTo(TennisScores.scores(TennisScore.THIRTY, TennisScore.THIRTY));
     }
 
     @Test
@@ -30,6 +30,6 @@ public class TennisGameTest {
         TennisGame tennisGame = new TennisGame(5, 4);
 
         // When / Then
-        assertThat(tennisGame.score()).isEqualTo(TennisScores.scores(TennisScore.GAME, TennisScore.ANY));
+        assertThat(tennisGame.score()).isEqualTo(TennisScores.scores(TennisScore.ADVANTAGE, TennisScore.FORTY));
     }
 }

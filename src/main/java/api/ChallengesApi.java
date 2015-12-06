@@ -35,7 +35,7 @@ public class ChallengesApi {
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/sets/displaySetScore", (context) -> {
+                        .get("/sets/displayScore", (context) -> {
                             List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
                             return tennisService.displaySetScore(scores);
                         })

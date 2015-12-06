@@ -32,17 +32,28 @@ public class TennisEnglishDisplayer {
         }
     }
 
+    public TennisEnglishDisplayer() {
+    }
+
+    public TennisEnglishDisplayer(TennisGame tennisGame) {
+        this.tennisGame = tennisGame;
+    }
+
     public String displayScore(String player1Name, int player1ScoreNum, String player2Name, int player2ScoreNum) {
         tennisGame = new TennisGame(player1ScoreNum, player2ScoreNum);
         TennisScores tennisScores = tennisGame.score();
-        this.player1Score = tennisScores.player1;
-        this.player2Score = tennisScores.player2;
-        if (player1Score == player2Score) {
+        return displayScore(tennisScores.player1, tennisScores.player2);
+    }
+
+    public String displayScore(TennisScore player1Score, TennisScore player2Score) {
+        this.player1Score = player1Score;
+        this.player2Score = player2Score;
+        if (this.player1Score == this.player2Score) {
             return globalScoreAsStringForEquality();
         } else if (tennisGame.endOfGame()) {
             return globalScoreAsStringForPointEnd();
         } else {
-            return singlePlayerScoreAsString(player1Score) + "-" + singlePlayerScoreAsString(player2Score);
+            return singlePlayerScoreAsString(this.player1Score) + "-" + singlePlayerScoreAsString(this.player2Score);
         }
     }
 

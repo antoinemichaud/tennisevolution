@@ -40,4 +40,8 @@ public class TennisSet {
             return PLAYER_1_WON;
         return PLAYER_2_WON;
     }
+
+    public TennisGame getTennisGame() {
+        return tennisGame;
+    }
 }

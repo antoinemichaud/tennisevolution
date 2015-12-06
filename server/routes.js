@@ -160,7 +160,7 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
 
 function isRotatePlayerStep() {
   //var stepQuestion = stepQuestions[turn - 1];
-  return turn === 4;
+  return turn === 3;
 }
 
 function decrementTrialsLeft(remoteAddress) {

@@ -11,7 +11,7 @@ var requestAsync = Promise.promisify(request);
 var registeredClients =
     [];
 
-var dontPingAnymore = ['456.789.123.1'];
+var dontPingAnymore = [];
 var timerRef = {};
 
 var turn = 1;

@@ -30,17 +30,12 @@ public class ChallengesApi {
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/noAvantageScoring", (context) -> tennisService
-                                .displayScore(context.get("player1Name"),
+                        .get("/displayGermanScore", (context) -> tennisService
+                                .displayGermanScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/withLifeScoring", (context) -> tennisService
-                                .displayScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/sets/displayScore", (context) -> {
+                        .get("/sets/displaySetScore", (context) -> {
                             List<Integer> scores = Splitter.on(",").splitToList(context.get("scores")).stream().map(Integer::parseInt).collect(toList());
                             return tennisService.displaySetScore(scores);
                         })

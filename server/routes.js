@@ -18,7 +18,8 @@ var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
 var competitorsWithTries = {};
-var stepQuestions = ['displayAlternativeScore', 'noAvantageScoring', 'withLifeScoring', 'sets/displayScore', 'servicesScoring'];
+var stepQuestions = [{candidate: 'displayAlternativeScore', ref: 'displayAlternativeScore'}, {candidate: 'noAvantageScoring', ref: 'noAvantageScoring'}, {candidate: 'withLifeScoring', ref: 'withLifeScoring'}, {candidate: 'sets/displayScore', ref: 'sets/displayScore'},
+  {candidate: 'servicesScoring', ref: 'servicesScoring'}];
 var stepGenerators = ['generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
 
 var rotateScoringRepartition = {
@@ -41,7 +42,7 @@ var availablePoints = {
 var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
-  var stepQuestion = stepQuestions[turn - 1];
+  var stepQuestion = stepQuestions[turn - 1].ref;
   var stepGenerator = stepGenerators[turn - 1];
   console.log("stepQuestion: " + stepQuestion);
   console.log("stepGenerator: " + stepGenerator);
@@ -113,7 +114,7 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
 
 function isRotatePlayerStep() {
   var stepQuestion = stepQuestions[turn - 1];
-  return stepQuestion === rotateStep;
+  return stepQuestion.ref === rotateStep;
 }
 
 function decrementTrialsLeft(remoteAddress) {

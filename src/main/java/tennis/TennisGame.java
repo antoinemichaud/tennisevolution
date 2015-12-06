@@ -38,9 +38,9 @@ public class TennisGame {
 
     private TennisScores globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
-        if (scoreDiff == 1) return scores(ADVANTAGE, FORTY);
-        else if (scoreDiff == -1) return scores(FORTY, ADVANTAGE);
-        else if (scoreDiff >= 2) return scores(GAME, ANY);
+//        if (scoreDiff == 1) return scores(ADVANTAGE, FORTY);
+//        else if (scoreDiff == -1) return scores(FORTY, ADVANTAGE);
+        if (scoreDiff >= 1) return scores(GAME, ANY);
         else return scores(ANY, GAME);
     }
 

@@ -1,6 +1,6 @@
 package tennis;
 
-public class TennisService {
+public class TennisService2 {
 
     private String player1Name;
     private String player2Name;
@@ -17,13 +17,13 @@ public class TennisService {
     private String globalScoreAsStringForEquality() {
         switch (player1Score) {
             case 0:
-                return "Love-All";
+                return "0-0";
             case 1:
-                return "Fifteen-All";
+                return "15-15";
             case 2:
-                return "Thirty-All";
+                return "30-30";
             default:
-                return "Deuce";
+                return "40-40";
         }
     }
 
@@ -41,26 +41,23 @@ public class TennisService {
 
     private String globalScoreAsStringForPointEnd() {
         int scoreDiff = player1Score - player2Score;
-        if (scoreDiff == 1) return "Advantage player1";
-        else if (scoreDiff == -1) return "Advantage player2";
-        else if (scoreDiff >= 2) return "Win for player1";
-        else return "Win for player2";
+        if (scoreDiff == 1) return "A-40";
+        else if (scoreDiff == -1) return "40-A";
+        else if (scoreDiff >= 2) return "Game player1!";
+        else return "Game player2!";
     }
 
     private String singlePlayerScoreAsString(int playerScore) {
         switch (playerScore) {
             case 0:
-                return "Love";
+                return "0";
             case 1:
-                return "Fifteen";
+                return "15";
             case 2:
-                return "Thirty";
+                return "30";
             default:
-                return "Forty";
+                return "40";
         }
     }
 
-    public String displayAlternativeScore(String player1Name, int player1Score, String player2Name, int player2Score) {
-        return new TennisService2().displayScore(player1Name, player1Score, player2Name, player2Score);
-    }
 }

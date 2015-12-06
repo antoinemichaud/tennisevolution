@@ -18,8 +18,11 @@ var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
 var competitorsWithTries = {};
-var stepQuestions = [{candidate: 'displayAlternativeScore', ref: 'displayAlternativeScore'}, {candidate: 'noAvantageScoring', ref: 'noAvantageScoring'}, {candidate: 'withLifeScoring', ref: 'withLifeScoring'}, {candidate: 'sets/displayScore', ref: 'sets/displayScore'},
-  {candidate: 'servicesScoring', ref: 'servicesScoring'}];
+var stepQuestions = [[{candidate: 'displayScore', ref: 'displayScore'}, {candidate: 'displayAlternativeScore', ref: 'displayAlternativeScore'}],
+  [{candidate: 'noAvantageScoring', ref: 'noAvantageScoring'}],
+  [{candidate: 'withLifeScoring', ref: 'withLifeScoring'}],
+  [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
+  [{candidate: 'servicesScoring', ref: 'servicesScoring'}]];
 var stepGenerators = ['generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
 
 var rotateScoringRepartition = {
@@ -42,7 +45,7 @@ var availablePoints = {
 var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
-  var stepQuestion = stepQuestions[turn - 1].ref;
+  var stepQuestion = stepQuestions[turn - 1];
   var stepGenerator = stepGenerators[turn - 1];
   console.log("stepQuestion: " + stepQuestion);
   console.log("stepGenerator: " + stepGenerator);
@@ -61,24 +64,39 @@ function sendQuestion(response, remoteAddress) {
               '?scores=' + questionAsObject;
 
         }
-        console.log('query to server: ' + 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam);
 
-        return Promise.props({
-          question: questionAsObject,
-          candidateResult: requestAsync({url: 'http://' + remoteAddress + ':8080/' + stepQuestion + questionAsQueryParam, timeout: 3000})
-          //candidateResult: requestAsync('http://' + remoteAddress + ':8083/' + stepQuestion + questionAsQueryParam)
+        var responsesAgainstRef = [];
+        stepQuestion.forEach(function(stepQuestionElt) {
+          console.log('query to server: ' + 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam);
+          responsesAgainstRef.push(Promise.props({
+            question: questionAsObject,
+            candidateResult: requestAsync({
+              url: 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam,
+              timeout: 3000
+            })
+            //candidateResult: requestAsync({
+            //  url: 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam,
+            //  timeout: 3000
+            //})
               .spread(function (candidateResultResponse, candidateResultBody) {
                 return candidateResultBody;
               })
               .catch(function (exception) {
                 throw new Exception(exception);
               }),
-          referenceResult: requestAsync({url: 'http://localhost:8080/' + stepQuestion + questionAsQueryParam, timeout: 3000})
+            referenceResult: requestAsync({
+              url: 'http://localhost:8080/' + stepQuestionElt.ref + questionAsQueryParam,
+              timeout: 3000
+            })
               .spread(function (referenceResultResponse, referenceResultBody) {
                 return referenceResultBody;
               })
+          }));
         });
+
+        return responsesAgainstRef;
       })
+      .then(_.flatten)
       .map(function (result) {
         console.log("candidate response : " + result.candidateResult);
         console.log("reference response :" + result.referenceResult);
@@ -113,8 +131,8 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
 }
 
 function isRotatePlayerStep() {
-  var stepQuestion = stepQuestions[turn - 1];
-  return stepQuestion.ref === rotateStep;
+  //var stepQuestion = stepQuestions[turn - 1];
+  return turn === 3;
 }
 
 function decrementTrialsLeft(remoteAddress) {

@@ -9,8 +9,8 @@ public class TennisGame {
     private int player2Score;
 
     public TennisGame(int player1Score, int player2Score) {
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
+        this.player1Score = Math.max(0, player1Score - 1);
+        this.player2Score = Math.max(0, player2Score - 1);
     }
 
     private TennisScores globalScoreAsStringForEquality() {

@@ -1,5 +1,7 @@
 package tennis;
 
+import java.util.Objects;
+
 public class TennisScores {
 
     public TennisScore player1;
@@ -14,4 +16,17 @@ public class TennisScores {
         return new TennisScores(player1, player2);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TennisScores that = (TennisScores) o;
+        return player1 == that.player1 &&
+                player2 == that.player2;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(player1, player2);
+    }
 }

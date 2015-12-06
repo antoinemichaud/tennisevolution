@@ -1,29 +1,32 @@
 package tennis;
 
-public class TennisService2 {
+public class TennisNumericDisplayer {
+
+    public static final String LOVE_ALL = "0-0";
+    public static final String FIFTEEN_ALL = "15-15";
+    public static final String THIRTY_ALL = "30-30";
+    public static final String DEUCE = "40-40";
+    public static final String WIN_FOR = "Game ";
+    public static final String LOVE = "0";
+    public static final String FIFTEEN = "15";
+    public static final String THIRTY = "30";
+    public static final String FORTY = "40";
 
     private String player1Name;
     private String player2Name;
     private int player1Score;
     private int player2Score;
 
-    public void wonPoint(String playerName) {
-        if (playerName.equals("player1"))
-            player1Score += 1;
-        else
-            player2Score += 1;
-    }
-
     private String globalScoreAsStringForEquality() {
         switch (player1Score) {
             case 0:
-                return "0-0";
+                return LOVE_ALL;
             case 1:
-                return "15-15";
+                return FIFTEEN_ALL;
             case 2:
-                return "30-30";
+                return THIRTY_ALL;
             default:
-                return "40-40";
+                return DEUCE;
         }
     }
 
@@ -43,20 +46,20 @@ public class TennisService2 {
         int scoreDiff = player1Score - player2Score;
         if (scoreDiff == 1) return "A-40";
         else if (scoreDiff == -1) return "40-A";
-        else if (scoreDiff >= 2) return "Game player1!";
-        else return "Game player2!";
+        else if (scoreDiff >= 2) return WIN_FOR + "player1!";
+        else return WIN_FOR + "player2!";
     }
 
     private String singlePlayerScoreAsString(int playerScore) {
         switch (playerScore) {
             case 0:
-                return "0";
+                return LOVE;
             case 1:
-                return "15";
+                return FIFTEEN;
             case 2:
-                return "30";
+                return THIRTY;
             default:
-                return "40";
+                return FORTY;
         }
     }
 

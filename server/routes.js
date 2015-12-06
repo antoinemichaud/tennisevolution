@@ -85,7 +85,8 @@ function sendQuestion(response, remoteAddress) {
                 throw new Exception(exception);
               }),
             referenceResult: requestAsync({
-              url: 'http://localhost:8080/' + stepQuestionElt.ref + questionAsQueryParam,
+              //url: 'http://localhost:8080/' + stepQuestionElt.ref + questionAsQueryParam,
+              url: 'http://localhost:8083/' + stepQuestionElt.ref + questionAsQueryParam,
               timeout: 3000
             })
               .spread(function (referenceResultResponse, referenceResultBody) {
@@ -98,8 +99,7 @@ function sendQuestion(response, remoteAddress) {
       })
       .then(_.flatten)
       .map(function (result) {
-        console.log("candidate response : " + result.candidateResult);
-        console.log("reference response :" + result.referenceResult);
+        console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
         return result.candidateResult === result.referenceResult;
       })
       .reduce(function (aggregation, comparisonResult) {

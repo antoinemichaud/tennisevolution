@@ -12,12 +12,12 @@ public class FrenchGameDisplayer extends TennisGameDisplayer {
 
     @Override
     protected String fifteenAll() {
-        return "Quinze A";
+        return "Quinze partout";
     }
 
     @Override
     protected String thirtyAll() {
-        return "Trente A";
+        return "Trente partout";
     }
 
     @Override
@@ -37,12 +37,12 @@ public class FrenchGameDisplayer extends TennisGameDisplayer {
 
     @Override
     protected String gameForPlayer1() {
-        return "Jeu pour " + player1Name;
+        return "Jeu " + player1Name;
     }
 
     @Override
     protected String gameForPlayer2() {
-        return "Jeu pour " + player2Name;
+        return "Jeu " + player2Name;
     }
 
     @Override

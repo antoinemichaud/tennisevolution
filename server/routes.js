@@ -18,7 +18,12 @@ var turn = 1;
 var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
 var competitorsWithTries = {};
-var stepQuestions = [[{candidate: 'displayScore', ref: 'displayScore'}, {candidate: 'displayAlternativeScore', ref: 'displayAlternativeScore'}],
+var stepQuestions =
+  [[{candidate: 'displayScore', ref: 'classic/displayScore'}, {candidate: 'displayAlternativeScore', ref: 'classic/displayAlternativeScore'}],
+  [{candidate: 'displayScore', ref: 'classic/displayScore'},
+    {candidate: 'displayAlternativeScore', ref: 'classic/displayAlternativeScore'},
+    {candidate: 'displayFrenchScore', ref: 'classic/displayFrenchScore'},
+    {candidate: 'displayGermanScore', ref: 'classic/displayGermanScore'}],
   [{candidate: 'noAvantageScoring', ref: 'noAvantageScoring'}],
   [{candidate: 'withLifeScoring', ref: 'withLifeScoring'}],
   [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
@@ -67,11 +72,12 @@ function sendQuestion(response, remoteAddress) {
 
         var responsesAgainstRef = [];
         stepQuestion.forEach(function(stepQuestionElt) {
-          console.log('query to server: ' + 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam);
+          var candidateUrl = 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam;
+          var refUrl = 'http://localhost:8083/' + stepQuestionElt.ref + questionAsQueryParam;
           responsesAgainstRef.push(Promise.props({
-            question: questionAsObject,
+            question: candidateUrl,
             candidateResult: requestAsync({
-              url: 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam,
+              url: candidateUrl,
               timeout: 3000
             })
             //candidateResult: requestAsync({
@@ -86,7 +92,7 @@ function sendQuestion(response, remoteAddress) {
               }),
             referenceResult: requestAsync({
               //url: 'http://localhost:8080/' + stepQuestionElt.ref + questionAsQueryParam,
-              url: 'http://localhost:8083/' + stepQuestionElt.ref + questionAsQueryParam,
+              url: refUrl,
               timeout: 3000
             })
               .spread(function (referenceResultResponse, referenceResultBody) {
@@ -99,8 +105,14 @@ function sendQuestion(response, remoteAddress) {
       })
       .then(_.flatten)
       .map(function (result) {
-        console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
-        return result.candidateResult === result.referenceResult;
+        //console.log('query to server: ' + result.question);
+        //console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
+        var comparisonResult = result.candidateResult === result.referenceResult;
+        if (!comparisonResult) {
+          console.log('query to server: ' + result.question);
+          console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
+        }
+        return comparisonResult;
       })
       .reduce(function (aggregation, comparisonResult) {
         return aggregation && comparisonResult;

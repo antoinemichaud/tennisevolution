@@ -61,6 +61,7 @@ var availablePoints = {
 var scoreBoard = {};
 
 function sendQuestion(response, remoteAddress) {
+  var errors = [];
   var stepQuestion = stepQuestions[turn - 1];
   var stepGenerator = stepGenerators[turn - 1];
   console.log("stepQuestion: " + stepQuestion);
@@ -121,6 +122,7 @@ function sendQuestion(response, remoteAddress) {
         //console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
         var comparisonResult = result.candidateResult === result.referenceResult;
         if (!comparisonResult) {
+          errors.push("expected " + result.referenceResult + " got " + result.candidateResult);
           console.log('query to candidate server: ' + result.candidateQuestion);
           console.log('query to ref server: ' + result.refQuestion);
           console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
@@ -128,7 +130,7 @@ function sendQuestion(response, remoteAddress) {
         return comparisonResult;
       })
       .reduce(function (aggregation, comparisonResult) {
-        return aggregation && comparisonResult;
+        return {errors : errors, success : aggregation && comparisonResult};
       }, true)
       .catch(function (exception) {
         throw new Exception(exception);
@@ -279,7 +281,7 @@ module.exports = function (io) {
       var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
       console.log('remote address : ' + remoteAddress);
       sendQuestion(res, cleanRemoteAddress(remoteAddress))
-          .then(function (success) {
+          .then(function (result) {
             // Initialization
             var currentUser = _.find(registeredClients, function (registeredClient) {
               return registeredClient.ip === remoteAddress;
@@ -293,7 +295,7 @@ module.exports = function (io) {
             initScoresOfPlayerIfNeeded(currentUser);
             decrementTrialsLeft(remoteAddress);
 
-            if (success) {
+            if (result.success) {
               responseBody.success = true;
               if (playerCanStillPlayForThisTurn(currentUser, remoteAddress)) {
                 if (isRotatePlayerStep()) {
@@ -310,6 +312,7 @@ module.exports = function (io) {
 
             responseBody.scoreInfo = scoreBoard[currentUser.name];
             responseBody.trialNumberLeft = competitorsWithTries[remoteAddress];
+            responseBody.errors = result.errors;
             io.emit('refreshScores', scoreBoard);
             res.send(responseBody);
             console.log('scoreBoard: ' + scoreBoard);

@@ -19,15 +19,23 @@ var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
 var competitorsWithTries = {};
 var stepQuestions =
-  [[{candidate: 'displayScore', ref: 'classic/displayScore'}, {candidate: 'displayAlternativeScore', ref: 'classic/displayAlternativeScore'}],
-  [{candidate: 'displayScore', ref: 'classic/displayScore'},
-    {candidate: 'displayAlternativeScore', ref: 'classic/displayAlternativeScore'},
-    {candidate: 'displayFrenchScore', ref: 'classic/displayFrenchScore'},
-    {candidate: 'displayGermanScore', ref: 'classic/displayGermanScore'}],
-  [{candidate: 'noAvantageScoring', ref: 'noAvantageScoring'}],
-  [{candidate: 'withLifeScoring', ref: 'withLifeScoring'}],
-  [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
-  [{candidate: 'servicesScoring', ref: 'servicesScoring'}]];
+  [
+    [{candidate: 'displayScore', ref: 'classic/displayScore'}, {
+      candidate: 'displayAlternativeScore',
+      ref: 'classic/displayAlternativeScore'
+    }],
+  //[{candidate: 'displayScore', ref: 'classic/displayScore'},
+  //  {candidate: 'displayAlternativeScore', ref: 'classic/displayAlternativeScore'},
+  //  {candidate: 'displayFrenchScore', ref: 'classic/displayFrenchScore'},
+  //  {candidate: 'displayGermanScore', ref: 'classic/displayGermanScore'}],
+    [{candidate: 'displayScore', ref: 'withoutAdvantage/displayScore'},
+      {candidate: 'displayAlternativeScore', ref: 'withoutAdvantage/displayAlternativeScore'},
+      {candidate: 'displayFrenchScore', ref: 'withoutAdvantage/displayFrenchScore'},
+      {candidate: 'displayGermanScore', ref: 'withoutAdvantage/displayGermanScore'}],
+    [{candidate: 'withLifeScoring', ref: 'withLifeScoring'}],
+    [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
+    [{candidate: 'servicesScoring', ref: 'servicesScoring'}]
+  ];
 var stepGenerators = ['generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
 
 var rotateScoringRepartition = {

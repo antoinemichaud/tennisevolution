@@ -62,7 +62,7 @@ public class TennisGameTest {
         TennisGameUtils.initScores(tennisGame, 5, 4);
         TennisScore tennisScore = tennisGame.getScore();
 
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.ADVANTAGE);
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
         assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
     }
 
@@ -70,26 +70,6 @@ public class TennisGameTest {
     public void should_give_player2_for_advantage() throws Exception {
         TennisGame tennisGame = new TennisGame();
         TennisGameUtils.initScores(tennisGame, 4, 5);
-        TennisScore tennisScore = tennisGame.getScore();
-
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
-        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.ADVANTAGE);
-    }
-
-    @Test
-    public void should_give_player1_game() throws Exception {
-        TennisGame tennisGame = new TennisGame();
-        TennisGameUtils.initScores(tennisGame, 6, 4);
-        TennisScore tennisScore = tennisGame.getScore();
-
-        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
-        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
-    }
-
-    @Test
-    public void should_give_player2_game() throws Exception {
-        TennisGame tennisGame = new TennisGame();
-        TennisGameUtils.initScores(tennisGame, 4, 6);
         TennisScore tennisScore = tennisGame.getScore();
 
         assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FORTY);
@@ -104,6 +84,26 @@ public class TennisGameTest {
 
         assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
         assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.LOVE);
+    }
+
+    @Test
+    public void should_give_player1_winner() throws Exception {
+        TennisGame tennisGame = new TennisGame();
+        TennisGameUtils.initScores(tennisGame, 5, 3);
+        TennisScore tennisScore = tennisGame.getScore();
+
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.GAME);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.THIRTY);
+    }
+
+    @Test
+    public void should_give_15_40() throws Exception {
+        TennisGame tennisGame = new TennisGame();
+        TennisGameUtils.initScores(tennisGame, 2, 4);
+        TennisScore tennisScore = tennisGame.getScore();
+
+        assertThat(tennisScore.firstPlayerScore()).isEqualTo(PlayerScore.FIFTEEN);
+        assertThat(tennisScore.secondPlayerScore()).isEqualTo(PlayerScore.FORTY);
     }
 
 }

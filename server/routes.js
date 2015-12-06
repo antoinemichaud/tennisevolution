@@ -32,6 +32,10 @@ var stepQuestions =
       {candidate: 'displayAlternativeScore', ref: 'withoutAdvantage/displayAlternativeScore'},
       {candidate: 'displayFrenchScore', ref: 'withoutAdvantage/displayFrenchScore'},
       {candidate: 'displayGermanScore', ref: 'withoutAdvantage/displayGermanScore'}],
+    [{candidate: 'displayScore', ref: 'withLifeScoring/displayScore'},
+      {candidate: 'displayAlternativeScore', ref: 'withLifeScoring/displayAlternativeScore'},
+      {candidate: 'displayFrenchScore', ref: 'withLifeScoring/displayFrenchScore'},
+      {candidate: 'displayGermanScore', ref: 'withLifeScoring/displayGermanScore'}],
     [{candidate: 'withLifeScoring', ref: 'withLifeScoring'}],
     [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
     [{candidate: 'servicesScoring', ref: 'servicesScoring'}]
@@ -83,7 +87,8 @@ function sendQuestion(response, remoteAddress) {
           var candidateUrl = 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam;
           var refUrl = 'http://localhost:8083/' + stepQuestionElt.ref + questionAsQueryParam;
           responsesAgainstRef.push(Promise.props({
-            question: candidateUrl,
+            candidateQuestion: candidateUrl,
+            refQuestion: refUrl,
             candidateResult: requestAsync({
               url: candidateUrl,
               timeout: 3000
@@ -117,7 +122,8 @@ function sendQuestion(response, remoteAddress) {
         //console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
         var comparisonResult = result.candidateResult === result.referenceResult;
         if (!comparisonResult) {
-          console.log('query to server: ' + result.question);
+          console.log('query to candidate server: ' + result.candidateQuestion);
+          console.log('query to ref server: ' + result.refQuestion);
           console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
         }
         return comparisonResult;
@@ -152,7 +158,7 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
 
 function isRotatePlayerStep() {
   //var stepQuestion = stepQuestions[turn - 1];
-  return turn === 3;
+  return turn === 4;
 }
 
 function decrementTrialsLeft(remoteAddress) {

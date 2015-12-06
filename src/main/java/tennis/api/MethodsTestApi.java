@@ -71,6 +71,28 @@ public class MethodsTestApi {
                                         context.query().getInteger("player2Score")))
 
 
+                        .get("/withLifeScoring/displayScore", (context) -> tennisWithLifeGameKataContainer
+                                .displayScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+                        .get("/withLifeScoring/displayAlternativeScore", (context) -> tennisWithLifeGameKataContainer
+                                .displayAlternativeScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+                        .get("/withLifeScoring/displayFrenchScore", (context) -> tennisWithLifeGameKataContainer
+                                .displayFrenchScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+                        .get("/withLifeScoring/displayGermanScore", (context) -> tennisWithLifeGameKataContainer
+                                .displayGermanScore(context.get("player1Name"),
+                                        context.query().getInteger("player1Score"),
+                                        context.get("player2Name"),
+                                        context.query().getInteger("player2Score")))
+
+
                         .get("/withLifeScoring", (context) -> tennisWithLifeGameKataContainer
                                 .displayScore(context.get("player1Name"),
                                         context.query().getInteger("player1Score"),

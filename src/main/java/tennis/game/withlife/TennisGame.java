@@ -36,6 +36,7 @@ public class TennisGame extends Observable {
     }
 
     public boolean isEndOfGame() {
-        return player1Score >= 4 || player2Score >= 4;
+        TennisScore tennisScore = new TennisScore(this.player1Score, this.player2Score);
+        return tennisScore.firstPlayerScore() == PlayerScore.GAME || tennisScore.secondPlayerScore() == PlayerScore.GAME;
     }
 }

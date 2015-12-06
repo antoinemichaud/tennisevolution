@@ -22,9 +22,7 @@ public class TennisScore {
     private static PlayerScore getPlayerScore(int thisPlayerScore, int opponentScore) {
         if (opponentScore >= 4 || thisPlayerScore >= 4) {
             int playerLead = thisPlayerScore - opponentScore;
-            if (playerLead == 1) {
-                return PlayerScore.ADVANTAGE;
-            } else if (playerLead >= 2) {
+            if (playerLead >= 1) {
                 return PlayerScore.GAME;
             }
         }

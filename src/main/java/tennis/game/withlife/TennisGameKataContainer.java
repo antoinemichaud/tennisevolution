@@ -23,6 +23,13 @@ public class TennisGameKataContainer {
         return getScore(tennisGameDisplayer);
     }
 
+    public String displayGermanScore(String player1Name, int player1Score, String player2Name, int player2Score) {
+        TennisGame tennisGame = new TennisGame();
+        TennisGameDisplayer tennisGameDisplayer = new GermanGameDisplayer(player1Name, player2Name, tennisGame);
+        TennisGameUtils.initScores(tennisGame, player1Name, player1Score, player2Name, player2Score);
+        return getScore(tennisGameDisplayer);
+    }
+
     private String getScore(TennisGameDisplayer game) {
         return game.getScore();
     }

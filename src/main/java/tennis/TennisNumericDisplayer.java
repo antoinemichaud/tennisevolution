@@ -14,28 +14,31 @@ public class TennisNumericDisplayer {
 
     private String player1Name;
     private String player2Name;
-    private int player1Score;
-    private int player2Score;
+    private TennisScore player1Score;
+    private TennisScore player2Score;
+    private TennisGame tennisGame;
 
     private String globalScoreAsStringForEquality() {
         switch (player1Score) {
-            case 0:
+            case ZERO:
                 return LOVE_ALL;
-            case 1:
+            case FIFTEEN:
                 return FIFTEEN_ALL;
-            case 2:
+            case THIRTY:
                 return THIRTY_ALL;
             default:
                 return DEUCE;
         }
     }
 
-    public String displayScore(String player1Name, int player1Score, String player2Name, int player2Score) {
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
+    public String displayScore(String player1Name, int player1ScoreNum, String player2Name, int player2ScoreNum) {
+        tennisGame = new TennisGame(player1ScoreNum, player2ScoreNum);
+        TennisScores tennisScores = tennisGame.score();
+        this.player1Score = tennisScores.player1;
+        this.player2Score = tennisScores.player2;
         if (player1Score == player2Score) {
             return globalScoreAsStringForEquality();
-        } else if (player1Score >= 4 || player2Score >= 4) {
+        } else if (tennisGame.endOfGame()) {
             return globalScoreAsStringForPointEnd();
         } else {
             return singlePlayerScoreAsString(player1Score) + "-" + singlePlayerScoreAsString(player2Score);
@@ -43,20 +46,19 @@ public class TennisNumericDisplayer {
     }
 
     private String globalScoreAsStringForPointEnd() {
-        int scoreDiff = player1Score - player2Score;
-        if (scoreDiff == 1) return "A-40";
-        else if (scoreDiff == -1) return "40-A";
-        else if (scoreDiff >= 2) return WIN_FOR + "player1!";
+        if (player1Score == TennisScore.ADVANTAGE) return "A-40";
+        else if (player2Score == TennisScore.ADVANTAGE) return "40-A";
+        else if (player1Score == TennisScore.GAME) return WIN_FOR + "player1!";
         else return WIN_FOR + "player2!";
     }
 
-    private String singlePlayerScoreAsString(int playerScore) {
+    private String singlePlayerScoreAsString(TennisScore playerScore) {
         switch (playerScore) {
-            case 0:
+            case ZERO:
                 return LOVE;
-            case 1:
+            case FIFTEEN:
                 return FIFTEEN;
-            case 2:
+            case THIRTY:
                 return THIRTY;
             default:
                 return FORTY;

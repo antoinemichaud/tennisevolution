@@ -24,26 +24,26 @@ var stepQuestions =
     ],
     [
       {candidate: 'displayScore', ref: 'classic/displayScore'},
-      { candidate: 'displayScore/french', ref: 'classic/displayScore/french'}
+      {candidate: 'displayScore/french', ref: 'classic/displayScore/french'}
     ],
     [
       {candidate: 'displayScore', ref: 'classic/displayScore'},
-      { candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
-      { candidate: 'displayScore/german', ref: 'classic/displayScore/german'}
+      {candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
+      {candidate: 'displayScore/german', ref: 'classic/displayScore/german'}
     ],
     [
       {candidate: 'displayScore', ref: 'classic/displayScore'},
-      { candidate: 'displayScore/albanese', ref: 'classic/displayScore/albanese'},
-      { candidate: 'displayScore/azeri', ref: 'classic/displayScore/azeri'},
-      { candidate: 'displayScore/bosniac', ref: 'classic/displayScore/bosniac'},
-      { candidate: 'displayScore/catalan', ref: 'classic/displayScore/catalan'},
-      { candidate: 'displayScore/cebuano', ref: 'classic/displayScore/cebuano'},
-      { candidate: 'displayScore/chichewa', ref: 'classic/displayScore/chichewa'},
-      { candidate: 'displayScore/creole', ref: 'classic/displayScore/creole'},
-      { candidate: 'displayScore/english', ref: 'classic/displayScore/english'},
-      { candidate: 'displayScore/german', ref: 'classic/displayScore/german'},
-      { candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
-      { candidate: 'displayScore/hungarian', ref: 'classic/displayScore/hungarian'}
+      {candidate: 'displayScore/albanese', ref: 'classic/displayScore/albanese'},
+      {candidate: 'displayScore/azeri', ref: 'classic/displayScore/azeri'},
+      {candidate: 'displayScore/bosniac', ref: 'classic/displayScore/bosniac'},
+      {candidate: 'displayScore/catalan', ref: 'classic/displayScore/catalan'},
+      {candidate: 'displayScore/cebuano', ref: 'classic/displayScore/cebuano'},
+      {candidate: 'displayScore/chichewa', ref: 'classic/displayScore/chichewa'},
+      {candidate: 'displayScore/creole', ref: 'classic/displayScore/creole'},
+      {candidate: 'displayScore/english', ref: 'classic/displayScore/english'},
+      {candidate: 'displayScore/german', ref: 'classic/displayScore/german'},
+      {candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
+      {candidate: 'displayScore/hungarian', ref: 'classic/displayScore/hungarian'}
     ],
     [
       {candidate: 'displayScore', ref: 'withoutAdvantage/displayScore'},
@@ -55,7 +55,9 @@ var stepQuestions =
       {candidate: 'displayScore/french', ref: 'withLifeScoring/displayScore/french'},
       {candidate: 'displayScore/german', ref: 'withLifeScoring/displayScore/german'}
     ],
-    [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}]
+    [
+      {candidate: 'sets/displayScore', ref: 'sets/displayScore'}
+    ]
   ];
 var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame',
   'generateSet'];

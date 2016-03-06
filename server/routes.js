@@ -21,21 +21,21 @@ var competitorsWithTries = {};
 var stepQuestions =
   [
     [{candidate: 'displayScore', ref: 'classic/displayScore'}, {
-      candidate: 'displayAlternativeScore',
-      ref: 'classic/displayAlternativeScore'
+      candidate: 'displayScore/alternative',
+      ref: 'classic/displayScore/alternative'
     }],
   //[{candidate: 'displayScore', ref: 'classic/displayScore'},
-  //  {candidate: 'displayAlternativeScore', ref: 'classic/displayAlternativeScore'},
-  //  {candidate: 'displayFrenchScore', ref: 'classic/displayFrenchScore'},
-  //  {candidate: 'displayGermanScore', ref: 'classic/displayGermanScore'}],
+  //  {candidate: 'displayScore/alternative', ref: 'classic/displayScore/alternative'},
+  //  {candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
+  //  {candidate: 'displayScore/german', ref: 'classic/displayScore/german'}],
     [{candidate: 'displayScore', ref: 'withoutAdvantage/displayScore'},
-      {candidate: 'displayAlternativeScore', ref: 'withoutAdvantage/displayAlternativeScore'},
-      {candidate: 'displayFrenchScore', ref: 'withoutAdvantage/displayFrenchScore'},
-      {candidate: 'displayGermanScore', ref: 'withoutAdvantage/displayGermanScore'}],
+      {candidate: 'displayScore/alternative', ref: 'withoutAdvantage/displayScore/alternative'},
+      {candidate: 'displayScore/french', ref: 'withoutAdvantage/displayScore/french'},
+      {candidate: 'displayScore/german', ref: 'withoutAdvantage/displayScore/german'}],
     [{candidate: 'displayScore', ref: 'withLifeScoring/displayScore'},
-      {candidate: 'displayAlternativeScore', ref: 'withLifeScoring/displayAlternativeScore'},
-      {candidate: 'displayFrenchScore', ref: 'withLifeScoring/displayFrenchScore'},
-      {candidate: 'displayGermanScore', ref: 'withLifeScoring/displayGermanScore'}],
+      {candidate: 'displayScore/alternative', ref: 'withLifeScoring/displayScore/alternative'},
+      {candidate: 'displayScore/french', ref: 'withLifeScoring/displayScore/french'},
+      {candidate: 'displayScore/german', ref: 'withLifeScoring/displayScore/german'}],
     [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
     //[{candidate: 'servicesScoring', ref: 'servicesScoring'}]
     []

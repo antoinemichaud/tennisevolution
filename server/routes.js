@@ -198,12 +198,12 @@ function initScoresOfPlayerIfNeeded(currentUser) {
   }
 }
 
+function extractIp(req) {
+  return cleanRemoteAddress(requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1");
+}
+
 function cleanRemoteAddress(remoteAddress) {
-  if (_.contains(remoteAddress, '::ffff:')) {
-    return remoteAddress.replace('::ffff:', '');
-  } else {
-    return remoteAddress;
-  }
+  return remoteAddress.replace('::ffff:', '');
 }
 function scoreWithRotation(currentUser) {
   var scoredPoints = nextScoredPoints();
@@ -267,6 +267,13 @@ function triggerPings() {
     )
   }, 2000);
 }
+function registerClient(clientIp, name, io) {
+  if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp) && !_.contains(_.pluck(registeredClients, 'name'), name)) {
+    var newUser = {name: name, ip: clientIp};
+    registeredClients.push(newUser);
+  }
+  io.emit('client', registeredClients);
+}
 module.exports = function (io) {
   return {
     pingClients: function (req, res) {
@@ -300,7 +307,7 @@ module.exports = function (io) {
     compare: function (req, res) {
       var responseBody = {success: false};
       console.log("availablePoints: " + availablePoints[turn]);
-      var remoteAddress = requestIp.getClientIp(req) != '::1' ? requestIp.getClientIp(req) : "127.0.0.1";
+      var remoteAddress = extractIp(req);
       remoteAddress = cleanRemoteAddress(remoteAddress);
       console.log('remote address : ' + remoteAddress);
       sendQuestion(res, remoteAddress)
@@ -376,11 +383,14 @@ module.exports = function (io) {
     register: function (name, clientIp) {
       clientIp = cleanRemoteAddress(clientIp);
       console.log(name, clientIp);
-      if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp) && !_.contains(_.pluck(registeredClients, 'name'), name)) {
-        var newUser = {name: name, ip: clientIp};
-        registeredClients.push(newUser);
-      }
-      io.emit('client', registeredClients);
+      registerClient(clientIp, name, io);
+    },
+
+    registerRest: function (req, res) {
+      var clientIp = extractIp(req);
+      console.log(req.body.name, clientIp);
+      registerClient(clientIp, req.body.name, io);
+      res.send('OK')
     },
 
     init: function () {

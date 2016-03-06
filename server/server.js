@@ -44,7 +44,7 @@ routes.init();
 app.use("/", express.static(__dirname + "/"));
 app.use(bodyParser.json());
 
-
+app.post('/registerRest', routes.registerRest);
 app.post('/compare', routes.compare);
 app.post('/turn', routes.turn);
 app.post('/changeip', routes.changeip);

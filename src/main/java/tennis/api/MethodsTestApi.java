@@ -47,18 +47,8 @@ public class MethodsTestApi {
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/withoutAdvantage/displayScore/alternative", (context) -> tennisNoAvantageGameKataContainer
-                                .displayAlternativeScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/withoutAdvantage/displayScore/french", (context) -> tennisNoAvantageGameKataContainer
-                                .displayFrenchScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/withoutAdvantage/displayScore/german", (context) -> tennisNoAvantageGameKataContainer
-                                .displayGermanScore(context.get("player1Name"),
+                        .get("/withoutAdvantage/displayScore/:language", (context, language) -> tennisNoAvantageGameKataContainer
+                                .displayScore(language, context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
@@ -69,18 +59,8 @@ public class MethodsTestApi {
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/withLifeScoring/displayScore/alternative", (context) -> tennisWithLifeGameKataContainer
-                                .displayAlternativeScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/withLifeScoring/displayScore/french", (context) -> tennisWithLifeGameKataContainer
-                                .displayFrenchScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/withLifeScoring/displayScore/german", (context) -> tennisWithLifeGameKataContainer
-                                .displayGermanScore(context.get("player1Name"),
+                        .get("/withLifeScoring/displayScore/:language", (context, language) -> tennisWithLifeGameKataContainer
+                                .displayScore(language, context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))

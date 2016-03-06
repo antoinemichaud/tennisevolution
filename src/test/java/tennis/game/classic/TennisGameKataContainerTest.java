@@ -2,7 +2,6 @@ package tennis.game.classic;
 
 import org.junit.Before;
 import org.junit.Test;
-import tennis.game.classic.TennisGameKataContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +20,7 @@ public class TennisGameKataContainerTest {
         String scoreDisplayed = tennisGameKataContainer.displayScore("Bertrand", 4, "Nicolas", 3);
 
         // Then
-        assertThat(scoreDisplayed).isEqualTo("Advantage Bertrand");
+        assertThat(scoreDisplayed).isEqualTo("advantage Bertrand");
     }
 
     @Test
@@ -30,6 +29,6 @@ public class TennisGameKataContainerTest {
         String scoreDisplayed = tennisGameKataContainer.displayScore("Bertrand", 4, "Nicolas", 6);
 
         // Then
-        assertThat(scoreDisplayed).isEqualTo("Win for Nicolas");
+        assertThat(scoreDisplayed).isEqualTo("win for Nicolas");
     }
 }

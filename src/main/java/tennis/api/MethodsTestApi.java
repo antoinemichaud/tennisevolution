@@ -32,21 +32,14 @@ public class MethodsTestApi {
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
                                         context.query().getInteger("player2Score")))
-                        .get("/classic/displayScore/alternative", (context) -> classicTennisGameKataContainer
-                                .displayAlternativeScore(context.get("player1Name"),
+                        .get("/classic/displayScore/:language", (context, language) ->
+                                classicTennisGameKataContainer
+                                .displayScore(language, context.get("player1Name"),
                                         context.query().getInteger("player1Score"),
                                         context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/classic/displayScore/french", (context) -> classicTennisGameKataContainer
-                                .displayFrenchScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
-                        .get("/classic/displayScore/german", (context) -> classicTennisGameKataContainer
-                                .displayGermanScore(context.get("player1Name"),
-                                        context.query().getInteger("player1Score"),
-                                        context.get("player2Name"),
-                                        context.query().getInteger("player2Score")))
+                                        context.query().getInteger("player2Score")
+                                )
+                        )
 
 
                         .get("/withoutAdvantage/displayScore", (context) -> tennisNoAvantageGameKataContainer

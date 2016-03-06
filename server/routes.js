@@ -15,32 +15,50 @@ var dontPingAnymore = [];
 var timerRef = {};
 
 var turn = 1;
-var stackPoints = [1000, 500, 100, 50, 25, 13, 1];
 
 var competitorsWithTries = {};
 var stepQuestions =
   [
-    [{candidate: 'displayScore', ref: 'classic/displayScore'}, {
-      candidate: 'displayScore/alternative',
-      ref: 'classic/displayScore/alternative'
-    }],
-  //[{candidate: 'displayScore', ref: 'classic/displayScore'},
-  //  {candidate: 'displayScore/alternative', ref: 'classic/displayScore/alternative'},
-  //  {candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
-  //  {candidate: 'displayScore/german', ref: 'classic/displayScore/german'}],
-    [{candidate: 'displayScore', ref: 'withoutAdvantage/displayScore'},
-      {candidate: 'displayScore/alternative', ref: 'withoutAdvantage/displayScore/alternative'},
+    [
+      {candidate: 'displayScore', ref: 'classic/displayScore'}
+    ],
+    [
+      {candidate: 'displayScore', ref: 'classic/displayScore'},
+      { candidate: 'displayScore/french', ref: 'classic/displayScore/french'}
+    ],
+    [
+      {candidate: 'displayScore', ref: 'classic/displayScore'},
+      { candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
+      { candidate: 'displayScore/german', ref: 'classic/displayScore/german'}
+    ],
+    [
+      {candidate: 'displayScore', ref: 'classic/displayScore'},
+      { candidate: 'displayScore/albanese', ref: 'classic/displayScore/albanese'},
+      { candidate: 'displayScore/azeri', ref: 'classic/displayScore/azeri'},
+      { candidate: 'displayScore/bosniac', ref: 'classic/displayScore/bosniac'},
+      { candidate: 'displayScore/catalan', ref: 'classic/displayScore/catalan'},
+      { candidate: 'displayScore/cebuano', ref: 'classic/displayScore/cebuano'},
+      { candidate: 'displayScore/chichewa', ref: 'classic/displayScore/chichewa'},
+      { candidate: 'displayScore/creole', ref: 'classic/displayScore/creole'},
+      { candidate: 'displayScore/english', ref: 'classic/displayScore/english'},
+      { candidate: 'displayScore/german', ref: 'classic/displayScore/german'},
+      { candidate: 'displayScore/french', ref: 'classic/displayScore/french'},
+      { candidate: 'displayScore/hungarian', ref: 'classic/displayScore/hungarian'}
+    ],
+    [
+      {candidate: 'displayScore', ref: 'withoutAdvantage/displayScore'},
       {candidate: 'displayScore/french', ref: 'withoutAdvantage/displayScore/french'},
-      {candidate: 'displayScore/german', ref: 'withoutAdvantage/displayScore/german'}],
-    [{candidate: 'displayScore', ref: 'withLifeScoring/displayScore'},
-      {candidate: 'displayScore/alternative', ref: 'withLifeScoring/displayScore/alternative'},
+      {candidate: 'displayScore/german', ref: 'withoutAdvantage/displayScore/german'}
+    ],
+    [
+      {candidate: 'displayScore', ref: 'withLifeScoring/displayScore'},
       {candidate: 'displayScore/french', ref: 'withLifeScoring/displayScore/french'},
-      {candidate: 'displayScore/german', ref: 'withLifeScoring/displayScore/german'}],
-    [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}],
-    //[{candidate: 'servicesScoring', ref: 'servicesScoring'}]
-    []
+      {candidate: 'displayScore/german', ref: 'withLifeScoring/displayScore/german'}
+    ],
+    [{candidate: 'sets/displayScore', ref: 'sets/displayScore'}]
   ];
-var stepGenerators = ['generateGame', 'generateNoAvantageGame', 'generateGame', 'generateSet', 'generateServicesSet'];
+var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame',
+  'generateSet'];
 
 var rotateScoringRepartition = {
   source: 0.5,
@@ -51,12 +69,13 @@ var rotatedRegisteredPlayers = {};
 
 
 var availablePoints = {
-  1: [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
-  2: [55, 34, 21, 13, 8, 5, 3, 2, 1],
-  3: [55, 34, 21, 13, 8, 5, 3, 2, 1],
-  4: [55, 34, 21, 13, 8, 5, 3, 2, 1],
-  //5: [55, 34, 21, 13, 8, 5, 3, 2, 1],
-  5: [0]
+  1: [0],
+  2: [20, 18, 16, 14, 12, 10, 5],
+  3: [55, 34, 21, 13, 8],
+  4: [55, 34, 21, 13, 8],
+  5: [55, 34, 21, 13, 8],
+  6: [55, 34, 21, 13, 8],
+  7: [100, 75, 50, 35, 30]
 };
 
 var scoreBoard = {};

@@ -10,10 +10,6 @@ public class GenericDisplayer extends TennisGameDisplayer {
     public static final String DEUCE = "%s";
     public static final String ADVANTAGE = "%s ";
     public static final String WIN_FOR = "%s ";
-    public static final String LOVE = "%s";
-    public static final String FIFTEEN = "%s";
-    public static final String THIRTY = "%s";
-    public static final String FORTY = "%s";
 
     private ScoreTranslator scoreTranslator = new ScoreTranslator();
     private String language;
@@ -88,7 +84,7 @@ public class GenericDisplayer extends TennisGameDisplayer {
 
     @Override
     protected String forty() {
-        return scoreTranslator.translate(ScoreLabelBase.FOURTY, language);
+        return scoreTranslator.translate(ScoreLabelBase.FORTY, language);
     }
 
 }

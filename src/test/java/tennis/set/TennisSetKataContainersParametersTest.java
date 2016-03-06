@@ -33,10 +33,10 @@ public class TennisSetKataContainersParametersTest {
         return Arrays.asList(new Object[][]{
                 {fourToFive, "4-5 Love-All"},
                 {fourToFive.then(2, 3), "4-5 Thirty-Forty"},
-                {fourToFive.then(3, 5), "4-6 Set for player2!"},
-                {fiveToSix, "5-6 Set for player2!"},
-                {fiveToSix.then(2, 4), "5-7 Set for player2!"},
-                {sevenToFive, "7-5 Set for player1!"}
+                {fourToFive.then(3, 5), "Set for player2!"},
+                {fiveToSix, "Set for player2!"},
+                {fiveToSix.then(2, 4), "Set for player2!"},
+                {sevenToFive, "Set for player1!"}
         });
     }
 

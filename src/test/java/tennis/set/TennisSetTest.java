@@ -82,7 +82,7 @@ public class TennisSetTest {
         player2WinGames(6);
 
         //Then
-        assertThat(tennisSet.score()).isEqualTo("4-6 Set for player2!");
+        assertThat(tennisSet.score()).isEqualTo("Set for player2!");
     }
 
     @Test
@@ -92,7 +92,7 @@ public class TennisSetTest {
         player2WinGames(4);
 
         //Then
-        assertThat(tennisSet.score()).isEqualTo("6-4 Set for player1!");
+        assertThat(tennisSet.score()).isEqualTo("Set for player1!");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class TennisSetTest {
         player2WinGames(5);
 
         // Then
-        assertThat(tennisSet.score()).isEqualTo("7-5 Set for player1!");
+        assertThat(tennisSet.score()).isEqualTo("Set for player1!");
     }
 
     @Test
@@ -112,7 +112,7 @@ public class TennisSetTest {
         player2WinGames(7);
 
         // Then
-        assertThat(tennisSet.score()).isEqualTo("5-7 Set for player2!");
+        assertThat(tennisSet.score()).isEqualTo("Set for player2!");
     }
 
     private void player1WinGames(int numberOfGamesWon) {

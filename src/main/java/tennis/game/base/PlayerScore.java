@@ -1,4 +1,4 @@
-package tennis.game.noavantage;
+package tennis.game.base;
 
 public enum PlayerScore {
     LOVE,

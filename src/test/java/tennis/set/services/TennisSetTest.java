@@ -1,6 +1,5 @@
 package tennis.set.services;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,18 +10,18 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_0_then_Fifteen_Love_on_one_point_won_by_player1() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         tennisSet.player1WonPoint();
 
         //Then
-        assertThat(tennisSet.score()).isEqualTo("0-0 Love-Fifteen");
+        assertThat(tennisSet.score()).isEqualTo("0-0 Fifteen-Love");
     }
 
     @Test
     public void should_have_0_0_then_Love_Fifteen_on_one_point_won_by_player2() throws Exception {
-        tennisSet = new TennisSet(1);
+        tennisSet = new TennisSet();
 
         //When
         tennisSet.player2WonPoint();
@@ -33,7 +32,7 @@ public class TennisSetTest {
 
     @Test
     public void should_have_1_0_then_Love_All_on_four_points_won_by_player1() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         player1WinGame();
@@ -44,7 +43,7 @@ public class TennisSetTest {
 
     @Test
     public void should_have_2_0_then_Love_All_on_eight_points_won_by_player1() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         player1WinGame();
@@ -56,7 +55,7 @@ public class TennisSetTest {
 
     @Test
     public void should_have_0_1_then_Love_All_on_four_points_won_by_player2() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         player2WinGame();
@@ -67,7 +66,7 @@ public class TennisSetTest {
 
     @Test
     public void should_not_win_if_3_5() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         player1WinGames(3);
@@ -79,7 +78,7 @@ public class TennisSetTest {
 
     @Test
     public void player2_should_win_when_4_6() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         player1WinGames(4);
@@ -91,7 +90,7 @@ public class TennisSetTest {
 
     @Test
     public void player1_should_win_when_6_4() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         //When
         player1WinGames(6);
@@ -103,7 +102,7 @@ public class TennisSetTest {
 
     @Test
     public void player1_should_win_when_7_5() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         // When
         player1WinGames(7);
@@ -115,7 +114,7 @@ public class TennisSetTest {
 
     @Test
     public void player2_should_win_when_5_7() throws Exception {
-        tennisSet = new TennisSet(2);
+        tennisSet = new TennisSet();
 
         // When
         player1WinGames(5);

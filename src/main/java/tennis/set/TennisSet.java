@@ -1,9 +1,9 @@
 package tennis.set;
 
-import tennis.game.classic.EnglishGameDisplayer;
-import tennis.game.classic.PlayerScore;
-import tennis.game.classic.TennisGame;
-import tennis.game.classic.TennisGameDisplayer;
+import tennis.display.EnglishGameDisplayer;
+import tennis.display.TennisGameDisplayer;
+import tennis.game.base.PlayerScore;
+import tennis.game.classic.TennisGameClassic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class TennisSet extends Observable {
     public static final String PLAYER_1 = "player1";
     public static final String PLAYER_2 = "player2";
 
-    private TennisGame tennisGame = new TennisGame();
+    private TennisGameClassic tennisGame = new TennisGameClassic();
     private TennisGameDisplayer tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     private AtomicInteger player1wonGames;
     private AtomicInteger player2wonGames;
@@ -44,7 +44,7 @@ public class TennisSet extends Observable {
     }
 
     private void startNewGame() {
-        tennisGame = new TennisGame(observers);
+        tennisGame = new TennisGameClassic(observers);
         tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     }
 

@@ -1,4 +1,4 @@
-package tennis.game.classic;
+package tennis.display;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;

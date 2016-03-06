@@ -1,4 +1,8 @@
-package tennis.game.noavantage;
+package tennis.display;
+
+import tennis.game.base.PlayerScore;
+import tennis.game.base.TennisGame;
+import tennis.game.base.TennisScore;
 
 public abstract class TennisGameDisplayer {
 

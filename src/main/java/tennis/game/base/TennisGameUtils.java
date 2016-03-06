@@ -1,4 +1,4 @@
-package tennis.game.withlife;
+package tennis.game.base;
 
 public class TennisGameUtils {
     public static void initScores(TennisGame game, String player1Name, int player1Score, String player2Name, int player2Score) {

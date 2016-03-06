@@ -1,20 +1,22 @@
-package tennis.game.withlife;
+package tennis.display;
 
-public class EnglishGameDisplayer extends TennisGameDisplayer {
+import tennis.game.base.TennisGame;
 
-    public static final String LOVE_ALL = "Love-All";
-    public static final String FIFTEEN_ALL = "Fifteen-All";
-    public static final String THIRTY_ALL = "Thirty-All";
-    public static final String DEUCE = "Deuce";
-    public static final String ADVANTAGE = "Advantage ";
-    public static final String WIN_FOR = "Win for ";
-    public static final String LOVE = "Love";
-    public static final String FIFTEEN = "Fifteen";
-    public static final String THIRTY = "Thirty";
-    public static final String FORTY = "Forty";
+public class GermanGameDisplayer extends TennisGameDisplayer {
+
+    public static final String LOVE_ALL = "Null alles";
+    public static final String FIFTEEN_ALL = "Fünfzehn alles";
+    public static final String THIRTY_ALL = "Dreißig alles";
+    public static final String DEUCE = "Gleichstand";
+    public static final String ADVANTAGE = "Vorteil ";
+    public static final String WIN_FOR = "Spiel ";
+    public static final String LOVE = "Null";
+    public static final String FIFTEEN = "Fünfzehn";
+    public static final String THIRTY = "Dreißig";
+    public static final String FORTY = "Vierzig";
 
 
-    public EnglishGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
+    public GermanGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
         super(player1Name, player2Name, tennisGame);
     }
 

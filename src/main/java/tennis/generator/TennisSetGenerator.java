@@ -1,6 +1,6 @@
 package tennis.generator;
 
-import tennis.game.classic.TennisGame;
+import tennis.game.classic.TennisGameClassic;
 import tennis.history.HistoryKeeper;
 import tennis.history.WhichPlayer;
 import tennis.set.TennisSet;
@@ -12,14 +12,14 @@ import java.util.function.Predicate;
 public class TennisSetGenerator {
     private Random random;
     private TennisSet tennisSet;
-    private TennisGame tennisGame;
+    private TennisGameClassic tennisGame;
 
     public TennisSetGenerator(Random random) {
         this.random = random;
     }
 
-    public HistoryKeeper generate(Predicate<TennisGame> endCondition) {
-        tennisGame = new TennisGame();
+    public HistoryKeeper generate(Predicate<TennisGameClassic> endCondition) {
+        tennisGame = new TennisGameClassic();
         HistoryKeeper historyKeeper = new HistoryKeeper(tennisGame);
 
         do {
@@ -32,8 +32,8 @@ public class TennisSetGenerator {
         return historyKeeper;
     }
 
-    public HistoryKeeper generateNoAdvantage(Predicate<TennisGame> endCondition) {
-        tennisGame = new TennisGame();
+    public HistoryKeeper generateNoAdvantage(Predicate<TennisGameClassic> endCondition) {
+        tennisGame = new TennisGameClassic();
         HistoryKeeper historyKeeper = new HistoryKeeper(tennisGame);
 
         do {

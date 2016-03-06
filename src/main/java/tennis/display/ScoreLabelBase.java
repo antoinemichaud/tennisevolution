@@ -1,4 +1,4 @@
-package tennis.game.classic;
+package tennis.display;
 
 public enum ScoreLabelBase {
 

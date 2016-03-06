@@ -2,7 +2,7 @@ package tennis.history;
 
 import org.junit.Before;
 import org.junit.Test;
-import tennis.game.classic.TennisGame;
+import tennis.game.classic.TennisGameClassic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tennis.history.WhichPlayer.PLAYER_ONE;
@@ -10,12 +10,12 @@ import static tennis.history.WhichPlayer.PLAYER_TWO;
 
 public class HistoryKeeperTest {
 
-    private TennisGame tennisGame;
+    private TennisGameClassic tennisGame;
     private HistoryKeeper historyKeeper;
 
     @Before
     public void setUp() throws Exception {
-        tennisGame = new TennisGame();
+        tennisGame = new TennisGameClassic();
         historyKeeper = new HistoryKeeper(tennisGame);
     }
 

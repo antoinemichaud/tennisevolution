@@ -2,7 +2,7 @@ package tennis.api;
 
 import com.google.common.base.Splitter;
 import net.codestory.http.WebServer;
-import tennis.game.classic.TennisGame;
+import tennis.game.classic.TennisGameClassic;
 import tennis.game.classic.TennisGameKataContainer;
 import tennis.generator.TennisSetGenerator;
 import tennis.history.Aggregator;
@@ -103,7 +103,7 @@ public class MethodsTestApi {
         new WebServer().configure(
                 routes -> routes
                         .get("/generateTest/generateGame", context -> {
-                                    Predicate<TennisGame> endCondition = tennisGame -> gameIsFinished.nextInt(5) == 0;
+                            Predicate<TennisGameClassic> endCondition = tennisGame -> gameIsFinished.nextInt(5) == 0;
                                     List<GameQuestion> gameQuestions = new ArrayList<>();
                                     for (int i = 0; i < 10; i++) {
                                         HistoryKeeper historyKeeper = tennisSetGenerator.generate(endCondition);
@@ -113,7 +113,7 @@ public class MethodsTestApi {
                                     return gameQuestions;
                                 }
                         ).get("/generateTest/generateNoAvantageGame", context -> {
-                                    Predicate<TennisGame> endCondition = tennisGame -> gameIsFinished.nextInt(4) == 0;
+                            Predicate<TennisGameClassic> endCondition = tennisGame -> gameIsFinished.nextInt(4) == 0;
                                     List<GameQuestion> gameQuestions = new ArrayList<>();
                                     for (int i = 0; i < 10; i++) {
                                         HistoryKeeper historyKeeper = tennisSetGenerator.generateNoAdvantage(endCondition);
@@ -134,7 +134,7 @@ public class MethodsTestApi {
                         .get("/generateTest/generateServicesSet", context -> {
                                     List<List<Integer>> gameQuestions = new ArrayList<>();
                                     for (int i = 0; i < 10; i++) {
-                                        List<Integer> question = new ArrayList<Integer>();
+                                        List<Integer> question = new ArrayList<>();
                                         question.add(new Random().nextInt(3 - 1) + 1);
                                         question.addAll(new Random().ints(new Random().nextInt((90 - 30) + 1) + 30, 1, 3).boxed().collect(toList()));
                                         gameQuestions.add(question);

@@ -1,6 +1,9 @@
 package tennis.game.withlife;
 
 import org.junit.Test;
+import tennis.game.base.PlayerScore;
+import tennis.game.base.TennisGameUtils;
+import tennis.game.base.TennisScore;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,7 +11,7 @@ public class TennisGameTest {
 
     @Test
     public void should_return_0_0_on_initialization() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 0, 0);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -18,7 +21,7 @@ public class TennisGameTest {
 
     @Test
     public void should_return_0_0_even_if_players_has_1_point() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 1, 1);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -28,7 +31,7 @@ public class TennisGameTest {
 
     @Test
     public void should_return_regular_score_with_forty_for_player_1() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 4, 0);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -38,7 +41,7 @@ public class TennisGameTest {
 
     @Test
     public void should_return_regular_score_with_forty_for_player_2() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 0, 4);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -48,7 +51,7 @@ public class TennisGameTest {
 
     @Test
     public void should_return_regular_score_with_thirty_fifteen() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 3, 2);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -58,7 +61,7 @@ public class TennisGameTest {
 
     @Test
     public void should_give_player1_for_advantage() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 5, 4);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -68,7 +71,7 @@ public class TennisGameTest {
 
     @Test
     public void should_give_player2_for_advantage() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 4, 5);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -78,7 +81,7 @@ public class TennisGameTest {
 
     @Test
     public void should_give_player1_for_perfect_game() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 5, 0);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -88,7 +91,7 @@ public class TennisGameTest {
 
     @Test
     public void should_give_player1_winner() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 5, 3);
         TennisScore tennisScore = tennisGame.getScore();
 
@@ -98,7 +101,7 @@ public class TennisGameTest {
 
     @Test
     public void should_give_15_40() throws Exception {
-        TennisGame tennisGame = new TennisGame();
+        TennisGameWithLife tennisGame = new TennisGameWithLife();
         TennisGameUtils.initScores(tennisGame, 2, 4);
         TennisScore tennisScore = tennisGame.getScore();
 

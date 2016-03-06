@@ -1,33 +1,31 @@
 package tennis.set.services;
 
-import tennis.game.services.EnglishGameDisplayer;
-import tennis.game.services.PlayerScore;
-import tennis.game.services.TennisGame;
-import tennis.game.services.TennisGameDisplayer;
+import tennis.display.EnglishGameDisplayer;
+import tennis.display.TennisGameDisplayer;
+import tennis.game.base.PlayerScore;
+import tennis.game.base.TennisGame;
+import tennis.game.classic.TennisGameClassic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TennisSet extends Observable {
+public class TennisSet {
 
     public static final String PLAYER_1 = "player1";
     public static final String PLAYER_2 = "player2";
 
-    private TennisGame tennisGame = new TennisGame();
+    private TennisGame tennisGame = new TennisGameClassic();
     private AtomicInteger player1wonGames;
     private AtomicInteger player2wonGames;
     private List<Observer> observers = new ArrayList<>();
-    private Integer servicePlayer;
     private TennisGameDisplayer tennisGameDisplayer;
 
-    public TennisSet(Integer servicePlayer) {
-        this.servicePlayer = servicePlayer;
+    public TennisSet() {
         player1wonGames = new AtomicInteger(0);
         player2wonGames = new AtomicInteger(0);
-        tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame, servicePlayer);
+        tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     }
 
     public void player1WonPoint() {
@@ -47,8 +45,8 @@ public class TennisSet extends Observable {
     }
 
     private void startNewGame() {
-        tennisGame = new TennisGame(observers);
-        tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame, servicePlayer);
+        tennisGame = new TennisGameClassic(observers);
+        tennisGameDisplayer = new EnglishGameDisplayer(PLAYER_1, PLAYER_2, tennisGame);
     }
 
     public String score() {
@@ -60,11 +58,5 @@ public class TennisSet extends Observable {
             return playersScore + "Set for player2!";
         }
         return playersScore + tennisGameDisplayer.getScore();
-    }
-
-    @Override
-    public synchronized void addObserver(Observer o) {
-        observers.add(o);
-        tennisGame.addObserver(o);
     }
 }

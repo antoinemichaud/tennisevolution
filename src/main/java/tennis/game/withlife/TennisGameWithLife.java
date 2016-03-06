@@ -1,5 +1,10 @@
 package tennis.game.withlife;
 
+import tennis.game.base.PlayerScore;
+import tennis.game.base.TennisGame;
+import tennis.game.base.TennisScore;
+import tennis.game.classic.TennisScoreClassic;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -7,20 +12,20 @@ import java.util.Observer;
 import static tennis.history.WhichPlayer.PLAYER_ONE;
 import static tennis.history.WhichPlayer.PLAYER_TWO;
 
-public class TennisGame extends Observable {
+public class TennisGameWithLife extends Observable implements TennisGame {
     private int player1Score;
     private int player2Score;
 
-    public TennisGame() {
+    public TennisGameWithLife() {
 
     }
 
-    public TennisGame(List<Observer> observers) {
+    public TennisGameWithLife(List<Observer> observers) {
         observers.forEach(this::addObserver);
     }
 
     public TennisScore getScore() {
-        return new TennisScore(this.player1Score, this.player2Score);
+        return new TennisScoreWithLife(this.player1Score, this.player2Score);
     }
 
     public void incrementPlayer1Score() {
@@ -36,7 +41,7 @@ public class TennisGame extends Observable {
     }
 
     public boolean isEndOfGame() {
-        TennisScore tennisScore = new TennisScore(this.player1Score, this.player2Score);
+        TennisScore tennisScore = new TennisScoreClassic(this.player1Score, this.player2Score);
         return tennisScore.firstPlayerScore() == PlayerScore.GAME || tennisScore.secondPlayerScore() == PlayerScore.GAME;
     }
 }

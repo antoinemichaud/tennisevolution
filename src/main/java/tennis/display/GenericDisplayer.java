@@ -1,4 +1,6 @@
-package tennis.game.classic;
+package tennis.display;
+
+import tennis.game.base.TennisGame;
 
 public class GenericDisplayer extends TennisGameDisplayer {
 
@@ -16,7 +18,7 @@ public class GenericDisplayer extends TennisGameDisplayer {
     private ScoreTranslator scoreTranslator = new ScoreTranslator();
     private String language;
 
-    GenericDisplayer(String language, String player1Name, String player2Name, TennisGame tennisGame) {
+    public GenericDisplayer(String language, String player1Name, String player2Name, TennisGame tennisGame) {
         super(player1Name, player2Name, tennisGame);
         this.language = language;
     }

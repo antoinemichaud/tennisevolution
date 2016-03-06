@@ -1,8 +1,10 @@
-package tennis.game.services;
+package tennis.display;
+
+import tennis.game.base.TennisGame;
 
 public class FrenchGameDisplayer extends TennisGameDisplayer {
-    public FrenchGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame, Integer servicePlayer) {
-        super(player1Name, player2Name, servicePlayer, tennisGame);
+    public FrenchGameDisplayer(String player1Name, String player2Name, TennisGame tennisGame) {
+        super(player1Name, player2Name, tennisGame);
     }
 
     @Override

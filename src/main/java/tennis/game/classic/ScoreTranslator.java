@@ -8,18 +8,18 @@ import java.nio.charset.StandardCharsets;
 
 public class ScoreTranslator {
 
-    public String translate(Score score, String language) {
+    public String translate(ScoreLabelBase scoreLabelBase, String language) {
         try {
             String languageRelativeScoresLine = Resources.toString(Resources.getResource(language + ".csv"), StandardCharsets.UTF_8);
-            ImmutableMap.Builder<Score, String> builder = ImmutableMap.<Score, String>builder();
+            ImmutableMap.Builder<ScoreLabelBase, String> builder = ImmutableMap.<ScoreLabelBase, String>builder();
             String[] scoresLabels = languageRelativeScoresLine.split("\\|");
-            for (int i = 0; i < Score.values().length; i++) {
-                Score currentScore = Score.values()[i];
-                builder.put(currentScore, scoresLabels[i]);
+            for (int i = 0; i < ScoreLabelBase.values().length; i++) {
+                ScoreLabelBase currentScoreLabelBase = ScoreLabelBase.values()[i];
+                builder.put(currentScoreLabelBase, scoresLabels[i]);
             }
-            ImmutableMap<Score, String> scoresToLabelMap = builder.build();
+            ImmutableMap<ScoreLabelBase, String> scoresToLabelMap = builder.build();
 
-            return scoresToLabelMap.get(score);
+            return scoresToLabelMap.get(scoreLabelBase);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

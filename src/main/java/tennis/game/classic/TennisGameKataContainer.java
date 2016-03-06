@@ -6,10 +6,6 @@ public class TennisGameKataContainer {
         return displayScore("english", player1, player1score, player2, player2score);
     }
 
-    public String displayNumericScore(String player1, int player1Score, String player2, int player2Score) {
-        return displayScore("digital", player1, player1Score, player2, player2Score);
-    }
-
     public String displayFrenchScore(String player1, int player1Score, String player2, int player2Score) {
         return displayScore("french", player1, player1Score, player2, player2Score);
     }
@@ -25,10 +21,4 @@ public class TennisGameKataContainer {
         return game.getScore();
     }
 
-    public String displayGermanScore(String player1, int player1Score, String player2, int player2Score) {
-        TennisGame tennisGame = new TennisGame();
-        TennisGameDisplayer tennisGameDisplayer = new GermanGameDisplayer(player1, player2, tennisGame);
-        TennisGameUtils.initScores(tennisGame, player1, player1Score, player2, player2Score);
-        return getScore(tennisGameDisplayer);
-    }
 }

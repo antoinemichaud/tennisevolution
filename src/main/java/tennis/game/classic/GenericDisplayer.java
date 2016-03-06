@@ -24,69 +24,69 @@ public class GenericDisplayer extends TennisGameDisplayer {
     @Override
     protected String loveAll() {
         return String.format(LOVE_ALL,
-                scoreTranslator.translate(Score.LOVE, language),
-                scoreTranslator.translate(Score.ALL, language));
+                scoreTranslator.translate(ScoreLabelBase.LOVE, language),
+                scoreTranslator.translate(ScoreLabelBase.ALL, language));
     }
 
     @Override
     protected String fifteenAll() {
         return String.format(FIFTEEN_ALL,
-                scoreTranslator.translate(Score.FIFTEEN, language),
-                scoreTranslator.translate(Score.ALL, language));
+                scoreTranslator.translate(ScoreLabelBase.FIFTEEN, language),
+                scoreTranslator.translate(ScoreLabelBase.ALL, language));
     }
 
     @Override
     protected String thirtyAll() {
         return String.format(THIRTY_ALL,
-                scoreTranslator.translate(Score.THIRTY, language),
-                scoreTranslator.translate(Score.ALL, language));
+                scoreTranslator.translate(ScoreLabelBase.THIRTY, language),
+                scoreTranslator.translate(ScoreLabelBase.ALL, language));
     }
 
     @Override
     protected String deuce() {
         return String.format(DEUCE,
-                scoreTranslator.translate(Score.DEUCE, language));
+                scoreTranslator.translate(ScoreLabelBase.DEUCE, language));
 
     }
 
     @Override
     protected String advantagePlayer1() {
-        return String.format(ADVANTAGE, scoreTranslator.translate(Score.ADVANTAGE, language)) + player1Name;
+        return String.format(ADVANTAGE, scoreTranslator.translate(ScoreLabelBase.ADVANTAGE, language)) + player1Name;
     }
 
     @Override
     protected String advantagePlayer2() {
-        return String.format(ADVANTAGE, scoreTranslator.translate(Score.ADVANTAGE, language)) + player2Name;
+        return String.format(ADVANTAGE, scoreTranslator.translate(ScoreLabelBase.ADVANTAGE, language)) + player2Name;
     }
 
     @Override
     protected String gameForPlayer1() {
-        return String.format(WIN_FOR, scoreTranslator.translate(Score.WIN_FOR, language)) + player1Name;
+        return String.format(WIN_FOR, scoreTranslator.translate(ScoreLabelBase.WIN_FOR, language)) + player1Name;
     }
 
     @Override
     protected String gameForPlayer2() {
-        return String.format(WIN_FOR, scoreTranslator.translate(Score.WIN_FOR, language)) + player2Name;
+        return String.format(WIN_FOR, scoreTranslator.translate(ScoreLabelBase.WIN_FOR, language)) + player2Name;
     }
 
     @Override
     protected String love() {
-        return scoreTranslator.translate(Score.LOVE, language);
+        return scoreTranslator.translate(ScoreLabelBase.LOVE, language);
     }
 
     @Override
     protected String fifteen() {
-        return scoreTranslator.translate(Score.FIFTEEN, language);
+        return scoreTranslator.translate(ScoreLabelBase.FIFTEEN, language);
     }
 
     @Override
     protected String thirty() {
-        return scoreTranslator.translate(Score.THIRTY, language);
+        return scoreTranslator.translate(ScoreLabelBase.THIRTY, language);
     }
 
     @Override
     protected String forty() {
-        return scoreTranslator.translate(Score.FOURTY, language);
+        return scoreTranslator.translate(ScoreLabelBase.FOURTY, language);
     }
 
 }

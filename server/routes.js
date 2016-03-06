@@ -188,7 +188,7 @@ function scoreWithRotation(currentUser) {
   var scoredPoints = nextScoredPoints();
 
   var destinationName = currentUser.name;
-  var sourceName = rotatedRegisteredPlayers[destinationName];
+  var sourceName = _.invert(rotatedRegisteredPlayers)[destinationName];
 
   var destinationScoredPoints = scoredPoints * rotateScoringRepartition.destination;
   var sourceScorePoints = scoredPoints * rotateScoringRepartition.source;

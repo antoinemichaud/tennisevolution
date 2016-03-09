@@ -267,6 +267,7 @@ function triggerPings() {
     )
   }, 2000);
 }
+
 function registerClient(clientIp, name, io) {
   if (!_.contains(_.pluck(registeredClients, 'ip'), clientIp) && !_.contains(_.pluck(registeredClients, 'name'), name)) {
     var newUser = {name: name, ip: clientIp};
@@ -274,6 +275,19 @@ function registerClient(clientIp, name, io) {
   }
   io.emit('client', registeredClients);
 }
+
+function unregisterClient(clientIp, io) {
+  console.log("looked ip :", clientIp);
+  _.remove(registeredClients, function(user) {
+    console.log("elt ip :", user.ip);
+    return user.ip == clientIp;
+  });
+  console.log("registered clients : ", registeredClients);
+
+  io.emit('client', registeredClients);
+}
+
+
 module.exports = function (io) {
   return {
     pingClients: function (req, res) {
@@ -390,7 +404,14 @@ module.exports = function (io) {
       var clientIp = extractIp(req);
       console.log(req.body.name, clientIp);
       registerClient(clientIp, req.body.name, io);
-      res.send('OK')
+      res.send('OK');
+    },
+
+    unregister: function (req, res) {
+      var clientIp = req.body.clientIp;
+      console.log(clientIp);
+      unregisterClient(clientIp, io);
+      res.send('OK');
     },
 
     init: function () {

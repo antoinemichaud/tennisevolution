@@ -86,8 +86,8 @@ function sendQuestion(response, remoteAddress) {
   var errors = [];
   var stepQuestion = stepQuestions[turn - 1];
   var stepGenerator = stepGenerators[turn - 1];
-  console.log("stepQuestion: " + stepQuestion);
-  console.log("stepGenerator: " + stepGenerator);
+  console.log("stepQuestion: ", stepQuestion);
+  console.log("stepGenerator: ", stepGenerator);
 
   return requestAsync('http://localhost:8081/generateTest/' + stepGenerator)
       .spread(function (questionsQueryResponse, questionsQueryBody) {
@@ -144,10 +144,10 @@ function sendQuestion(response, remoteAddress) {
         //console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
         var comparisonResult = result.candidateResult === result.referenceResult;
         if (!comparisonResult) {
-          errors.push("expected " + result.referenceResult + " got " + result.candidateResult);
-          console.log('query to candidate server: ' + result.candidateQuestion);
-          console.log('query to ref server: ' + result.refQuestion);
-          console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
+          errors.push("expected ", result.referenceResult + " got " + result.candidateResult);
+          console.log('query to candidate server: ', result.candidateQuestion);
+          console.log('query to ref server: ', result.refQuestion);
+          console.log("candidate response: ", result.candidateResult + " reference response: " + result.referenceResult);
         }
         return comparisonResult;
       })
@@ -189,7 +189,7 @@ function decrementTrialsLeft(remoteAddress) {
     competitorsWithTries[remoteAddress] = 3;
   }
   competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
-  console.log("competitorsWithTries[remoteAddress] : " + competitorsWithTries[remoteAddress]);
+  console.log("competitorsWithTries[remoteAddress] : ", competitorsWithTries[remoteAddress]);
 }
 
 function initScoresOfPlayerIfNeeded(currentUser) {
@@ -214,8 +214,8 @@ function scoreWithRotation(currentUser) {
   var destinationScoredPoints = scoredPoints * rotateScoringRepartition.destination;
   var sourceScorePoints = scoredPoints * rotateScoringRepartition.source;
 
-  console.log('rotation : dest ' + destinationName + " - " + destinationScoredPoints);
-  console.log('rotation : source ' + sourceName + " - " + sourceScorePoints);
+  console.log('rotation : dest ', destinationName + " - " + destinationScoredPoints);
+  console.log('rotation : source ', sourceName + " - " + sourceScorePoints);
 
   scoreBoard[destinationName].details.scoresByTurn[turn - 1] = {score: destinationScoredPoints};
   scoreBoard[destinationName].total = destinationScoredPoints + scoreBoard[destinationName].total;
@@ -233,8 +233,8 @@ function _rotatePlayers() {
     rotatedRegisteredPlayers[playerNameToCopy] = registeredClients[i].name;
   }
 
-  console.log("New array of registeredClients: " + JSON.stringify(registeredClients));
-  console.log("New array of rotatedRegisteredPlayers: " + JSON.stringify(rotatedRegisteredPlayers));
+  console.log("New array of registeredClients: ", JSON.stringify(registeredClients));
+  console.log("New array of rotatedRegisteredPlayers: ", JSON.stringify(rotatedRegisteredPlayers));
 }
 
 function _refreshRanking() {
@@ -257,10 +257,10 @@ function triggerPings() {
           ping.promise
             .probe(registeredClient.ip, {timeout: 3})
             .then(function (result) {
-              console.log("ping result : " + JSON.stringify(result));
+              console.log("ping result : ", JSON.stringify(result));
             })
             .catch(function (error) {
-              console.log("ping error : " + error);
+              console.log("ping error : ", error);
             });
         }
       }
@@ -320,10 +320,10 @@ module.exports = function (io) {
 
     compare: function (req, res) {
       var responseBody = {success: false};
-      console.log("availablePoints: " + availablePoints[turn]);
+      console.log("availablePoints: ", availablePoints[turn]);
       var remoteAddress = extractIp(req);
       remoteAddress = cleanRemoteAddress(remoteAddress);
-      console.log('remote address : ' + remoteAddress);
+      console.log('remote address : ', remoteAddress);
       sendQuestion(res, remoteAddress)
           .then(function (result) {
             // Initialization
@@ -359,8 +359,8 @@ module.exports = function (io) {
             responseBody.errors = result.errors;
             io.emit('refreshScores', scoreBoard);
             res.send(responseBody);
-            console.log('scoreBoard: ' + scoreBoard);
-            console.log("remoteaddress: " + remoteAddress);
+            console.log('scoreBoard: ', scoreBoard);
+            console.log("remoteaddress: ", remoteAddress);
 
           })
           .catch(function () {
@@ -377,7 +377,7 @@ module.exports = function (io) {
       } else {
         rotatedRegisteredPlayers = {};
       }
-      console.log ('turn : ' + turn);
+      console.log ('turn : ', turn);
       io.emit('rotatedPlayers', rotatedRegisteredPlayers);
       io.emit('turn', turn);
       res.send('OK');

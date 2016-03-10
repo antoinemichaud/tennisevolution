@@ -86,7 +86,7 @@ module.exports = DeathmatchApp = React.createClass({
         <td>{findScoreByTurn(value.details.scoresByTurn, 4)}</td>
         <td>{findScoreByTurn(value.details.scoresByTurn, 5)}</td>
         <td>{value.details.bonus}</td>
-        <td>{value.total}</td>
+        <td>{value.details.scoresByTurn.reduce((prev, next) => prev + next)}</td>
         <td>{value.ranking}</td>
       </tr>);
     });

@@ -140,8 +140,6 @@ function sendQuestion(response, remoteAddress) {
       })
       .then(_.flatten)
       .map(function (result) {
-        //console.log('query to server: ' + result.question);
-        //console.log("candidate response: " + result.candidateResult + " reference response: " + result.referenceResult);
         var comparisonResult = result.candidateResult === result.referenceResult;
         if (!comparisonResult) {
           errors.push("expected ", result.referenceResult + " got " + result.candidateResult);
@@ -152,7 +150,14 @@ function sendQuestion(response, remoteAddress) {
         return comparisonResult;
       })
       .reduce(function (aggregation, comparisonResult) {
-        return {errors : errors, success : aggregation && comparisonResult};
+        /*console.log('aggregation success ' + aggregation.success);
+         console.log('comparaison result  ' + comparisonResult);*/
+
+        if(aggregation.success === undefined){
+          return {errors : errors, success : comparisonResult};
+        } else {
+          return {errors : errors, success : aggregation.success && comparisonResult};
+        }
       }, true)
       .catch(function (exception) {
         throw new Exception(exception);

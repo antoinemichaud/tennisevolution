@@ -172,7 +172,7 @@ function nextScoredPoints() {
   if (availablePoints[turn].length > 1) {
     return availablePoints[turn].shift();
   } else {
-    return availablePoints[turn];
+    return availablePoints[turn][0];
   }
 }
 

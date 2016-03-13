@@ -95,14 +95,14 @@ function sendQuestion(response, remoteAddress) {
       })
       .map(function (questionAsObject) {
         var questionAsQueryParam;
-        if (turn < 4) {
+        //if (turn < 4) {
           questionAsQueryParam = '?player1Name=' + questionAsObject.player1GameScore.playerName + '&player1Score=' + questionAsObject.player1GameScore.playerScore +
               '&player2Name=' + questionAsObject.player2GameScore.playerName + '&player2Score=' + questionAsObject.player2GameScore.playerScore;
-        } else {
-          questionAsQueryParam =
-              '?scores=' + questionAsObject;
-
-        }
+        //} else {
+        //  questionAsQueryParam =
+        //      '?scores=' + questionAsObject;
+        //
+        //}
 
         var responsesAgainstRef = [];
         stepQuestion.forEach(function(stepQuestionElt) {
@@ -186,7 +186,7 @@ function playerCanStillPlayForThisTurn(currentUser, remoteAddress) {
 
 function isRotatePlayerStep() {
   //var stepQuestion = stepQuestions[turn - 1];
-  return turn === 3;
+  return turn === 2000;
 }
 
 function decrementTrialsLeft(remoteAddress) {

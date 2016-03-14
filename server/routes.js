@@ -70,6 +70,7 @@ var rotateScoringRepartition = {
 var rotateStep = "sets/displayScore";
 var rotatedRegisteredPlayers = {};
 
+const TRIALS_NUMBER_BY_PARTICIPANT = 2;
 
 var availablePoints = {
   1: [0],
@@ -187,7 +188,7 @@ function isRotatePlayerStep() {
 
 function decrementTrialsLeft(remoteAddress) {
   if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
-    competitorsWithTries[remoteAddress] = 3;
+    competitorsWithTries[remoteAddress] = TRIALS_NUMBER_BY_PARTICIPANT;
   }
   competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
   console.log("competitorsWithTries[remoteAddress] : ", competitorsWithTries[remoteAddress]);

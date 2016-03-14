@@ -59,7 +59,8 @@ var stepQuestions =
       {candidate: 'sets/displayScore', ref: 'sets/displayScore'}
     ]
   ];
-var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame', 'generateGame',
+var stepGenerators = ['generateGame', 'generateGame', 'generateGame', 'generateGame', 'generateNoAvantageGame',
+  'generateGame',
   'generateSet'];
 
 var rotateScoringRepartition = {

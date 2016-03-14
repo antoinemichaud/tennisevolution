@@ -41,7 +41,7 @@ public class TennisGameWithLife extends Observable implements TennisGame {
     }
 
     public boolean isEndOfGame() {
-        TennisScore tennisScore = new TennisScoreClassic(this.player1Score, this.player2Score);
+        TennisScore tennisScore = new TennisScoreWithLife(this.player1Score, this.player2Score);
         return tennisScore.firstPlayerScore() == PlayerScore.GAME || tennisScore.secondPlayerScore() == PlayerScore.GAME;
     }
 }

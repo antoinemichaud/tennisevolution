@@ -117,17 +117,22 @@ function sendQuestion(response, remoteAddress) {
               url: candidateUrl,
               timeout: 3000
             })
-                .then(function (candidateResultResponse, candidateResultBody) {
+            //candidateResult: requestAsync({
+            //  url: 'http://' + remoteAddress + ':8080/' + stepQuestionElt.candidate + questionAsQueryParam,
+            //  timeout: 3000
+            //})
+                .spread(function (candidateResultResponse, candidateResultBody) {
                 return candidateResultBody;
               })
               .catch(function (exception) {
                 throw new Exception(exception);
               }),
             referenceResult: requestAsync({
+              //url: 'http://localhost:8080/' + stepQuestionElt.ref + questionAsQueryParam,
               url: refUrl,
               timeout: 3000
             })
-                .then(function (referenceResultResponse, referenceResultBody) {
+                .spread(function (referenceResultResponse, referenceResultBody) {
                 return referenceResultBody;
               })
           }));

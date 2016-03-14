@@ -188,10 +188,14 @@ function isRotatePlayerStep() {
 
 function decrementTrialsLeft(remoteAddress) {
   if (typeof competitorsWithTries[remoteAddress] == 'undefined') {
-    competitorsWithTries[remoteAddress] = TRIALS_NUMBER_BY_PARTICIPANT;
+    initializeTrials(remoteAddress);
   }
   competitorsWithTries[remoteAddress] = competitorsWithTries[remoteAddress] - 1;
   console.log("competitorsWithTries[remoteAddress] : ", competitorsWithTries[remoteAddress]);
+}
+
+function initializeTrials(remoteAddress) {
+  competitorsWithTries[remoteAddress] = TRIALS_NUMBER_BY_PARTICIPANT;
 }
 
 function initScoresOfPlayerIfNeeded(currentUser) {
@@ -413,6 +417,12 @@ module.exports = function (io) {
       var clientIp = req.body.clientIp;
       console.log(clientIp);
       unregisterClient(clientIp, io);
+      res.send('OK');
+    },
+
+    resetTrials: function (req, res) {
+      var ip = req.body.clientIp;
+      initializeTrials(ip);
       res.send('OK');
     },
 

@@ -53,3 +53,4 @@ app.post('/stopPing', routes.stopPingClients);
 app.post('/pingThisClientAgain', routes.pingThisClientAgain);
 app.post('/dontPingThisClient', routes.dontPingThisClient);
 app.post('/unregister', routes.unregister);
+app.post('/resetTrials', routes.resetTrials);

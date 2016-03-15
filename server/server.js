@@ -54,3 +54,5 @@ app.post('/pingThisClientAgain', routes.pingThisClientAgain);
 app.post('/dontPingThisClient', routes.dontPingThisClient);
 app.post('/unregister', routes.unregister);
 app.post('/resetTrials', routes.resetTrials);
+app.get('/saveGame', routes.saveGame);
+app.post('/restoreGame', routes.restoreGame);

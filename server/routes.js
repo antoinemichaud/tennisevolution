@@ -431,6 +431,31 @@ module.exports = function (io) {
       res.send('OK');
     },
 
+    saveGame: function (req, res) {
+      res.send({
+        registeredClients: registeredClients,
+        competitorsWithTries: competitorsWithTries,
+        rotatedRegisteredPlayers: rotatedRegisteredPlayers,
+        availablePoints: availablePoints,
+        scoreBoard: scoreBoard
+      });
+    },
+
+    restoreGame: function (req, res) {
+      registeredClients = req.body.registeredClients;
+      competitorsWithTries = req.body.competitorsWithTries;
+      rotatedRegisteredPlayers = req.body.rotatedRegisteredPlayers;
+      availablePoints = req.body.availablePoints;
+      scoreBoard = req.body.scoreBoard;
+
+      io.emit('refreshScores', scoreBoard);
+      io.emit('turn', turn);
+      io.emit('rotatedPlayers', rotatedRegisteredPlayers);
+      io.emit('client', registeredClients);
+
+      res.send('OK');
+    },
+
     init: function () {
       var self = this;
       io.on('connection', function (socket) {

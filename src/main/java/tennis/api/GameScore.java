@@ -11,6 +11,11 @@ public class GameScore {
         this.playerScore = new AtomicInteger(0);
     }
 
+    public GameScore(String playerName, AtomicInteger score) {
+        this.playerName = playerName;
+        this.playerScore = score;
+    }
+
     public void incrementScore() {
         this.playerScore.getAndIncrement();
     }

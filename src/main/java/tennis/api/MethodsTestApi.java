@@ -95,7 +95,9 @@ public class MethodsTestApi {
                         ).get("/generateTest/generateNoAvantageGame", context -> {
                             Predicate<TennisGameClassic> endCondition = tennisGame -> gameIsFinished.nextInt(4) == 0;
                                     List<GameQuestion> gameQuestions = new ArrayList<>();
-                                    for (int i = 0; i < 10; i++) {
+                            gameQuestions.add(new GameQuestion("player1", 4, "player2", 3));
+                            gameQuestions.add(new GameQuestion("player1", 3, "player2", 4));
+                            for (int i = 0; i < 8; i++) {
                                         HistoryKeeper historyKeeper = tennisSetGenerator.generateNoAdvantage(endCondition);
                                         Aggregator aggregator = new Aggregator("player1", "player2");
                                         gameQuestions.add(aggregator.aggregateToGameScore(historyKeeper));

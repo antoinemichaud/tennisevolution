@@ -83,7 +83,7 @@ module.exports = DeathmatchApp = React.createClass({
       transform.push({'player': key, data: value});
     });
 
-    transform = _.sortBy(transform, -'data.total');
+    transform = _.sortBy(transform, 'data.ranking');
 
     _.forEach(transform, function (value) {
       scoresTable.push(<tr>

@@ -437,7 +437,8 @@ module.exports = function (io) {
         competitorsWithTries: competitorsWithTries,
         rotatedRegisteredPlayers: rotatedRegisteredPlayers,
         availablePoints: availablePoints,
-        scoreBoard: scoreBoard
+        scoreBoard: scoreBoard,
+        turn: turn
       });
     },
 
@@ -447,6 +448,7 @@ module.exports = function (io) {
       rotatedRegisteredPlayers = req.body.rotatedRegisteredPlayers;
       availablePoints = req.body.availablePoints;
       scoreBoard = req.body.scoreBoard;
+      turn = req.body.turn;
 
       io.emit('refreshScores', scoreBoard);
       io.emit('turn', turn);

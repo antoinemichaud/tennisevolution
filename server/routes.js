@@ -468,10 +468,9 @@ module.exports = function (io) {
         return registeredClient.ip === ip;
       });
 
-      console.log(currentUser);
-      console.log(scoreBoard[currentUser.name]);
-      var currentScore = scoreBoard[currentUser.name].details.scoresByTurn[turn - 1];
-      scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = currentScore + scoring;
+      console.log(scoreBoard[currentUser.name].details.scoresByTurn[turn - 1].score);
+      var currentScore = scoreBoard[currentUser.name].details.scoresByTurn[turn - 1].score;
+      scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = {score: currentScore + scoring};
 
       io.emit('refreshScores', scoreBoard);
       res.send('OK');

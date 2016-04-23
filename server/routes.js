@@ -75,8 +75,8 @@ const TRIALS_NUMBER_BY_PARTICIPANT = 2;
 var availablePoints = {
   1: [0],
   2: [20, 18, 16, 14, 12, 10, 5],
-  3: [55, 34, 21, 13, 8],
-  4: [55, 34, 21, 13, 8],
+  3: [20, 18, 16, 14, 12, 10, 5],
+  4: [70, 44, 30, 20, 8],
   5: [55, 34, 21, 13, 8],
   6: [70, 44, 30, 20, 8],
   7: [100, 75, 50, 35, 30]
@@ -455,6 +455,25 @@ module.exports = function (io) {
       io.emit('rotatedPlayers', rotatedRegisteredPlayers);
       io.emit('client', registeredClients);
 
+      res.send('OK');
+    },
+
+    addScoring: function (req, res) {
+      console.log(req.body);
+      var scoring = req.body.scoring;
+      var turn = req.body.turn;
+      var ip = req.body.ip;
+
+      var currentUser = _.find(registeredClients, function (registeredClient) {
+        return registeredClient.ip === ip;
+      });
+
+      console.log(currentUser);
+      console.log(scoreBoard[currentUser.name]);
+      var currentScore = scoreBoard[currentUser.name].details.scoresByTurn[turn - 1];
+      scoreBoard[currentUser.name].details.scoresByTurn[turn - 1] = currentScore + scoring;
+
+      io.emit('refreshScores', scoreBoard);
       res.send('OK');
     },
 

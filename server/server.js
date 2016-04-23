@@ -57,3 +57,4 @@ app.post('/unregister', routes.unregister);
 app.post('/resetTrials', routes.resetTrials);
 app.get('/saveGame', routes.saveGame);
 app.post('/restoreGame', routes.restoreGame);
+app.post('/addScoring', routes.addScoring);
